@@ -2,7 +2,7 @@
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.r08150816s-star/dutykit",
   "title": "DutyKit",
-  "description": "EU business duties for AI agents: obligations with legal sources (DE, LU, EU) and pre-checks for invoices, marketing consent, AI disclosure and VAT IDs.",
+  "description": "EU business duties for AI agents: legal obligations with sources and pre-checks (DE, LU, EU)",
   "repository": {
     "url": "https://github.com/r08150816s-star/dutykit",
     "source": "github"
