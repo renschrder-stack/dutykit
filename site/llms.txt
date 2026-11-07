@@ -15,6 +15,12 @@
 ## When to use
 Before an agent sends an invoice, sends marketing email, places a sales call, starts talking to a consumer, or publishes a website for a business in Germany or Luxembourg.
 
+## Guides
+- https://dutykit.dev/blog/german-invoice-rules-for-ai-agents.html: invoice mandatory fields and e-invoice timeline (Germany)
+- https://dutykit.dev/blog/ai-act-article-50-disclosure-for-agents.html: AI disclosure duty for chat/voice agents
+- https://dutykit.dev/blog/ai-agent-marketing-email-consent-germany.html: marketing consent for email/phone (Germany)
+
 ## Docs
+- https://github.com/r08150816s-star/dutykit
 - https://dutykit.dev/
 - https://dutykit.dev/impressum.html

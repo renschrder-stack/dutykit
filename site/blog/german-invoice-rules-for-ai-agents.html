@@ -1,0 +1,29 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>German invoice rules for AI agents: mandatory fields and the e-invoice timeline 2025–2028 – DutyKit</title><meta name="description" content="What an AI agent must put on an invoice for a German business (§ 14 (4) UStG) and when structured e-invoices become mandatory.">
+<link rel="canonical" href="https://dutykit.dev/blog/german-invoice-rules-for-ai-agents.html"><meta property="og:title" content="German invoice rules for AI agents: mandatory fields and the e-invoice timeline 2025–2028"><meta property="og:description" content="What an AI agent must put on an invoice for a German business (§ 14 (4) UStG) and when structured e-invoices become mandatory."><meta property="og:type" content="article">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "German invoice rules for AI agents: mandatory fields and the e-invoice timeline 2025–2028", "description": "What an AI agent must put on an invoice for a German business (§ 14 (4) UStG) and when structured e-invoices become mandatory.", "datePublished": "2026-11-07", "dateModified": "2026-11-07", "author": {"@type": "Person", "name": "René Schröder"}, "publisher": {"@type": "Organization", "name": "DutyKit", "url": "https://dutykit.dev/"}, "mainEntityOfPage": "https://dutykit.dev/blog/german-invoice-rules-for-ai-agents.html"}</script><style>:root{--bg:#fbfaf7;--fg:#1d1d1b;--mut:#5d5b55;--acc:#1f5f4a;--line:#e3e0d8;--code:#f1efe9}
+@media (prefers-color-scheme:dark){:root{--bg:#151614;--fg:#ecebe6;--mut:#a7a59d;--acc:#7cc4a6;--line:#2c2e2a;--code:#1f211e}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:17px/1.65 system-ui,-apple-system,Segoe UI,sans-serif}
+main{max-width:720px;margin:0 auto;padding:40px 16px 64px}h1{font-size:1.9rem;line-height:1.25}h2{font-size:1.2rem;margin-top:2em}
+a{color:var(--acc)}code,pre{background:var(--code);border-radius:6px;font:14px/1.5 ui-monospace,Consolas,monospace}code{padding:.1em .3em}pre{padding:12px;overflow-x:auto}
+.meta,.note{color:var(--mut);font-size:15px}.note{border-top:1px solid var(--line);margin-top:2.5em;padding-top:1em}
+table{border-collapse:collapse;width:100%;font-size:15px}td,th{border-bottom:1px solid var(--line);padding:7px 6px;text-align:left;vertical-align:top}</style></head><body><main>
+<p class="meta"><a href="/">DutyKit</a> · <a href="/blog/">Blog</a> · 7 November 2026</p>
+<h1>German invoice rules for AI agents: mandatory fields and the e-invoice timeline 2025–2028</h1>
+<p>An agent that bills customers of a German business has to meet two sets of rules: the content of the invoice and, increasingly, its format.</p>
+<h2>Mandatory content (§ 14 (4) UStG)</h2>
+<p>A full invoice must contain, among other things:</p>
+<ul><li>name and address of the supplier and of the customer</li><li>the supplier's tax number or VAT ID</li><li>issue date and a sequential invoice number</li><li>quantity and type of goods or services, and the date of supply</li><li>the net amount, the tax rate and the tax amount, or a note on why no VAT is charged</li></ul>
+<p>Source: <a href="https://www.gesetze-im-internet.de/ustg_1980/__14.html">§ 14 UStG</a>. Small businesses under § 19 UStG (prior-year turnover up to €25,000 and current year up to €100,000) charge no VAT but must say so on the invoice (<a href="https://www.gesetze-im-internet.de/ustdv_1980/__34a.html">§ 34a UStDV</a>).</p>
+<h2>E-invoice timeline for domestic B2B</h2>
+<table><tr><th>Supplies made in</th><th>What is allowed</th></tr>
+<tr><td>2025 and 2026</td><td>Every business must be able to receive e-invoices. Paper or other formats may still be issued.</td></tr>
+<tr><td>2027</td><td>Paper or other formats only if the issuer's prior-year turnover was at most €800,000.</td></tr>
+<tr><td>from 2028</td><td>Structured e-invoice (European standard EN 16931) for everyone.</td></tr></table>
+<p>Exceptions: invoices up to €250 (<a href="https://www.gesetze-im-internet.de/ustdv_1980/__33.html">§ 33 UStDV</a>) and invoices from small businesses under § 19 may always be sent in other formats. Transition rules: <a href="https://www.gesetze-im-internet.de/ustg_1980/__27.html">§ 27 (38) UStG</a>.</p>
+<h2>Checking it before sending</h2>
+<p>DutyKit's <code>rechnung_vorpruefen</code> tool takes the invoice fields as JSON and returns the missing mandatory items with the legal source. It does not validate the EN 16931 file format itself.</p>
+<pre>claude mcp add --transport http dutykit https://dutykit.dev/mcp</pre>
+<p class="note">Not legal advice. This article summarises the cited legal texts as checked on 7 November 2026. For your own case, ask a lawyer or tax adviser. Written with AI assistance and checked against the primary sources linked above.</p>
+<p class="meta"><a href="/blog/">← All articles</a> · <a href="/">DutyKit MCP server</a></p>
+</main></body></html>
