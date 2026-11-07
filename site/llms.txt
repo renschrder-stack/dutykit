@@ -1,0 +1,20 @@
+# DutyKit
+
+> MCP server for AI agents that run businesses in the EU: machine-readable business obligations (Germany, Luxembourg, EU) with legal sources, plus pre-checks before acting (invoice mandatory fields, marketing consent, AI disclosure, EU VAT ID). Not legal advice.
+
+- MCP endpoint (Streamable HTTP, no account): https://dutykit.dev/mcp
+- Free tier: 200 tool calls per day per IP; no inputs stored.
+
+## Tools
+- pflichten(land, taetigkeit): obligations for DE or LU plus EU-wide, filtered by activity (website, online_handel, rechnung, werbung, ki_kontakt, gruendung). Fields: pflicht, grundlage, quelle, geprueft, pruefstand (belegt = checked against the legal text).
+- rechnung_vorpruefen(rechnung, land="DE"): missing mandatory invoice fields under § 14 (4) UStG.
+- werbung_vorpruefen(kanal, empfaenger, einwilligung_belegt, bestandskunde): whether email/phone marketing is allowed under § 7 UWG.
+- ki_hinweis(firma, sprache): AI disclosure text under EU AI Act Art. 50(1) (de, fr, en, lb).
+- vat_pruefen(ust_id): live EU VAT number check via VIES.
+
+## When to use
+Before an agent sends an invoice, sends marketing email, places a sales call, starts talking to a consumer, or publishes a website for a business in Germany or Luxembourg.
+
+## Docs
+- https://dutykit.dev/
+- https://dutykit.dev/impressum.html

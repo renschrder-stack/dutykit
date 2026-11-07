@@ -1,0 +1,25 @@
+dutykit.dev {
+	encode gzip
+	# MCP-Endpunkt und Statusprüfung an den Python-Dienst
+	handle /mcp* {
+		reverse_proxy dutykit:8080
+	}
+	handle /health {
+		reverse_proxy dutykit:8080
+	}
+	# Doku-Seite, llms.txt, Impressum
+	handle {
+		root * /srv/site
+		file_server
+	}
+	header {
+		Strict-Transport-Security "max-age=31536000"
+		X-Content-Type-Options nosniff
+		Referrer-Policy no-referrer
+	}
+	# Kein Zugriffslog mit IP-Adressen (Datenschutz); Fehlerlog genügt
+}
+
+www.dutykit.dev {
+	redir https://dutykit.dev{uri} permanent
+}

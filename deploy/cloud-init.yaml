@@ -1,0 +1,18 @@
+#cloud-config
+# Beim Anlegen des Hetzner-Servers unter „Cloud config“ einfügen.
+package_update: true
+package_upgrade: true
+packages:
+  - docker.io
+  - docker-compose-v2
+  - ufw
+  - unattended-upgrades
+runcmd:
+  - ufw default deny incoming
+  - ufw allow 22/tcp
+  - ufw allow 80/tcp
+  - ufw allow 443/tcp
+  - ufw --force enable
+  - systemctl enable --now docker
+  - mkdir -p /opt/dutykit
+  - dpkg-reconfigure -f noninteractive unattended-upgrades

@@ -1,0 +1,132 @@
+{
+  "_hinweis": "Keine Rechtsberatung. Jeder Eintrag nennt Quelle, Prüfdatum und Prüfstand. 'belegt' = gegen Gesetzestext geprüft; 'zu_pruefen' = noch nicht gegen Primärquelle bestätigt.",
+  "EU": [
+    {
+      "id": "eu-ki-hinweis",
+      "taetigkeiten": [
+        "ki_kontakt"
+      ],
+      "pflicht": "Natürliche Personen müssen informiert werden, dass sie mit einem KI-System interagieren (sofern nicht offensichtlich).",
+      "grundlage": "VO (EU) 2024/1689 (AI Act) Art. 50 Abs. 1",
+      "quelle": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
+      "gilt_ab": "2026-08-02",
+      "pruefstand": "belegt",
+      "geprueft": "2026-11-07",
+      "anmerkung": "Anwendung ab 02.08.2026 (Art. 113 VO 2024/1689); Digital Omnibus VO (EU) 2026/1744 vom 08.07.2026 verschiebt Art. 50 Abs. 1 nicht – nur Übergangsfrist für Art. 50 Abs. 2 (Altsysteme) bis 02.12.2026."
+    },
+    {
+      "id": "eu-anbieterinfo",
+      "taetigkeiten": [
+        "website",
+        "online_handel"
+      ],
+      "pflicht": "Leicht erreichbare Angaben zu Name, Anschrift, E-Mail, Register und USt-IdNr. des Diensteanbieters.",
+      "grundlage": "Richtlinie 2000/31/EG Art. 5",
+      "quelle": "https://eur-lex.europa.eu/eli/dir/2000/31/oj",
+      "pruefstand": "belegt",
+      "geprueft": "2026-11-07"
+    }
+  ],
+  "DE": [
+    {
+      "id": "de-impressum",
+      "taetigkeiten": [
+        "website",
+        "online_handel"
+      ],
+      "pflicht": "Impressum mit Name, ladungsfähiger Anschrift, schneller elektronischer Kontaktmöglichkeit, ggf. Register und USt-IdNr.",
+      "grundlage": "§ 5 DDG",
+      "quelle": "https://www.gesetze-im-internet.de/ddg/__5.html",
+      "pruefstand": "belegt",
+      "geprueft": "2026-11-07"
+    },
+    {
+      "id": "de-rechnung",
+      "taetigkeiten": [
+        "rechnung"
+      ],
+      "pflicht": "Pflichtangaben auf Rechnungen (u. a. Name/Anschrift beider Parteien, Steuer- oder USt-IdNr., Ausstellungsdatum, fortlaufende Nummer, Menge/Art, Leistungszeitpunkt, Entgelt, Steuersatz/-betrag oder Hinweis auf Steuerbefreiung).",
+      "grundlage": "§ 14 Abs. 4 UStG",
+      "quelle": "https://www.gesetze-im-internet.de/ustg_1980/__14.html",
+      "pruefstand": "belegt",
+      "geprueft": "2026-11-07"
+    },
+    {
+      "id": "de-e-rechnung",
+      "taetigkeiten": [
+        "rechnung"
+      ],
+      "pflicht": "Inländische B2B-Rechnungen sind grundsätzlich als E-Rechnung im Format nach EN 16931 auszustellen (§ 14 Abs. 1, 2 UStG); Empfangsbereitschaft seit 01.01.2025. Übergang: Papier/sonstiges Format für Umsätze bis 31.12.2026 erlaubt, für 2027 nur bei Vorjahresumsatz ≤ 800.000 €; ab Umsätzen 2028 Pflicht für alle. Ausnahmen: Kleinbetragsrechnungen ≤ 250 € (§ 33 UStDV) und Kleinunternehmer (§ 34a UStDV).",
+      "grundlage": "§ 14 Abs. 1 und 2 UStG, § 27 Abs. 38 UStG, §§ 33, 34a UStDV",
+      "quelle": "https://www.gesetze-im-internet.de/ustg_1980/__27.html",
+      "pruefstand": "belegt",
+      "geprueft": "2026-11-07"
+    },
+    {
+      "id": "de-kleinunternehmer",
+      "taetigkeiten": [
+        "rechnung",
+        "online_handel"
+      ],
+      "pflicht": "Kleinunternehmerregelung: Gesamtumsatz im Vorjahr ≤ 25.000 € und im laufenden Jahr ≤ 100.000 €. Rechnung mit Mindestangaben nach § 34a UStDV inkl. Hinweis auf die Steuerbefreiung.",
+      "grundlage": "§ 19 Abs. 1 UStG, § 34a UStDV",
+      "quelle": "https://www.gesetze-im-internet.de/ustg_1980/__19.html",
+      "pruefstand": "belegt",
+      "geprueft": "2026-11-07"
+    },
+    {
+      "id": "de-werbung",
+      "taetigkeiten": [
+        "werbung",
+        "ki_kontakt"
+      ],
+      "pflicht": "Werbung per E-Mail ohne vorherige ausdrückliche Einwilligung ist eine unzumutbare Belästigung (Ausnahme Bestandskunden § 7 Abs. 3); Werbeanrufe bei Verbrauchern nur mit ausdrücklicher Einwilligung.",
+      "grundlage": "§ 7 Abs. 2 UWG",
+      "quelle": "https://www.gesetze-im-internet.de/uwg_2004/__7.html",
+      "pruefstand": "belegt",
+      "geprueft": "2026-11-07"
+    }
+  ],
+  "LU": [
+    {
+      "id": "lu-niederlassung",
+      "taetigkeiten": [
+        "gruendung",
+        "online_handel",
+        "website"
+      ],
+      "pflicht": "Für kaufmännische, handwerkliche und bestimmte freie Berufe ist vor Aufnahme der Tätigkeit eine Niederlassungsgenehmigung (autorisation d'établissement) nötig.",
+      "grundlage": "Loi modifiée du 2 septembre 2011, Art. 3 („au préalable“)",
+      "quelle": "https://guichet.public.lu/fr/entreprises/creation-developpement/autorisation-etablissement.html",
+      "pruefstand": "belegt",
+      "geprueft": "2026-11-07",
+      "anmerkung": "Gesetzentwurf 8759 (21.07.2026) will „au préalable“ streichen – Stand beobachten. Ob reine Softwaredienste darunter fallen: beim Service des autorisations d'établissement klären."
+    },
+    {
+      "id": "lu-franchise-tva",
+      "taetigkeiten": [
+        "rechnung",
+        "online_handel"
+      ],
+      "pflicht": "Franchise-Regelung TVA (optional): nationaler Jahresumsatz bis 50.000 € seit 01.01.2025 (vorher 35.000 €), Toleranz 10 %; keine Vorsteuer. Pflichtvermerk auf der Rechnung noch nicht belegt.",
+      "grundlage": "Loi TVA Art. 57bis (Umsetzung RL 2020/285)",
+      "quelle": "https://pfi.public.lu/dam-assets/pdf/tva/sme/faq-fr.pdf",
+      "pruefstand": "belegt",
+      "geprueft": "2026-11-07",
+      "anmerkung": "Rechnungsvermerk vor Nutzung gegen konsolidierte Loi TVA (Legilux) prüfen."
+    },
+    {
+      "id": "lu-anbieterinfo",
+      "taetigkeiten": [
+        "website",
+        "online_handel"
+      ],
+      "pflicht": "Anbieterangaben auf der Website (Umsetzung der E-Commerce-Richtlinie).",
+      "grundlage": "Loi du 14 août 2000 relative au commerce électronique",
+      "quelle": "https://legilux.public.lu/eli/etat/leg/loi/2000/08/14/n8/jo",
+      "pruefstand": "zu_pruefen",
+      "geprueft": "2026-11-07",
+      "anmerkung": "Gesetz existiert (Loi 14.08.2000, Umsetzung RL 2000/31); konkreter Artikel zu Anbieterangaben nicht gefunden; DSA-Anpassung (Dossier 5095) läuft. Bis zur Prüfung gilt EU-Eintrag eu-anbieterinfo."
+    }
+  ]
+}

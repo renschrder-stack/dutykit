@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DutyKit – EU business duties for AI agents</title>
+<meta name="description" content="MCP server that lets AI agents look up EU business obligations with sources and pre-check invoices, marketing consent and AI disclosure before acting. Germany, Luxembourg, EU.">
+<link rel="alternate" type="text/plain" href="/llms.txt" title="llms.txt">
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1d1b;--mut:#5d5b55;--acc:#1f5f4a;--line:#e3e0d8;--code:#f1efe9}
+@media (prefers-color-scheme:dark){:root{--bg:#151614;--fg:#ecebe6;--mut:#a7a59d;--acc:#7cc4a6;--line:#2c2e2a;--code:#1f211e}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:17px/1.6 system-ui,-apple-system,Segoe UI,sans-serif}
+main{max-width:760px;margin:0 auto;padding:48px 16px 64px}h1{font-size:2.1rem;line-height:1.2;margin:0 0 .4em}
+h2{font-size:1.2rem;margin:2.2em 0 .6em;padding-top:1em;border-top:1px solid var(--line)}
+p.lead{font-size:1.15rem;color:var(--mut)}a{color:var(--acc)}code,pre{background:var(--code);border-radius:6px;font:14px/1.5 ui-monospace,Consolas,monospace}
+code{padding:.1em .35em}pre{padding:14px;overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:15px}
+td,th{border-bottom:1px solid var(--line);padding:8px 6px;text-align:left;vertical-align:top}.badge{display:inline-block;font-size:13px;border:1px solid var(--line);border-radius:99px;padding:2px 10px;color:var(--mut)}
+footer{margin-top:56px;font-size:14px;color:var(--mut)}
+</style>
+</head>
+<body>
+<main>
+<span class="badge">Public beta · free</span>
+<h1>DutyKit</h1>
+<p class="lead">EU business duties for AI agents. Look up what a company must comply with in Germany, Luxembourg and the EU, with the legal source for every line, and pre-check an invoice, a marketing message or a voice call before your agent acts.</p>
+
+<h2>Connect</h2>
+<p>Remote MCP server (Streamable HTTP), no account needed:</p>
+<pre>https://dutykit.dev/mcp</pre>
+<p>Claude Code:</p>
+<pre>claude mcp add --transport http dutykit https://dutykit.dev/mcp</pre>
+<p>Any MCP client (JSON config):</p>
+<pre>{ "mcpServers": { "dutykit": { "type": "http", "url": "https://dutykit.dev/mcp" } } }</pre>
+
+<h2>Tools</h2>
+<table>
+<tr><th>Tool</th><th>What it does</th></tr>
+<tr><td><code>pflichten</code></td><td>Obligations for a country (DE, LU + EU) and activity (website, online_handel, rechnung, werbung, ki_kontakt, gruendung). Each entry: legal basis, source URL, check date, verification status.</td></tr>
+<tr><td><code>rechnung_vorpruefen</code></td><td>Checks a German invoice for the mandatory fields of § 14 (4) UStG.</td></tr>
+<tr><td><code>werbung_vorpruefen</code></td><td>May the agent send this email or make this call? (§ 7 UWG, consent rules)</td></tr>
+<tr><td><code>ki_hinweis</code></td><td>AI disclosure wording under AI Act Art. 50(1) in German, French, English, Luxembourgish.</td></tr>
+<tr><td><code>vat_pruefen</code></td><td>Live EU VAT ID check via the European Commission's VIES service.</td></tr>
+</table>
+<p>Every check returns a <code>nachweis</code> (timestamp, tool, responsible person, SHA-256 of the result) for the human who is liable.</p>
+
+<h2>Limits &amp; data</h2>
+<p>Free: 200 tool calls per day per IP. In the free tier we store no inputs and no results. Paid plans with higher limits and a server-side audit log will follow.</p>
+
+<h2>Not legal advice</h2>
+<p>DutyKit returns obligations, formats and checks against the cited legal texts. It does not give advice on individual cases. If in doubt, ask a lawyer or tax adviser. Coverage today: DE, LU, EU. FR and BE are next.</p>
+
+<footer>
+<a href="/llms.txt">llms.txt</a> · <a href="/impressum.html">Impressum / Legal notice</a> · <a href="/datenschutz.html">Datenschutz / Privacy</a> · Made with AI assistance.
+</footer>
+</main>
+</body>
+</html>
