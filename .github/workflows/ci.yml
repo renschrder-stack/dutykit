@@ -1,0 +1,16 @@
+name: ci
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: "17 5 * * 1"   # wöchentlich: Katalog-Alter prüfen
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - name: Tests
+        run: uv run --with "mcp>=2" --with pytest pytest -q
+      - name: Katalog prüfen (streng bei Zeitplan)
+        run: python scripts/katalog_pruefen.py ${{ github.event_name == 'schedule' && '--streng' || '' }}

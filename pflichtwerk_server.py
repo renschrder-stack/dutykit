@@ -18,10 +18,11 @@ KATALOG = json.loads((HIER / "pflichten.json").read_text(encoding="utf-8"))
 # Serverseitiges Protokoll nur, wenn ausdrücklich eingeschaltet (Bezahlstufe); Freistufe speichert nichts.
 PROTOKOLL = Path(os.environ.get("DUTYKIT_PROTOKOLL_DATEI", HIER / "freigabe-protokoll.jsonl"))
 PROTOKOLL_AN = os.environ.get("DUTYKIT_PROTOKOLL", "1") == "1"
+VERSION = json.loads((HIER / "server.json").read_text(encoding="utf-8"))["version"]  # eine Quelle für die Version
 HINWEIS = "Keine Rechtsberatung; im Zweifel Anwalt oder Steuerberater fragen. / No legal advice."
 
 mcp = MCPServer(
-    "dutykit", title="DutyKit", version="0.1.0", website_url="https://dutykit.dev",
+    "dutykit", title="DutyKit", version=VERSION, website_url="https://dutykit.dev",
     instructions=("EU business duties for AI agents (DE, LU, EU): look up obligations with sources, "
                   "pre-check invoices, marketing consent and AI disclosure before acting. No legal advice."),
 )
@@ -42,7 +43,7 @@ def _protokoll(werkzeug: str, verantwortlich: str, eingabe: dict, ergebnis: dict
 @mcp.tool()
 def pflichten(land: str, taetigkeit: str = "") -> dict:
     """Pflichten für ein Land (DE, LU) inkl. EU-weiter Pflichten. taetigkeit z. B. website, online_handel,
-    rechnung, werbung, ki_kontakt, gruendung – leer = alle."""
+    rechnung, werbung, ki_kontakt, gruendung, datenschutz, produkte – leer = alle."""
     land = land.upper()
     if land not in KATALOG:
         return {"fehler": f"Land {land} noch nicht im Katalog", "verfuegbar": [k for k in KATALOG if not k.startswith("_")]}

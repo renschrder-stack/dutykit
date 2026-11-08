@@ -25,7 +25,7 @@ Any MCP client (JSON config):
 
 | Tool | What it does |
 |---|---|
-| `pflichten(land, taetigkeit)` | Obligations for `DE` or `LU` plus EU-wide, filtered by activity: `website`, `online_handel`, `rechnung`, `werbung`, `ki_kontakt`, `gruendung` |
+| `pflichten(land, taetigkeit)` | Obligations for `DE` or `LU` plus EU-wide, filtered by activity: `website`, `online_handel`, `rechnung`, `werbung`, `ki_kontakt`, `gruendung`, `datenschutz`, `produkte` |
 | `rechnung_vorpruefen(rechnung, land="DE")` | Missing mandatory invoice fields under § 14 (4) UStG |
 | `werbung_vorpruefen(kanal, empfaenger, einwilligung_belegt, bestandskunde)` | May the agent send this marketing email or make this call? (§ 7 UWG) |
 | `ki_hinweis(firma, sprache)` | AI disclosure wording under AI Act Art. 50(1) in `de`, `fr`, `en`, `lb` |
@@ -52,9 +52,15 @@ Every check also returns a `nachweis` (timestamp, tool, responsible person, SHA-
 ```
 
 ## Catalogue
-`pflichten.json` lists for every entry the legal basis, the source URL, the check date and whether it was checked against the legal text (`belegt`) or not yet (`zu_pruefen`). Coverage today: DE, LU, EU. Next: FR, BE. Corrections and additions with a primary source are welcome as issues or pull requests.
+`pflichten.json` lists for every entry the legal basis, the source URL, the check date and whether it was checked against the legal text (`belegt`) or not yet (`zu_pruefen`). Coverage today: DE, LU, EU (24 entries, most new ones still `zu_pruefen`, reviewed weekly). Next: FR, BE. Corrections and additions with a primary source are welcome as issues or pull requests.
 
 **Not legal advice.** DutyKit returns obligations, formats and checks against the cited texts, not advice on individual cases. Made with AI assistance.
+
+## Develop
+```bash
+uv run --with "mcp>=2" --with pytest pytest -q   # tests
+python scripts/katalog_pruefen.py                 # catalogue lint
+```
 
 ## Run locally
 ```bash
