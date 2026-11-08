@@ -26,4 +26,5 @@ Ziel: DutyKit soll als verlässliche, ehrlich gekennzeichnete Rechtsquelle für 
 ## Entscheidungen des Inhabers (offen)
 - Registry: neue Version 0.1.1 unter `io.github.renschrder-stack/dutykit` veröffentlichen (`mcp-publisher`, GitHub-Login nötig). Aktuell steht dort noch das alte Konto in 0.1.0.
 - Deploy der neuen Version auf den Server (`deploy/deploy.sh`).
-- Zeitpunkt für Billing.
+- Zeitpunkt für Billing und Preise (Entwurf in `angebot.json`: Gratis 20/Tag, Credits 10 € für 1.000, Pro 29 €/Monat für 10.000, jeweils netto).
+- Umsatzsteuer: Stripe allein erledigt sie nicht. Entscheiden: Stripe + Stripe Tax + eigene OSS-Meldung (mit Steuerberater) oder Merchant of Record (z. B. Paddle, Lemon Squeezy).

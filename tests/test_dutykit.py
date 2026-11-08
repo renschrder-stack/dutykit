@@ -73,7 +73,8 @@ def test_vat_format():
 def test_angebot_ehrlich_und_konsistent():
     a = s.angebot()
     assert a["gratis"]["aufrufe_pro_tag_pro_ip"] == 200
-    assert a["bezahlstufe"]["verfuegbar"] is False and a["bezahlstufe"]["preis"] is None
+    assert a["bezahlstufe"]["verfuegbar"] is False
+    assert [x["id"] for x in a["bezahlstufe"]["stufen"]] == ["gratis", "credits", "pro"]
     assert {e["id"] for e in a["enthalten"]} >= {"nachweis", "vies_live", "quelle_und_pruefstand"}
     assert a["katalog_stand"]["DE"]["gesamt"] >= a["katalog_stand"]["DE"]["belegt"] > 0
     assert "Frankreich" in " ".join(a["nicht_enthalten"])

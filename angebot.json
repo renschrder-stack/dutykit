@@ -1,18 +1,67 @@
 {
   "stand": "2026-11-08",
   "status": "Öffentliche Beta, kostenlos",
-  "gratis": {"aufrufe_pro_tag_pro_ip": 200, "konto_noetig": false, "eingaben_gespeichert": false},
+  "gratis": {
+    "aufrufe_pro_tag_pro_ip": 200,
+    "konto_noetig": false,
+    "eingaben_gespeichert": false
+  },
   "bezahlstufe": {
     "verfuegbar": false,
-    "preis": null,
-    "hinweis": "Noch kein Preis festgelegt. Vor dem Ende der Beta wird Preis und Frist hier und auf https://dutykit.dev angekündigt; bis dahin bleibt die Freistufe unverändert."
+    "status": "geplant, noch nicht buchbar; es wird nichts abgerechnet",
+    "abrechnung": "ausschließlich über Stripe; Preise netto zuzüglich gesetzlicher Umsatzsteuer",
+    "stufen": [
+      {
+        "id": "gratis",
+        "name": "Gratis",
+        "preis_eur_netto": 0,
+        "inklusive_aufrufe": "20 pro Tag und IP",
+        "konto_noetig": false,
+        "hinweis": "Heute gelten noch 200 pro Tag; die Senkung auf 20 erfolgt erst mit Start der Bezahlstufe und wird vorher angekündigt."
+      },
+      {
+        "id": "credits",
+        "name": "Credits (ohne Abo)",
+        "preis_eur_netto": 10,
+        "inklusive_aufrufe": 1000,
+        "preis_pro_aufruf_eur_netto": 0.01,
+        "hinweis": "Einmalkauf, keine Laufzeit."
+      },
+      {
+        "id": "pro",
+        "name": "Pro (Abo)",
+        "preis_eur_netto_pro_monat": 29,
+        "inklusive_aufrufe_pro_monat": 10000,
+        "preis_pro_aufruf_eur_netto": 0.0029,
+        "enthaelt_zusaetzlich": [
+          "serverseitiges Nachweis-Protokoll (geplant, mit Datenschutzregelung)"
+        ],
+        "hinweis": "Ab ca. 2.900 Aufrufen im Monat günstiger als Credits."
+      }
+    ],
+    "hinweis": "Preise sind ein Entwurf (Stand 2026-11-08) und werden vor Start mit Frist angekündigt."
   },
   "enthalten": [
-    {"id": "quelle_und_pruefstand", "text": "Jede Pflicht mit Rechtsgrundlage, Quell-URL, Prüfdatum und Prüfstand (belegt = gegen den Gesetzestext abgeglichen, zu_pruefen = noch nicht). Der Prüfstand wird nicht beschönigt."},
-    {"id": "nachweis", "text": "Jede Vorprüfung liefert einen Nachweis (Zeit, Werkzeug, verantwortliche Person, SHA-256 des Ergebnisses) für den haftenden Menschen."},
-    {"id": "vies_live", "text": "Live-Prüfung von EU-USt-IdNr. über VIES der EU-Kommission, ohne Zusatzkosten."},
-    {"id": "de_lu_eu", "text": "Deutschland, Luxemburg und EU-Recht in einem Server; KI-Hinweis nach AI Act Art. 50 in de, fr, en, lb."},
-    {"id": "datensparsam", "text": "In der Freistufe werden keine Eingaben und Ergebnisse gespeichert."}
+    {
+      "id": "quelle_und_pruefstand",
+      "text": "Jede Pflicht mit Rechtsgrundlage, Quell-URL, Prüfdatum und Prüfstand (belegt = gegen den Gesetzestext abgeglichen, zu_pruefen = noch nicht). Der Prüfstand wird nicht beschönigt."
+    },
+    {
+      "id": "nachweis",
+      "text": "Jede Vorprüfung liefert einen Nachweis (Zeit, Werkzeug, verantwortliche Person, SHA-256 des Ergebnisses) für den haftenden Menschen."
+    },
+    {
+      "id": "vies_live",
+      "text": "Live-Prüfung von EU-USt-IdNr. über VIES der EU-Kommission, ohne Zusatzkosten."
+    },
+    {
+      "id": "de_lu_eu",
+      "text": "Deutschland, Luxemburg und EU-Recht in einem Server; KI-Hinweis nach AI Act Art. 50 in de, fr, en, lb."
+    },
+    {
+      "id": "datensparsam",
+      "text": "In der Freistufe werden keine Eingaben und Ergebnisse gespeichert."
+    }
   ],
   "nicht_enthalten": [
     "Rechtsberatung",
