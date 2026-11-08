@@ -25,8 +25,10 @@ Ziel: DutyKit soll als verlässliche, ehrlich gekennzeichnete Rechtsquelle für 
 4. Stripe-Webhook für Schlüsselvergabe (nur vorbereiten, nicht aktivieren).
 5. Tool `katalog_status` (Anzahl belegt/zu_pruefen je Land) für Transparenz.
 
+## Automatische Auslieferung
+- Registry: `.github/workflows/publish-registry.yml` veröffentlicht `server.json` bei Änderung auf `main` (GitHub OIDC).
+- Server: `deploy/auto-update.sh` läuft per systemd-Timer alle 10 Minuten auf dem Server, holt `main`, liefert aus, prüft `/health` und rollt bei Fehler zurück (Log `/var/log/dutykit-update.log`). Einmalig installiert mit `deploy/install-auto-update.sh`. Heißt: Was auf `main` landet, geht live – deshalb nur nach grüner CI mergen.
+
 ## Entscheidungen des Inhabers (offen)
-- Registry: neue Version 0.1.1 unter `io.github.renschrder-stack/dutykit` veröffentlichen (`mcp-publisher`, GitHub-Login nötig). Aktuell steht dort noch das alte Konto in 0.1.0.
-- Deploy der neuen Version auf den Server (`deploy/deploy.sh`).
 - Zeitpunkt für Billing und Preise (Entwurf in `angebot.json`: Gratis 20/Tag, Credits 10 € für 1.000, Pro 29 €/Monat für 10.000, jeweils netto).
 - Umsatzsteuer: Stripe allein erledigt sie nicht. Entscheiden: Stripe + Stripe Tax + eigene OSS-Meldung (mit Steuerberater) oder Merchant of Record (z. B. Paddle, Lemon Squeezy).
