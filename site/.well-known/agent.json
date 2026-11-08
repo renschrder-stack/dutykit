@@ -3,7 +3,7 @@
   "description": "EU business duties for AI agents: obligations with legal sources (DE, LU, EU) and pre-checks for invoices, marketing consent, AI disclosure and VAT IDs. Not legal advice.",
   "url": "https://dutykit.dev/",
   "provider": { "organization": "DutyKit (René Schröder, Luxembourg)", "url": "https://dutykit.dev/impressum.html" },
-  "version": "0.1.1",
+  "version": "0.2.0",
   "documentationUrl": "https://dutykit.dev/llms.txt",
   "interfaces": [
     { "type": "mcp", "transport": "streamable-http", "url": "https://dutykit.dev/mcp", "authentication": "none",
