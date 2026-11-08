@@ -83,5 +83,73 @@
   "grenzen_ehrlich": [
     "Prüfsummen erkennen Textänderungen der abgerufenen Norm; Änderungen an EU-Rechtsakten durch spätere Rechtsakte werden zusätzlich durch wöchentliche Recherche erfasst, nicht allein automatisch.",
     "Ein Eintrag mit frisch=true ist keine Rechtsberatung und ersetzt keine Prüfung des Einzelfalls."
-  ]
+  ],
+  "pakete": {
+    "hinweis": "Pakete sind eine Orientierung, welche Tools und Pflichten für welche Agentenaufgabe relevant sind. Abgerechnet wird weiterhin pro Aufruf (siehe bezahlstufe); einzeln buchbar sind Pakete noch nicht.",
+    "liste": [
+      {
+        "id": "rechnung",
+        "name": "Rechnung",
+        "fuer": "Agenten, die Rechnungen schreiben, prüfen, ablegen oder Geschäftspartner prüfen",
+        "tools": [
+          "rechnung_vorpruefen",
+          "vat_pruefen",
+          "pflichten(land, taetigkeit=rechnung)"
+        ],
+        "pflichten": [
+          "de-rechnung",
+          "de-e-rechnung",
+          "de-kleinunternehmer",
+          "de-aufbewahrung"
+        ]
+      },
+      {
+        "id": "werbung",
+        "name": "Werbung",
+        "fuer": "Vertriebs- und Marketing-Agenten, die E-Mails, Anrufe oder Preisaktionen ausspielen",
+        "tools": [
+          "werbung_vorpruefen",
+          "pflichten(land, taetigkeit=werbung)"
+        ],
+        "pflichten": [
+          "de-werbung",
+          "de-preisangabe",
+          "de-cookie-einwilligung"
+        ]
+      },
+      {
+        "id": "shop",
+        "name": "Shop",
+        "fuer": "Agenten, die einen Online-Shop oder eine Verbraucher-Website betreiben",
+        "tools": [
+          "pflichten(land, taetigkeit=online_handel)",
+          "pflichten(land, taetigkeit=website)"
+        ],
+        "pflichten": [
+          "de-impressum",
+          "de-widerrufsbelehrung",
+          "de-bestellbutton",
+          "de-widerrufsfunktion",
+          "de-preisangabe",
+          "de-verpackungsregister",
+          "de-barrierefreiheit",
+          "eu-produktsicherheit",
+          "eu-dsgvo-information"
+        ]
+      },
+      {
+        "id": "ki_kontakt",
+        "name": "KI-Kontakt",
+        "fuer": "Chat-, Voice- und Mail-Agenten, die mit Menschen sprechen",
+        "tools": [
+          "ki_hinweis",
+          "pflichten(land, taetigkeit=ki_kontakt)"
+        ],
+        "pflichten": [
+          "eu-ki-hinweis",
+          "eu-ki-kompetenz"
+        ]
+      }
+    ]
+  }
 }

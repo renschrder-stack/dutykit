@@ -119,3 +119,13 @@ def test_alle_belegten_gesetzesquellen_ueberwacht():
     ohne = [e["id"] for e in qp.alle_eintraege(d)
             if e["pruefstand"] == "belegt" and "gesetze-im-internet.de" in e["quelle"] and not e.get("pruefquellen")]
     assert ohne == []
+
+
+def test_pakete_verweisen_auf_existierende_eintraege():
+    ids = {e["id"] for e in qp.alle_eintraege(s.KATALOG)}
+    pakete = s.angebot()["pakete"]["liste"]
+    assert [p["id"] for p in pakete] == ["rechnung", "werbung", "shop", "ki_kontakt"]
+    for p in pakete:
+        assert set(p["pflichten"]) <= ids, p["id"]
+        for tool in p["tools"]:
+            assert callable(getattr(s, tool.split("(")[0])), tool
