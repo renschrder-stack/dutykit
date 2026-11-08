@@ -1,7 +1,7 @@
 FROM python:3.12-slim
 WORKDIR /app
 RUN pip install --no-cache-dir "mcp>=2.3,<3" "uvicorn>=0.30"
-COPY pflichtwerk_server.py app.py billing.py pflichten.json angebot.json ./
+COPY pflichtwerk_server.py app.py billing.py pflichten.json angebot.json server.json ./
 RUN useradd -r -u 10001 dutykit && mkdir -p /data && chown dutykit /data
 USER dutykit
 ENV DUTYKIT_KEYS_DATEI=/data/keys.json DUTYKIT_PROTOKOLL_DATEI=/data/protokoll.jsonl

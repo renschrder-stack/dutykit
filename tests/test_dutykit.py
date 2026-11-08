@@ -129,3 +129,16 @@ def test_pakete_verweisen_auf_existierende_eintraege():
         assert set(p["pflichten"]) <= ids, p["id"]
         for tool in p["tools"]:
             assert callable(getattr(s, tool.split("(")[0])), tool
+
+
+def test_docker_image_enthaelt_alle_dateien_die_der_server_beim_start_liest():
+    """Regression: fehlte server.json im Image, startete der Container in einer Endlosschleife."""
+    import re, subprocess, sys, tempfile, shutil
+    dockerfile = (s.HIER / "deploy" / "Dockerfile").read_text()
+    kopiert = re.search(r"^COPY (.+) \./$", dockerfile, re.M).group(1).split()
+    with tempfile.TemporaryDirectory() as t:
+        for f in kopiert:
+            shutil.copy(s.HIER / f, t)
+        r = subprocess.run([sys.executable, "-c", "import app"], cwd=t, capture_output=True, text=True,
+                           env={**__import__("os").environ, "PYTHONPATH": ""})
+        assert r.returncode == 0, r.stderr[-500:]
