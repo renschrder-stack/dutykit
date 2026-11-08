@@ -54,6 +54,22 @@ def _statistik(body: bytes) -> None:
         pass  # Statistik darf den Dienst nie stören
 
 
+def statistik_zusammenfassung(tage: int = 30, datei: str | None = None) -> dict:
+    """Anonyme Nutzungszahlen (nur Zähler je Tag und Werkzeug, keine IP, keine Eingaben) der letzten Tage."""
+    try:
+        with open(datei or STATISTIK, encoding="utf-8") as f:
+            daten = json.load(f)
+    except Exception:
+        daten = {}
+    letzte = dict(sorted(daten.items())[-tage:])
+    summe: dict[str, int] = {}
+    for tag in letzte.values():
+        for werkzeug, n in tag.items():
+            summe[werkzeug] = summe.get(werkzeug, 0) + n
+    return {"tage": letzte, "summe": summe, "gesamt": sum(summe.values()), "zeitraum_tage": tage,
+            "hinweis": "Zählt Werkzeugaufrufe, keine Nutzer. Eigene Prüfungen (Prüfagent, Tests) sind enthalten."}
+
+
 def _client_ip(scope) -> str:
     for k, v in scope.get("headers", []):
         if k == b"x-forwarded-for":  # gesetzt vom Reverse-Proxy (Caddy)
@@ -72,7 +88,8 @@ async def app(scope, receive, send):
     if scope["type"] == "lifespan":
         return await _mcp_app(scope, receive, send)
     if scope["type"] == "http" and scope["path"] == "/health":
-        return await _antwort(send, 200, {"ok": True, "billing": billing.AKTIV})
+        return await _antwort(send, 200, {"ok": True, "billing": billing.AKTIV,
+                                           "nutzung_7_tage": statistik_zusammenfassung(7)})
     if scope["type"] == "http" and scope["path"].startswith("/mcp") and scope["method"] == "POST":
         # Body puffern: nur echte Werkzeugaufrufe (tools/call) zählen, nicht Handshake/Listen.
         teile, mehr = [], True
