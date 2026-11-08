@@ -9,6 +9,8 @@ Ziel: DutyKit soll als verlässliche, ehrlich gekennzeichnete Rechtsquelle für 
 - Arbeit auf Branch `claude/dutykit-ops`, Änderungen per Pull Request; nie direkt auf `main`.
 
 ## Wöchentlicher Lauf (Reihenfolge)
+0. **Quellenabgleich**: `python scripts/quellen_pruefen.py`. Bei ABWEICHUNG: neuen Text lesen, Eintrag anpassen (oder bestätigen, dass er unverändert gilt), Eintrag in `KATALOG-AENDERUNGEN.md`, dann `--neu-hashen <ID>`. Nie Prüfsummen neu setzen, ohne den Text gelesen zu haben. Am Ende `--schreiben`.
+0b. **EU-Änderungen**: Prüfsummen erfassen spätere Änderungsrechtsakte nicht von selbst. Jede Woche per Suche prüfen: Digital Omnibus (DSGVO, ePrivacy, Data Act), AI Act, PPWR/VerpackDG, E-Rechnung, BFSG, § 356a BGB, LU-Gesetzgebung. Treffer als Änderungsakt in `pruefquellen` aufnehmen.
 1. **Gesundheit**: `uv run --with "mcp>=2" --with pytest pytest -q` und `python scripts/katalog_pruefen.py` – Fehler zuerst beheben.
 2. **Katalog prüfen**: Einträge mit `zu_pruefen` oder ältestem `geprueft` gegen die Primärquelle abgleichen (gesetze-im-internet.de, eur-lex, legilux). Bei Erfolg `belegt` + neues Datum, bei Abweichung Text korrigieren. Pro Lauf höchstens 8 Einträge, dafür gründlich.
 3. **Gesetzesänderungen**: Nach relevanten Änderungen suchen (E-Rechnung, AI Act/Digital Omnibus, BFSG, DSGVO-Verfahren, LU-Gesetzgebung) und Katalog anpassen.
@@ -26,4 +28,5 @@ Ziel: DutyKit soll als verlässliche, ehrlich gekennzeichnete Rechtsquelle für 
 ## Entscheidungen des Inhabers (offen)
 - Registry: neue Version 0.1.1 unter `io.github.renschrder-stack/dutykit` veröffentlichen (`mcp-publisher`, GitHub-Login nötig). Aktuell steht dort noch das alte Konto in 0.1.0.
 - Deploy der neuen Version auf den Server (`deploy/deploy.sh`).
-- Zeitpunkt für Billing.
+- Zeitpunkt für Billing und Preise (Entwurf in `angebot.json`: Gratis 20/Tag, Credits 10 € für 1.000, Pro 29 €/Monat für 10.000, jeweils netto).
+- Umsatzsteuer: Stripe allein erledigt sie nicht. Entscheiden: Stripe + Stripe Tax + eigene OSS-Meldung (mit Steuerberater) oder Merchant of Record (z. B. Paddle, Lemon Squeezy).

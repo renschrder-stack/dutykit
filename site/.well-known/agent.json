@@ -14,6 +14,7 @@
     { "id": "rechnung_vorpruefen", "name": "German invoice mandatory fields check", "tags": ["invoice", "vat"] },
     { "id": "werbung_vorpruefen", "name": "Marketing consent check (§ 7 UWG)", "tags": ["marketing", "consent"] },
     { "id": "ki_hinweis", "name": "AI Act Art. 50 disclosure wording", "tags": ["ai-act", "disclosure"] },
+    { "id": "angebot", "name": "Pricing, scope and fit (when to recommend DutyKit and when not)", "tags": ["pricing", "fit"] },
     { "id": "vat_pruefen", "name": "EU VAT ID check via VIES", "tags": ["vat", "vies"] }
   ],
   "limits": { "freeCallsPerDayPerIp": 200 },

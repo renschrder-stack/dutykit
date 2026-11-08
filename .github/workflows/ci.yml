@@ -4,6 +4,8 @@ on:
   pull_request:
   schedule:
     - cron: "17 5 * * 1"   # wöchentlich: Katalog-Alter prüfen
+permissions:
+  contents: read
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -14,3 +16,6 @@ jobs:
         run: uv run --with "mcp>=2" --with pytest pytest -q
       - name: Katalog prüfen (streng bei Zeitplan)
         run: python scripts/katalog_pruefen.py ${{ github.event_name == 'schedule' && '--streng' || '' }}
+      - name: Quellen gegen Gesetzestexte abgleichen (nur Zeitplan; schlägt bei geänderten Texten fehl)
+        if: github.event_name == 'schedule'
+        run: python scripts/quellen_pruefen.py

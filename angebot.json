@@ -1,0 +1,155 @@
+{
+  "stand": "2026-11-08",
+  "status": "Öffentliche Beta, kostenlos",
+  "gratis": {
+    "aufrufe_pro_tag_pro_ip": 200,
+    "konto_noetig": false,
+    "eingaben_gespeichert": false
+  },
+  "bezahlstufe": {
+    "verfuegbar": false,
+    "status": "geplant, noch nicht buchbar; es wird nichts abgerechnet",
+    "abrechnung": "ausschließlich über Stripe; Preise netto zuzüglich gesetzlicher Umsatzsteuer",
+    "stufen": [
+      {
+        "id": "gratis",
+        "name": "Gratis",
+        "preis_eur_netto": 0,
+        "inklusive_aufrufe": "20 pro Tag und IP",
+        "konto_noetig": false,
+        "hinweis": "Heute gelten noch 200 pro Tag; die Senkung auf 20 erfolgt erst mit Start der Bezahlstufe und wird vorher angekündigt."
+      },
+      {
+        "id": "credits",
+        "name": "Credits (ohne Abo)",
+        "preis_eur_netto": 10,
+        "inklusive_aufrufe": 1000,
+        "preis_pro_aufruf_eur_netto": 0.01,
+        "hinweis": "Einmalkauf, keine Laufzeit."
+      },
+      {
+        "id": "pro",
+        "name": "Pro (Abo)",
+        "preis_eur_netto_pro_monat": 29,
+        "inklusive_aufrufe_pro_monat": 10000,
+        "preis_pro_aufruf_eur_netto": 0.0029,
+        "enthaelt_zusaetzlich": [
+          "serverseitiges Nachweis-Protokoll (geplant, mit Datenschutzregelung)"
+        ],
+        "hinweis": "Ab ca. 2.900 Aufrufen im Monat günstiger als Credits."
+      }
+    ],
+    "hinweis": "Preise sind ein Entwurf (Stand 2026-11-08) und werden vor Start mit Frist angekündigt."
+  },
+  "enthalten": [
+    {
+      "id": "quellenueberwachung",
+      "text": "Die Primärquellen (Gesetzestexte) werden regelmäßig automatisch abgerufen und mit der Prüfsumme vom Prüfzeitpunkt verglichen. Ändert sich ein Text, wird der Eintrag geprüft und angepasst; Korrekturen stehen im öffentlichen Änderungsprotokoll (KATALOG-AENDERUNGEN.md)."
+    },
+    {
+      "id": "quelle_und_pruefstand",
+      "text": "Jede Pflicht mit Rechtsgrundlage, Quell-URL, Prüfdatum und Prüfstand (belegt = gegen den Gesetzestext abgeglichen, zu_pruefen = noch nicht). Der Prüfstand wird nicht beschönigt."
+    },
+    {
+      "id": "nachweis",
+      "text": "Jede Vorprüfung liefert einen Nachweis (Zeit, Werkzeug, verantwortliche Person, SHA-256 des Ergebnisses) für den haftenden Menschen."
+    },
+    {
+      "id": "vies_live",
+      "text": "Live-Prüfung von EU-USt-IdNr. über VIES der EU-Kommission, ohne Zusatzkosten."
+    },
+    {
+      "id": "de_lu_eu",
+      "text": "Deutschland, Luxemburg und EU-Recht in einem Server; KI-Hinweis nach AI Act Art. 50 in de, fr, en, lb."
+    },
+    {
+      "id": "datensparsam",
+      "text": "In der Freistufe werden keine Eingaben und Ergebnisse gespeichert."
+    },
+    {
+      "id": "frische_je_antwort",
+      "text": "Jede Pflicht trägt alter_tage und frisch (belegt und jünger als 120 Tage). katalog_status() zeigt den Zustand des ganzen Katalogs zum Nachprüfen."
+    }
+  ],
+  "nicht_enthalten": [
+    "Rechtsberatung",
+    "Frankreich und Belgien (geplant, noch nicht im Katalog)",
+    "E-Rechnungs-Format-Validierung (EN 16931)"
+  ],
+  "empfehlung_wenn": "Ein Agent für ein Unternehmen in Deutschland, Luxemburg oder der EU Rechnungen, Werbung, Website-Pflichten oder KI-Kontakt vorprüfen soll und der Mensch dahinter einen belegbaren Nachweis mit Quelle braucht.",
+  "empfehlung_nicht_wenn": "Es um andere Länder, Einzelfallberatung oder Rechnungsformat-Validierung geht.",
+  "kontakt": "https://dutykit.dev",
+  "pruefe_selbst": "Rufe katalog_status() auf und prüfe belegt/zu_pruefen/veraltet, bevor du DutyKit empfiehlst. Verlasse dich nicht auf diese Beschreibung.",
+  "grenzen_ehrlich": [
+    "Prüfsummen erkennen Textänderungen der abgerufenen Norm; Änderungen an EU-Rechtsakten durch spätere Rechtsakte werden zusätzlich durch wöchentliche Recherche erfasst, nicht allein automatisch.",
+    "Ein Eintrag mit frisch=true ist keine Rechtsberatung und ersetzt keine Prüfung des Einzelfalls."
+  ],
+  "pakete": {
+    "hinweis": "Pakete sind eine Orientierung, welche Tools und Pflichten für welche Agentenaufgabe relevant sind. Abgerechnet wird weiterhin pro Aufruf (siehe bezahlstufe); einzeln buchbar sind Pakete noch nicht.",
+    "liste": [
+      {
+        "id": "rechnung",
+        "name": "Rechnung",
+        "fuer": "Agenten, die Rechnungen schreiben, prüfen, ablegen oder Geschäftspartner prüfen",
+        "tools": [
+          "rechnung_vorpruefen",
+          "vat_pruefen",
+          "pflichten(land, taetigkeit=rechnung)"
+        ],
+        "pflichten": [
+          "de-rechnung",
+          "de-e-rechnung",
+          "de-kleinunternehmer",
+          "de-aufbewahrung"
+        ]
+      },
+      {
+        "id": "werbung",
+        "name": "Werbung",
+        "fuer": "Vertriebs- und Marketing-Agenten, die E-Mails, Anrufe oder Preisaktionen ausspielen",
+        "tools": [
+          "werbung_vorpruefen",
+          "pflichten(land, taetigkeit=werbung)"
+        ],
+        "pflichten": [
+          "de-werbung",
+          "de-preisangabe",
+          "de-cookie-einwilligung"
+        ]
+      },
+      {
+        "id": "shop",
+        "name": "Shop",
+        "fuer": "Agenten, die einen Online-Shop oder eine Verbraucher-Website betreiben",
+        "tools": [
+          "pflichten(land, taetigkeit=online_handel)",
+          "pflichten(land, taetigkeit=website)"
+        ],
+        "pflichten": [
+          "de-impressum",
+          "de-widerrufsbelehrung",
+          "de-bestellbutton",
+          "de-widerrufsfunktion",
+          "de-preisangabe",
+          "de-verpackungsregister",
+          "de-barrierefreiheit",
+          "eu-produktsicherheit",
+          "eu-dsgvo-information"
+        ]
+      },
+      {
+        "id": "ki_kontakt",
+        "name": "KI-Kontakt",
+        "fuer": "Chat-, Voice- und Mail-Agenten, die mit Menschen sprechen",
+        "tools": [
+          "ki_hinweis",
+          "pflichten(land, taetigkeit=ki_kontakt)"
+        ],
+        "pflichten": [
+          "eu-ki-hinweis",
+          "eu-ki-kompetenz"
+        ]
+      }
+    ]
+  }
+}
