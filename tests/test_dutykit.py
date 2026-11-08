@@ -48,6 +48,39 @@ def test_rechnung_steuerbetrag_fehlt():
     assert "Steuerbetrag" in r["fehlende_angaben"]
 
 
+IG_BASIS = {"aussteller_name": "Kalmar GmbH", "aussteller_anschrift": "Str 1, 54290 Trier", "empfaenger_name": "Lux SARL",
+            "empfaenger_anschrift": "1 rue X, L-1855 Luxembourg", "steuernummer_oder_ustid": "DE123456789",
+            "datum": "2026-11-01", "rechnungsnummer": "R-2", "leistung": "4 Stück Leuchte Modell A",
+            "leistungszeitpunkt": "2026-10-30", "netto": 800}
+
+
+def test_rechnung_ig_lieferung_braucht_empfaenger_ustid_und_hinweis():
+    r = s.rechnung_vorpruefen(IG_BASIS | {"art": "ig_lieferung"})
+    assert r["bestanden"] is False and "§ 14a Abs. 3" in r["grundlage"] and r["frist"]
+    assert "USt-IdNr. des Leistungsempfängers" in r["fehlende_angaben"]
+    ok = s.rechnung_vorpruefen(IG_BASIS | {"art": "ig_lieferung", "empfaenger_ustid": "LU20260743",
+                                           "steuerbefreiung_hinweis": "Steuerfreie innergemeinschaftliche Lieferung"})
+    assert ok["bestanden"] is True
+
+
+def test_rechnung_reverse_charge_braucht_pflichttext():
+    r = s.rechnung_vorpruefen(IG_BASIS | {"art": "reverse_charge_eu", "empfaenger_ustid": "LU20260743",
+                                          "steuerbefreiung_hinweis": "Reverse Charge"})
+    assert any("Steuerschuldnerschaft des Leistungsempfängers" in f for f in r["fehlende_angaben"])
+
+
+def test_rechnung_meldet_unbekannte_felder():
+    r = s.rechnung_vorpruefen({"ust_id": "DE1", "rechnungsdatum": "2026-11-01"})
+    assert r["unbekannte_felder"] == ["rechnungsdatum", "ust_id"] and "datum" in r["erwartete_felder"]
+
+
+def test_rechnung_schema_nennt_feldnamen():
+    import asyncio
+    tools = {t.name: t for t in asyncio.run(s.mcp.list_tools())}
+    schema = json.dumps(tools["rechnung_vorpruefen"].input_schema)
+    assert "empfaenger_ustid" in schema and "ig_lieferung" in schema
+
+
 def test_rechnung_nur_de():
     assert "fehler" in s.rechnung_vorpruefen({}, land="LU")
 
@@ -151,3 +184,9 @@ def test_nutzungsstatistik_zusammenfassung(tmp_path):
     z = a.statistik_zusammenfassung(1, str(f))
     assert z["summe"] == {"pflichten": 2, "vat_pruefen": 1} and z["gesamt"] == 3 and "ip" not in json.dumps(z).lower()
     assert a.statistik_zusammenfassung(30, str(tmp_path / "gibt-es-nicht.json"))["gesamt"] == 0
+
+
+def test_well_known_server_json_gleich_server_json():
+    a = json.loads((s.HIER / "server.json").read_text(encoding="utf-8"))
+    b = json.loads((s.HIER / "site" / ".well-known" / "mcp" / "server.json").read_text(encoding="utf-8"))
+    assert a == b

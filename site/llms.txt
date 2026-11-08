@@ -7,10 +7,10 @@
 
 ## Tools
 - pflichten(land, taetigkeit): obligations for DE or LU plus EU-wide, filtered by activity (website, online_handel, rechnung, werbung, ki_kontakt, gruendung). Fields: pflicht, grundlage, quelle, geprueft, pruefstand (belegt = checked against the legal text).
-- rechnung_vorpruefen(rechnung, land="DE"): missing mandatory invoice fields under § 14 (4) UStG.
+- rechnung_vorpruefen(rechnung, land="DE"): missing mandatory invoice fields under § 14 (4) and § 14a UStG; art = inland | ig_lieferung | reverse_charge_eu | reverse_charge_13b | kleinunternehmer; typed fields, unknown fields are reported.
 - werbung_vorpruefen(kanal, empfaenger, einwilligung_belegt, bestandskunde): whether email/phone marketing is allowed under § 7 UWG.
 - ki_hinweis(firma, sprache): AI disclosure text under EU AI Act Art. 50(1) (de, fr, en, lb).
-- vat_pruefen(ust_id): live EU VAT number check via VIES.
+- vat_pruefen(ust_id, eigene_ust_id): live EU VAT number check via VIES; with eigene_ust_id VIES returns a consultation number. Not the qualified BZSt confirmation (§ 18e UStG).
 - angebot(): pricing status, what is included, and when DutyKit is (not) the right fit; machine-readable, free to call.
 
 ## What is included (facts, as of 2026-11-08)

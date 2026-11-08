@@ -10,8 +10,10 @@ import re
 import urllib.request
 from datetime import date, datetime, timezone
 from pathlib import Path
+from typing import Literal
 
 from mcp.server.mcpserver import MCPServer
+from pydantic import BaseModel, ConfigDict, Field
 
 HIER = Path(__file__).parent
 ANGEBOT = json.loads((HIER / "angebot.json").read_text(encoding="utf-8"))
@@ -117,19 +119,33 @@ def ki_hinweis(firma: str, sprache: str = "de") -> dict:
 
 
 @mcp.tool()
-def vat_pruefen(ust_id: str, verantwortlich: str = "") -> dict:
-    """Prüft eine EU-USt-IdNr. (z. B. LU26375245) live über die VIES-Schnittstelle der EU-Kommission."""
+def vat_pruefen(ust_id: str, eigene_ust_id: str = "", verantwortlich: str = "") -> dict:
+    """Prüft eine EU-USt-IdNr. (z. B. LU26375245) live über die VIES-Schnittstelle der EU-Kommission (EU-weit gültig/
+    ungültig, Name, Anschrift). eigene_ust_id = USt-IdNr. des Anfragenden: dann vergibt VIES eine Konsultationsnummer
+    als Nachweis. Keine qualifizierte Bestätigungsabfrage beim BZSt (§ 18e UStG) – die ist für DE-Nachweise maßgeblich."""
     m = re.fullmatch(r"([A-Z]{2})([0-9A-Z+*]{2,12})", ust_id.replace(" ", "").upper())
     if not m:
         return {"fehler": "Format: Ländercode + Nummer, z. B. LU26375245"}
-    url = f"https://ec.europa.eu/taxation_customs/vies/rest-api/ms/{m[1]}/vat/{m[2]}"
+    anfrage = {"countryCode": m[1], "vatNumber": m[2]}
+    if eigene_ust_id:
+        e = re.fullmatch(r"([A-Z]{2})([0-9A-Z+*]{2,12})", eigene_ust_id.replace(" ", "").upper())
+        if not e:
+            return {"fehler": "eigene_ust_id: Format Ländercode + Nummer, z. B. DE123456789"}
+        anfrage |= {"requesterMemberStateCode": e[1], "requesterNumber": e[2]}
+    req = urllib.request.Request("https://ec.europa.eu/taxation_customs/vies/rest-api/check-vat-number",
+                                 data=json.dumps(anfrage).encode(), headers={"Content-Type": "application/json"})
     try:
-        with urllib.request.urlopen(url, timeout=20) as r:
+        with urllib.request.urlopen(req, timeout=20) as r:
             d = json.load(r)
     except Exception as e:  # Netz/Dienst nicht erreichbar
         return {"fehler": f"VIES nicht erreichbar: {e}"}
-    ergebnis = {"gueltig": d.get("isValid"), "name": d.get("name"), "anschrift": d.get("address"),
-                "abfragezeit": d.get("requestDate"), "quelle": "VIES (EU-Kommission)"}
+    if "valid" not in d:
+        return {"fehler": "VIES hat keine Prüfung geliefert", "antwort": d.get("errorWrappers") or d}
+    ergebnis = {"gueltig": d.get("valid"), "name": d.get("name"), "anschrift": d.get("address"),
+                "abfragezeit": d.get("requestDate"), "konsultationsnummer": d.get("requestIdentifier") or None,
+                "quelle": "VIES (EU-Kommission), https://ec.europa.eu/taxation_customs/vies/",
+                "art_der_pruefung": "VIES-Abfrage" + (" mit Anfrager" if eigene_ust_id else " ohne Anfrager (keine Konsultationsnummer)"),
+                "nicht_enthalten": "qualifizierte Bestätigungsabfrage beim BZSt (§ 18e UStG)", "hinweis": HINWEIS}
     ergebnis["nachweis"] = _protokoll("vat_pruefen", verantwortlich, {"ust_id": ust_id}, ergebnis)
     return ergebnis
 
@@ -141,24 +157,82 @@ DE_RECHNUNGSFELDER = {
     "rechnungsnummer": "fortlaufende Rechnungsnummer", "leistung": "Menge und Art der Leistung",
     "leistungszeitpunkt": "Zeitpunkt der Leistung", "netto": "Entgelt",
 }
+UST_ID = re.compile(r"[A-Z]{2}[0-9A-Z+*]{2,12}")
+RC_TEXT = "Steuerschuldnerschaft des Leistungsempfängers"
+
+
+class Rechnung(BaseModel):
+    """Rechnungsangaben. Alle Felder optional; fehlende Pflichtangaben werden gemeldet, unbekannte Felder ebenfalls."""
+    model_config = ConfigDict(extra="allow")
+    art: Literal["inland", "ig_lieferung", "reverse_charge_eu", "reverse_charge_13b", "kleinunternehmer"] = Field(
+        "inland", description="inland = normale Rechnung mit USt; ig_lieferung = steuerfreie innergemeinschaftliche "
+        "Warenlieferung an ein Unternehmen in einem anderen EU-Land (§ 4 Nr. 1b, § 6a, § 14a Abs. 3 UStG); "
+        "reverse_charge_eu = Dienstleistung an ein Unternehmen in einem anderen EU-Land (§ 3a Abs. 2, § 14a Abs. 1); "
+        "reverse_charge_13b = Inlandsfall nach § 13b (§ 14a Abs. 5); kleinunternehmer = § 19 UStG")
+    aussteller_name: str | None = Field(None, description="Name des leistenden Unternehmers")
+    aussteller_anschrift: str | None = Field(None, description="Vollständige Anschrift des Ausstellers")
+    steuernummer_oder_ustid: str | None = Field(None, description="Steuernummer oder USt-IdNr. des Ausstellers, z. B. DE123456789")
+    empfaenger_name: str | None = Field(None, description="Name des Leistungsempfängers")
+    empfaenger_anschrift: str | None = Field(None, description="Vollständige Anschrift des Empfängers")
+    empfaenger_ustid: str | None = Field(None, description="USt-IdNr. des Empfängers, Pflicht bei ig_lieferung und reverse_charge_eu")
+    datum: str | None = Field(None, description="Ausstellungsdatum, z. B. 2026-11-08")
+    rechnungsnummer: str | None = Field(None, description="Fortlaufende, einmalige Rechnungsnummer")
+    leistung: str | None = Field(None, description="Menge und handelsübliche Bezeichnung der Ware bzw. Art und Umfang der Leistung")
+    leistungszeitpunkt: str | None = Field(None, description="Zeitpunkt der Lieferung/Leistung (oder Leistungszeitraum)")
+    netto: float | None = Field(None, description="Entgelt (netto)")
+    steuersatz: float | None = Field(None, description="Steuersatz in Prozent, z. B. 19; bei steuerfreien Fällen weglassen")
+    steuerbetrag: float | None = Field(None, description="Ausgewiesener Steuerbetrag")
+    steuerbefreiung_hinweis: str | None = Field(None, description="Hinweistext auf der Rechnung, z. B. 'Steuerfreie "
+        "innergemeinschaftliche Lieferung' oder 'Steuerschuldnerschaft des Leistungsempfängers' oder Hinweis auf § 19 UStG")
 
 
 @mcp.tool()
-def rechnung_vorpruefen(rechnung: dict, land: str = "DE", verantwortlich: str = "") -> dict:
-    """Vorprüfung einer Rechnung auf Pflichtangaben (derzeit DE, § 14 Abs. 4 UStG).
-    Erwartet Felder wie aussteller_name, rechnungsnummer, netto, steuersatz ODER steuerbefreiung_hinweis."""
+def rechnung_vorpruefen(rechnung: Rechnung, land: str = "DE", verantwortlich: str = "") -> dict:
+    """Vorprüfung einer deutschen Rechnung auf Pflichtangaben (§ 14 Abs. 4, § 14a UStG), auch für steuerfreie
+    innergemeinschaftliche Lieferungen und Reverse Charge. Feldnamen siehe Schema; unbekannte Felder werden gemeldet."""
     if land.upper() != "DE":
         return {"fehler": "Rechnungsprüfung bisher nur für DE"}
-    fehlt = [text for feld, text in DE_RECHNUNGSFELDER.items() if not str(rechnung.get(feld, "")).strip()]
-    if not (rechnung.get("steuersatz") is not None or rechnung.get("steuerbefreiung_hinweis")):
-        fehlt.append("Steuersatz und Steuerbetrag oder Hinweis auf Steuerbefreiung (z. B. § 19 UStG)")
-    if rechnung.get("steuersatz") is not None and rechnung.get("netto") is not None and rechnung.get("steuerbetrag") is None:
-        fehlt.append("Steuerbetrag")
-    ergebnis = {"bestanden": not fehlt, "fehlende_angaben": fehlt,
-                "grundlage": "§ 14 Abs. 4 UStG", "quelle": "https://www.gesetze-im-internet.de/ustg_1980/__14.html",
-                "nicht_geprueft": "E-Rechnungs-Format (EN 16931) – dafür z. B. Fintom8 e-invoice-mcp nutzen",
+    r = Rechnung(**rechnung) if isinstance(rechnung, dict) else rechnung
+    d = r.model_dump()
+    fehlt = [text for feld, text in DE_RECHNUNGSFELDER.items() if not str(d.get(feld) or "").strip()]
+    hinweis = (r.steuerbefreiung_hinweis or "").lower()
+    grundlagen = ["§ 14 Abs. 4 UStG"]
+    if r.art == "inland":
+        if r.steuersatz is None:
+            fehlt.append("Steuersatz und Steuerbetrag (oder passende art wählen, z. B. kleinunternehmer, ig_lieferung)")
+        elif r.netto is not None and r.steuerbetrag is None:
+            fehlt.append("Steuerbetrag")
+    elif r.art == "kleinunternehmer":
+        if "19" not in hinweis:
+            fehlt.append("Hinweis auf die Steuerbefreiung nach § 19 UStG")
+    else:
+        if r.steuerbetrag:
+            fehlt.append("Kein Steuerbetrag ausweisen: bei dieser art schuldet keine deutsche USt der Aussteller")
+        if r.art in ("ig_lieferung", "reverse_charge_eu"):
+            if not UST_ID.fullmatch((r.steuernummer_oder_ustid or "").replace(" ", "").upper()):
+                fehlt.append("USt-IdNr. des Ausstellers (eine Steuernummer reicht hier nicht)")
+            if not UST_ID.fullmatch((r.empfaenger_ustid or "").replace(" ", "").upper()):
+                fehlt.append("USt-IdNr. des Leistungsempfängers")
+        if r.art == "ig_lieferung":
+            grundlagen.append("§ 14a Abs. 3 UStG")
+            if "innergemeinschaftlich" not in hinweis and "steuerfrei" not in hinweis:
+                fehlt.append("Hinweis auf die Steuerbefreiung (z. B. 'Steuerfreie innergemeinschaftliche Lieferung')")
+        else:
+            grundlagen.append("§ 14a Abs. 1 UStG" if r.art == "reverse_charge_eu" else "§ 14a Abs. 5 UStG")
+            if RC_TEXT.lower() not in hinweis:
+                fehlt.append(f"Angabe „{RC_TEXT}“")
+    unbekannt = sorted((r.model_extra or {}).keys())
+    ergebnis = {"bestanden": not fehlt, "art": r.art, "fehlende_angaben": fehlt, "grundlage": ", ".join(grundlagen),
+                "quellen": ["https://www.gesetze-im-internet.de/ustg_1980/__14.html",
+                            "https://www.gesetze-im-internet.de/ustg_1980/__14a.html"],
+                "frist": ("Rechnung bis zum 15. des Folgemonats ausstellen (§ 14a Abs. 1 bzw. 3 UStG)"
+                          if r.art in ("ig_lieferung", "reverse_charge_eu") else None),
+                "nicht_geprueft": "E-Rechnungs-Format (EN 16931), Rechenrichtigkeit, Kleinbetragsrechnung (§ 33 UStDV)",
                 "hinweis": HINWEIS}
-    ergebnis["nachweis"] = _protokoll("rechnung_vorpruefen", verantwortlich, {"rechnungsnummer": rechnung.get("rechnungsnummer")}, ergebnis)
+    if unbekannt:
+        ergebnis["unbekannte_felder"] = unbekannt
+        ergebnis["erwartete_felder"] = list(Rechnung.model_fields)
+    ergebnis["nachweis"] = _protokoll("rechnung_vorpruefen", verantwortlich, {"rechnungsnummer": r.rechnungsnummer}, ergebnis)
     return ergebnis
 
 
