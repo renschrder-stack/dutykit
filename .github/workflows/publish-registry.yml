@@ -21,3 +21,7 @@ jobs:
         run: |
           ./mcp-publisher login github-oidc
           ./mcp-publisher publish
+      - name: Alten Registry-Namen als veraltet markieren (Umzug auf sprechenden Namen, Nov 2026)
+        continue-on-error: true
+        run: |
+          ./mcp-publisher status --status deprecated --all-versions --yes             --message "Moved to io.github.renschrder-stack/dutykit-eu-vat-invoice-compliance"             io.github.renschrder-stack/dutykit

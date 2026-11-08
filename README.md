@@ -1,6 +1,6 @@
 # DutyKit
 
-[![MCP Registry](https://img.shields.io/badge/MCP%20Registry-io.github.renschrder--stack%2Fdutykit-1f5f4a)](https://registry.modelcontextprotocol.io/v0/servers?search=dutykit)
+[![MCP Registry](https://img.shields.io/badge/MCP%20Registry-io.github.renschrder--stack%2Fdutykit--eu--vat--invoice--compliance-1f5f4a)](https://registry.modelcontextprotocol.io/v0/servers?search=dutykit-eu-vat-invoice-compliance)
 [![License: MIT](https://img.shields.io/badge/code-MIT-blue)](LICENSE)
 [![Catalogue: CC BY 4.0](https://img.shields.io/badge/catalogue-CC%20BY%204.0-lightgrey)](https://creativecommons.org/licenses/by/4.0/)
 
@@ -26,10 +26,10 @@ Any MCP client (JSON config):
 | Tool | What it does |
 |---|---|
 | `pflichten(land, taetigkeit)` | Obligations for `DE` or `LU` plus EU-wide, filtered by activity: `website`, `online_handel`, `rechnung`, `werbung`, `ki_kontakt`, `gruendung`, `datenschutz`, `produkte` |
-| `rechnung_vorpruefen(rechnung, land="DE")` | Missing mandatory invoice fields under § 14 (4) UStG |
+| `rechnung_vorpruefen(rechnung, land="DE")` | Missing mandatory invoice fields under § 14 (4) and § 14a UStG, incl. intra-EU supplies (`art="ig_lieferung"`) and reverse charge; typed schema, reports unknown fields |
 | `werbung_vorpruefen(kanal, empfaenger, einwilligung_belegt, bestandskunde)` | May the agent send this marketing email or make this call? (§ 7 UWG) |
 | `ki_hinweis(firma, sprache)` | AI disclosure wording under AI Act Art. 50(1) in `de`, `fr`, `en`, `lb` |
-| `vat_pruefen(ust_id)` | Live EU VAT ID check via the European Commission's VIES service |
+| `vat_pruefen(ust_id, eigene_ust_id="")` | Live EU VAT ID check via the European Commission's VIES service; with your own VAT ID, VIES returns a consultation number as proof |
 | `angebot()` | Pricing status, what is included, and when DutyKit is (not) the right fit |
 
 Every check also returns a `nachweis` (timestamp, tool, responsible person, SHA-256 of the result) for the human who is liable.
