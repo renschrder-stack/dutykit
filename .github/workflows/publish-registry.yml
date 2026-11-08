@@ -1,0 +1,23 @@
+name: publish-registry
+# Veröffentlicht server.json in der offiziellen MCP-Registry, ohne persönlichen Login (GitHub OIDC).
+# Läuft automatisch, wenn sich server.json auf main ändert (neue Version), oder per Hand.
+on:
+  push:
+    branches: [main]
+    paths: [server.json]
+  workflow_dispatch:
+permissions:
+  id-token: write
+  contents: read
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: mcp-publisher installieren
+        run: |
+          curl -fsSL "https://github.com/modelcontextprotocol/registry/releases/latest/download/mcp-publisher_$(uname -s | tr '[:upper:]' '[:lower:]')_$(uname -m | sed 's/x86_64/amd64/;s/aarch64/arm64/').tar.gz" | tar xz mcp-publisher
+      - name: Anmelden (OIDC) und veröffentlichen
+        run: |
+          ./mcp-publisher login github-oidc
+          ./mcp-publisher publish
