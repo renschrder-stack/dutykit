@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <title>DutyKit – EU business duties for AI agents</title>
 <meta name="description" content="MCP server that lets AI agents look up EU business obligations with sources and pre-check invoices, marketing consent and AI disclosure before acting. Germany, Luxembourg, EU.">
 <link rel="alternate" type="text/plain" href="/llms.txt" title="llms.txt">
@@ -25,11 +26,13 @@ h2{font-size:1.2rem;margin:2.2em 0 .6em;padding-top:1em;border-top:1px solid var
 p.lead{font-size:1.15rem;color:var(--mut)}a{color:var(--acc)}code,pre{background:var(--code);border-radius:6px;font:14px/1.5 ui-monospace,Consolas,monospace}
 code{padding:.1em .35em}pre{padding:14px;overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:15px}
 td,th{border-bottom:1px solid var(--line);padding:8px 6px;text-align:left;vertical-align:top}.badge{display:inline-block;font-size:13px;border:1px solid var(--line);border-radius:99px;padding:2px 10px;color:var(--mut)}
+a.skip{position:absolute;left:-999px;top:8px;background:var(--fg);color:var(--bg);padding:8px 12px;border-radius:6px}a.skip:focus{left:8px}
 footer{margin-top:56px;font-size:14px;color:var(--mut)}
 </style>
 </head>
 <body>
-<main>
+<a class="skip" href="#inhalt">Skip to content</a>
+<main id="inhalt">
 <span class="badge">Public beta · free</span>
 <h1>DutyKit</h1>
 <p class="lead">EU business duties for AI agents. Look up what a company must comply with in Germany, Luxembourg and the EU, with the legal source for every line, and pre-check an invoice, a marketing message or a voice call before your agent acts.</p>
