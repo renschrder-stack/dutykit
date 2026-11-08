@@ -52,7 +52,7 @@ Every check also returns a `nachweis` (timestamp, tool, responsible person, SHA-
 ```
 
 ## Catalogue
-`pflichten.json` lists for every entry the legal basis, the source URL, the check date and whether it was checked against the legal text (`belegt`) or not yet (`zu_pruefen`). Coverage today: DE, LU, EU (24 entries, most new ones still `zu_pruefen`, reviewed weekly). Next: FR, BE. Corrections and additions with a primary source are welcome as issues or pull requests.
+`pflichten.json` lists for every entry the legal basis, the source URL, the check date and whether it was checked against the legal text (`belegt`) or not yet (`zu_pruefen`). Coverage today: DE, LU, EU (23 of 26 entries checked against the legal text, the rest marked `zu_pruefen`, reviewed weekly). Next: FR, BE. Corrections and additions with a primary source are welcome as issues or pull requests.
 
 **Not legal advice.** DutyKit returns obligations, formats and checks against the cited texts, not advice on individual cases. Made with AI assistance.
 
