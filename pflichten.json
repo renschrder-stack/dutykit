@@ -25,6 +25,57 @@
       "quelle": "https://eur-lex.europa.eu/eli/dir/2000/31/oj",
       "pruefstand": "belegt",
       "geprueft": "2026-11-07"
+    },
+    {
+      "id": "eu-dsgvo-information",
+      "taetigkeiten": [
+        "website",
+        "online_handel",
+        "datenschutz"
+      ],
+      "pflicht": "Betroffene bei Erhebung personenbezogener Daten über Verantwortlichen, Zwecke, Rechtsgrundlage, Empfänger, Speicherdauer und Rechte informieren (Datenschutzerklärung).",
+      "grundlage": "Art. 13, 14 DSGVO (VO (EU) 2016/679)",
+      "quelle": "https://eur-lex.europa.eu/eli/reg/2016/679/oj",
+      "pruefstand": "zu_pruefen",
+      "geprueft": "2026-11-08",
+      "anmerkung": "Prüfen: Vollständige Liste Art. 13 Abs. 1–2. Aus dem Gedächtnis des Redaktionsagenten aufgenommen; noch nicht gegen den Gesetzestext geprüft."
+    },
+    {
+      "id": "eu-dsgvo-verzeichnis",
+      "taetigkeiten": [
+        "datenschutz"
+      ],
+      "pflicht": "Verzeichnis von Verarbeitungstätigkeiten führen; Ausnahme für kleine Betriebe greift nur eingeschränkt.",
+      "grundlage": "Art. 30 DSGVO (VO (EU) 2016/679)",
+      "quelle": "https://eur-lex.europa.eu/eli/reg/2016/679/oj",
+      "pruefstand": "zu_pruefen",
+      "geprueft": "2026-11-08",
+      "anmerkung": "Prüfen: Wortlaut der Ausnahme in Abs. 5 (weniger als 250 Beschäftigte, aber nicht bei regelmäßiger Verarbeitung). Aus dem Gedächtnis des Redaktionsagenten aufgenommen; noch nicht gegen den Gesetzestext geprüft."
+    },
+    {
+      "id": "eu-produktsicherheit",
+      "taetigkeiten": [
+        "produkte",
+        "online_handel"
+      ],
+      "pflicht": "Bei Produkten im Online-Angebot Hersteller, Produktkennzeichnung und Sicherheitshinweise angeben; für Drittlandware einen Verantwortlichen in der EU benennen.",
+      "grundlage": "VO (EU) 2023/988 (GPSR)",
+      "quelle": "https://eur-lex.europa.eu/eli/reg/2023/988/oj",
+      "pruefstand": "zu_pruefen",
+      "geprueft": "2026-11-08",
+      "anmerkung": "Prüfen: Anwendbar seit 13.12.2024; Angaben im Online-Angebot nach Art. 19. Aus dem Gedächtnis des Redaktionsagenten aufgenommen; noch nicht gegen den Gesetzestext geprüft."
+    },
+    {
+      "id": "eu-ki-kompetenz",
+      "taetigkeiten": [
+        "ki_kontakt"
+      ],
+      "pflicht": "Anbieter und Betreiber von KI-Systemen stellen ausreichende KI-Kompetenz ihres Personals sicher.",
+      "grundlage": "Art. 4 VO (EU) 2024/1689 (AI Act)",
+      "quelle": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
+      "pruefstand": "zu_pruefen",
+      "geprueft": "2026-11-08",
+      "anmerkung": "Prüfen: Geltung seit 02.02.2025; mögliche Änderungen durch das Digital-Omnibus-Paket der Kommission beobachten. Aus dem Gedächtnis des Redaktionsagenten aufgenommen; noch nicht gegen den Gesetzestext geprüft."
     }
   ],
   "DE": [
@@ -85,6 +136,105 @@
       "quelle": "https://www.gesetze-im-internet.de/uwg_2004/__7.html",
       "pruefstand": "belegt",
       "geprueft": "2026-11-07"
+    },
+    {
+      "id": "de-widerrufsbelehrung",
+      "taetigkeiten": [
+        "online_handel"
+      ],
+      "pflicht": "Verbraucher über das 14-tägige Widerrufsrecht informieren (Belehrung und Muster-Widerrufsformular), sonst verlängert sich die Frist.",
+      "grundlage": "§§ 312g, 355 BGB; Art. 246a EGBGB",
+      "quelle": "https://www.gesetze-im-internet.de/bgb/__355.html",
+      "pruefstand": "zu_pruefen",
+      "geprueft": "2026-11-08",
+      "anmerkung": "Prüfen: Ausnahmen § 312g Abs. 2 BGB, Fristverlängerung bei fehlender Belehrung. Aus dem Gedächtnis des Redaktionsagenten aufgenommen; noch nicht gegen den Gesetzestext geprüft."
+    },
+    {
+      "id": "de-bestellbutton",
+      "taetigkeiten": [
+        "online_handel"
+      ],
+      "pflicht": "Bestellbutton eindeutig beschriften (z. B. „zahlungspflichtig bestellen“) und Bestellübersicht unmittelbar davor anzeigen.",
+      "grundlage": "§ 312j BGB",
+      "quelle": "https://www.gesetze-im-internet.de/bgb/__312j.html",
+      "pruefstand": "zu_pruefen",
+      "geprueft": "2026-11-08",
+      "anmerkung": "Prüfen: Folgen eines Verstoßes (Vertrag kommt nicht zustande, Abs. 4). Aus dem Gedächtnis des Redaktionsagenten aufgenommen; noch nicht gegen den Gesetzestext geprüft."
+    },
+    {
+      "id": "de-preisangabe",
+      "taetigkeiten": [
+        "online_handel",
+        "werbung"
+      ],
+      "pflicht": "Gesamtpreise inkl. USt gegenüber Verbrauchern angeben, Grundpreis bei Mengenware, bei Preisermäßigung den niedrigsten Preis der letzten 30 Tage nennen.",
+      "grundlage": "§§ 3, 4, 11 PAngV",
+      "quelle": "https://www.gesetze-im-internet.de/pangv_2022/__3.html",
+      "pruefstand": "zu_pruefen",
+      "geprueft": "2026-11-08",
+      "anmerkung": "Prüfen: Paragrafenzuordnung (3 Gesamtpreis, 4 Grundpreis, 11 Preisermäßigung) und Ausnahmen. Aus dem Gedächtnis des Redaktionsagenten aufgenommen; noch nicht gegen den Gesetzestext geprüft."
+    },
+    {
+      "id": "de-cookie-einwilligung",
+      "taetigkeiten": [
+        "website",
+        "online_handel"
+      ],
+      "pflicht": "Zugriff auf Endgeräteinformationen (Cookies, Tracking) nur mit Einwilligung, außer technisch zwingend erforderlich.",
+      "grundlage": "§ 25 TDDDG",
+      "quelle": "https://www.gesetze-im-internet.de/tdddg/__25.html",
+      "pruefstand": "zu_pruefen",
+      "geprueft": "2026-11-08",
+      "anmerkung": "Prüfen: Wortlaut der Ausnahmen in Abs. 2; Zusammenspiel mit DSGVO. Aus dem Gedächtnis des Redaktionsagenten aufgenommen; noch nicht gegen den Gesetzestext geprüft."
+    },
+    {
+      "id": "de-aufbewahrung",
+      "taetigkeiten": [
+        "rechnung"
+      ],
+      "pflicht": "Rechnungen und Buchungsbelege 8 Jahre, Handels- und Geschäftsbriefe 6 Jahre aufbewahren.",
+      "grundlage": "§ 147 AO; § 14b UStG; § 257 HGB",
+      "quelle": "https://www.gesetze-im-internet.de/ao_1977/__147.html",
+      "pruefstand": "zu_pruefen",
+      "geprueft": "2026-11-08",
+      "anmerkung": "Prüfen: Fristen seit 01.01.2025 (Bürokratieentlastungsgesetz IV) und Beginn des Fristlaufs. Aus dem Gedächtnis des Redaktionsagenten aufgenommen; noch nicht gegen den Gesetzestext geprüft."
+    },
+    {
+      "id": "de-verpackungsregister",
+      "taetigkeiten": [
+        "online_handel"
+      ],
+      "pflicht": "Verpackungen, die beim Endkunden anfallen, vor dem Inverkehrbringen bei LUCID registrieren und Systembeteiligung nachweisen.",
+      "grundlage": "§§ 9, 7 VerpackG",
+      "quelle": "https://www.gesetze-im-internet.de/verpackg/__9.html",
+      "pruefstand": "zu_pruefen",
+      "geprueft": "2026-11-08",
+      "anmerkung": "Prüfen: Paragrafen (9 Registrierung, 7 Systembeteiligung) und Pflicht für Online-Marktplätze. Aus dem Gedächtnis des Redaktionsagenten aufgenommen; noch nicht gegen den Gesetzestext geprüft."
+    },
+    {
+      "id": "de-barrierefreiheit",
+      "taetigkeiten": [
+        "website",
+        "online_handel"
+      ],
+      "pflicht": "Online-Shops für Verbraucher müssen seit 28.06.2025 barrierefrei sein; Kleinstunternehmen sind für Dienstleistungen ausgenommen.",
+      "grundlage": "BFSG",
+      "quelle": "https://www.gesetze-im-internet.de/bfsg/",
+      "pruefstand": "zu_pruefen",
+      "geprueft": "2026-11-08",
+      "anmerkung": "Prüfen: Anwendungsbereich, Kleinstunternehmen-Ausnahme und Anforderungen (WCAG/EN 301 549). Aus dem Gedächtnis des Redaktionsagenten aufgenommen; noch nicht gegen den Gesetzestext geprüft."
+    },
+    {
+      "id": "de-gewerbeanmeldung",
+      "taetigkeiten": [
+        "gruendung"
+      ],
+      "pflicht": "Beginn eines Gewerbes bei der zuständigen Gemeinde anzeigen.",
+      "grundlage": "§ 14 GewO",
+      "quelle": "https://www.gesetze-im-internet.de/gewo/__14.html",
+      "pruefstand": "zu_pruefen",
+      "geprueft": "2026-11-08",
+      "anmerkung": "Prüfen: Freie Berufe sind nicht gewerbeanmeldepflichtig; Anmeldung beim Finanzamt separat. Aus dem Gedächtnis des Redaktionsagenten aufgenommen; noch nicht gegen den Gesetzestext geprüft."
     }
   ],
   "LU": [
