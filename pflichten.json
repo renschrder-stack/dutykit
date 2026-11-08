@@ -11,8 +11,8 @@
       "quelle": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
       "gilt_ab": "2026-08-02",
       "pruefstand": "belegt",
-      "geprueft": "2026-11-07",
-      "anmerkung": "Anwendung ab 02.08.2026 (Art. 113 VO 2024/1689); Digital Omnibus VO (EU) 2026/1744 vom 08.07.2026 verschiebt Art. 50 Abs. 1 nicht – nur Übergangsfrist für Art. 50 Abs. 2 (Altsysteme) bis 02.12.2026."
+      "geprueft": "2026-11-08",
+      "anmerkung": "Art. 50 Abs. 1 wurde durch die VO (EU) 2026/1744 nicht geändert (am 2026-11-08 im Änderungsakt gegengeprüft); die Übergangsfrist bis 02.12.2026 betrifft nur Art. 50 Abs. 2 für Systeme, die vor dem 02.08.2026 in Verkehr waren."
     },
     {
       "id": "eu-anbieterinfo",
@@ -37,7 +37,15 @@
       "grundlage": "Art. 13 DSGVO (VO (EU) 2016/679)",
       "quelle": "https://eur-lex.europa.eu/eli/reg/2016/679/oj",
       "pruefstand": "belegt",
-      "geprueft": "2026-11-08"
+      "geprueft": "2026-11-08",
+      "pruefquellen": [
+        {
+          "url": "https://eur-lex.europa.eu/legal-content/DE/TXT/HTML/?uri=CELEX:32016R0679",
+          "anker": "Artikel 13 Informationspflicht bei Erhebung",
+          "ende": "Artikel 14 Informationspflicht",
+          "sha256": "7c8adbc4d81f2ba00cf0e7d971ef7d490e6b7a05521d353d89730b0a783dbf0e"
+        }
+      ]
     },
     {
       "id": "eu-dsgvo-verzeichnis",
@@ -48,7 +56,15 @@
       "grundlage": "Art. 30 Abs. 1, 3, 5 DSGVO (VO (EU) 2016/679)",
       "quelle": "https://eur-lex.europa.eu/eli/reg/2016/679/oj",
       "pruefstand": "belegt",
-      "geprueft": "2026-11-08"
+      "geprueft": "2026-11-08",
+      "pruefquellen": [
+        {
+          "url": "https://eur-lex.europa.eu/legal-content/DE/TXT/HTML/?uri=CELEX:32016R0679",
+          "anker": "Artikel 30 Verzeichnis von Verarbeitungstätigkeiten",
+          "ende": "Artikel 31 ",
+          "sha256": "4923e007e2ad3e8fd6ca2d125148dd2907e312441223674e751a4a708788e5f0"
+        }
+      ]
     },
     {
       "id": "eu-produktsicherheit",
@@ -60,19 +76,35 @@
       "grundlage": "Art. 19 VO (EU) 2023/988 (GPSR)",
       "quelle": "https://eur-lex.europa.eu/eli/reg/2023/988/oj",
       "pruefstand": "belegt",
-      "geprueft": "2026-11-08"
+      "geprueft": "2026-11-08",
+      "pruefquellen": [
+        {
+          "url": "https://eur-lex.europa.eu/legal-content/DE/TXT/HTML/?uri=CELEX:32023R0988",
+          "anker": "Artikel 19 Pflichten der Wirtschaftsakteure im Hinblick auf den Fernabsatz",
+          "ende": "Artikel 20 Pflichten",
+          "sha256": "a7238fbba594d6bac71df8d9f7cc1a19c1e2b39b7768facb0536620f5f17d714"
+        }
+      ]
     },
     {
       "id": "eu-ki-kompetenz",
       "taetigkeiten": [
         "ki_kontakt"
       ],
-      "pflicht": "Anbieter und Betreiber von KI-Systemen ergreifen Maßnahmen, um nach besten Kräften ein ausreichendes Maß an KI-Kompetenz ihres Personals und der in ihrem Auftrag tätigen Personen sicherzustellen.",
-      "grundlage": "Art. 4 VO (EU) 2024/1689 (AI Act)",
-      "quelle": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
-      "pruefstand": "zu_pruefen",
+      "pflicht": "Anbieter und Betreiber von KI-Systemen ergreifen Maßnahmen, um die Entwicklung der KI-Kompetenz ihres Personals und anderer in ihrem Auftrag tätiger Personen zu unterstützen; ein bestimmtes Kompetenzniveau müssen sie nicht garantieren.",
+      "grundlage": "Art. 4 VO (EU) 2024/1689 i. d. F. VO (EU) 2026/1744",
+      "quelle": "https://eur-lex.europa.eu/eli/reg/2026/1744/oj",
+      "pruefstand": "belegt",
       "geprueft": "2026-11-08",
-      "anmerkung": "Wortlaut des Art. 4 (Fassung 2024) am 2026-11-08 abgerufen und bestätigt. Offen: ob Digital-Omnibus-Änderungen die Vorschrift inzwischen neu gefasst haben (konsolidierte Fassung prüfen)."
+      "anmerkung": "Gegenüber der Fassung von 2024 („sicherstellen“) abgeschwächt durch die VO (EU) 2026/1744 (Digital Omnibus on AI); Wortlaut der Änderung am 2026-11-08 im Rechtsakt abgerufen, Datum des Inkrafttretens nur aus Sekundärquellen (27.07.2026). Frühere Fassung dieses Eintrags war überholt.",
+      "pruefquellen": [
+        {
+          "url": "https://eur-lex.europa.eu/legal-content/DE/TXT/HTML/?uri=CELEX:32026R1744",
+          "anker": "Artikel 4 erhält folgende Fassung",
+          "laenge": 1200,
+          "sha256": "fff80683234fc3672976ca1b2d50dcec418aa1e1279b15047870e56dda8bbfab"
+        }
+      ]
     }
   ],
   "DE": [
@@ -86,7 +118,13 @@
       "grundlage": "§ 5 DDG",
       "quelle": "https://www.gesetze-im-internet.de/ddg/__5.html",
       "pruefstand": "belegt",
-      "geprueft": "2026-11-07"
+      "geprueft": "2026-11-07",
+      "pruefquellen": [
+        {
+          "url": "https://www.gesetze-im-internet.de/ddg/__5.html",
+          "sha256": "9079d8283022a1ff8627570572cb6a3889aa1dc456e543d13b195bef6445008f"
+        }
+      ]
     },
     {
       "id": "de-rechnung",
@@ -97,7 +135,13 @@
       "grundlage": "§ 14 Abs. 4 UStG",
       "quelle": "https://www.gesetze-im-internet.de/ustg_1980/__14.html",
       "pruefstand": "belegt",
-      "geprueft": "2026-11-07"
+      "geprueft": "2026-11-07",
+      "pruefquellen": [
+        {
+          "url": "https://www.gesetze-im-internet.de/ustg_1980/__14.html",
+          "sha256": "e4b0a72e33f7124953ae5d25d4929a3b0be8f609e9557388a858a403ce01d27d"
+        }
+      ]
     },
     {
       "id": "de-e-rechnung",
@@ -108,7 +152,13 @@
       "grundlage": "§ 14 Abs. 1 und 2 UStG, § 27 Abs. 38 UStG, §§ 33, 34a UStDV",
       "quelle": "https://www.gesetze-im-internet.de/ustg_1980/__27.html",
       "pruefstand": "belegt",
-      "geprueft": "2026-11-07"
+      "geprueft": "2026-11-07",
+      "pruefquellen": [
+        {
+          "url": "https://www.gesetze-im-internet.de/ustg_1980/__27.html",
+          "sha256": "a27ac7726526a87eb5b1066bcc12ef337376840ae8f2c988110b7484d3b1bd82"
+        }
+      ]
     },
     {
       "id": "de-kleinunternehmer",
@@ -120,7 +170,13 @@
       "grundlage": "§ 19 Abs. 1 UStG, § 34a UStDV",
       "quelle": "https://www.gesetze-im-internet.de/ustg_1980/__19.html",
       "pruefstand": "belegt",
-      "geprueft": "2026-11-07"
+      "geprueft": "2026-11-07",
+      "pruefquellen": [
+        {
+          "url": "https://www.gesetze-im-internet.de/ustg_1980/__19.html",
+          "sha256": "a3facddd16447a2247e0db08831f26e25c6e968fb689cb04853995820e2ee497"
+        }
+      ]
     },
     {
       "id": "de-werbung",
@@ -132,7 +188,13 @@
       "grundlage": "§ 7 Abs. 2 UWG",
       "quelle": "https://www.gesetze-im-internet.de/uwg_2004/__7.html",
       "pruefstand": "belegt",
-      "geprueft": "2026-11-07"
+      "geprueft": "2026-11-07",
+      "pruefquellen": [
+        {
+          "url": "https://www.gesetze-im-internet.de/uwg_2004/__7.html",
+          "sha256": "f5177895b1fef1d5ba0522a93157518b798a1977c7b82d62b2fc18eab52303b9"
+        }
+      ]
     },
     {
       "id": "de-widerrufsbelehrung",
@@ -143,7 +205,21 @@
       "grundlage": "§§ 312g Abs. 1–2, 355 Abs. 2 BGB; Art. 246a § 1 Abs. 2 EGBGB",
       "quelle": "https://www.gesetze-im-internet.de/bgbeg/art_246a__1.html",
       "pruefstand": "belegt",
-      "geprueft": "2026-11-08"
+      "geprueft": "2026-11-08",
+      "pruefquellen": [
+        {
+          "url": "https://www.gesetze-im-internet.de/bgbeg/art_246a__1.html",
+          "sha256": "0e2f95377c3e42b51aefc3fe838e65a7639b9cfcead0c5e542c7d24b59f5cabf"
+        },
+        {
+          "url": "https://www.gesetze-im-internet.de/bgb/__312g.html",
+          "sha256": "ef96513a716905eb6f34e0f75c89445313defb858675e7cae2a357bac1170b2c"
+        },
+        {
+          "url": "https://www.gesetze-im-internet.de/bgb/__355.html",
+          "sha256": "d6138262e311619841152117fae05005b38f682c8e3f3028283c08b1832b890c"
+        }
+      ]
     },
     {
       "id": "de-bestellbutton",
@@ -154,7 +230,13 @@
       "grundlage": "§ 312j Abs. 2–4 BGB",
       "quelle": "https://www.gesetze-im-internet.de/bgb/__312j.html",
       "pruefstand": "belegt",
-      "geprueft": "2026-11-08"
+      "geprueft": "2026-11-08",
+      "pruefquellen": [
+        {
+          "url": "https://www.gesetze-im-internet.de/bgb/__312j.html",
+          "sha256": "4636a11e10515a38b8f1398332337a0d7a8c460a2959c4fcd0bbbf676210e0f2"
+        }
+      ]
     },
     {
       "id": "de-preisangabe",
@@ -166,7 +248,25 @@
       "grundlage": "§§ 2 Nr. 3, 3, 4, 11 PAngV",
       "quelle": "https://www.gesetze-im-internet.de/pangv_2022/__3.html",
       "pruefstand": "belegt",
-      "geprueft": "2026-11-08"
+      "geprueft": "2026-11-08",
+      "pruefquellen": [
+        {
+          "url": "https://www.gesetze-im-internet.de/pangv_2022/__2.html",
+          "sha256": "369e0e337ce3e614f479e9f4578fe8020e32d3f59ab990e935b3ee22bee6644a"
+        },
+        {
+          "url": "https://www.gesetze-im-internet.de/pangv_2022/__3.html",
+          "sha256": "0968831003b694bc6483f2df5a216e2f92aaca4c76a1f9fa1e89d60b4e81168e"
+        },
+        {
+          "url": "https://www.gesetze-im-internet.de/pangv_2022/__4.html",
+          "sha256": "0676cede31eecb270176e24be8edea3f1b0e77058f95ef45bfe5f09ccda164f5"
+        },
+        {
+          "url": "https://www.gesetze-im-internet.de/pangv_2022/__11.html",
+          "sha256": "29b313d165a490bbb71c9a213f8d916b7080977e2d7b0a901c6176e5a9b2a825"
+        }
+      ]
     },
     {
       "id": "de-cookie-einwilligung",
@@ -178,7 +278,13 @@
       "grundlage": "§ 25 TDDDG",
       "quelle": "https://www.gesetze-im-internet.de/ttdsg/__25.html",
       "pruefstand": "belegt",
-      "geprueft": "2026-11-08"
+      "geprueft": "2026-11-08",
+      "pruefquellen": [
+        {
+          "url": "https://www.gesetze-im-internet.de/ttdsg/__25.html",
+          "sha256": "6ea84571f9433c8f9f187e7aa9738bad8fdd70c378cb4e89e9e3a7970637d471"
+        }
+      ]
     },
     {
       "id": "de-aufbewahrung",
@@ -189,19 +295,47 @@
       "grundlage": "§ 147 Abs. 3 AO; § 14b Abs. 1 UStG; § 257 Abs. 4 HGB",
       "quelle": "https://www.gesetze-im-internet.de/ao_1977/__147.html",
       "pruefstand": "belegt",
-      "geprueft": "2026-11-08"
+      "geprueft": "2026-11-08",
+      "pruefquellen": [
+        {
+          "url": "https://www.gesetze-im-internet.de/ao_1977/__147.html",
+          "sha256": "217a8eeb952983d735a6093961f567a6c7996717aa38c92f405e8b1d418c694e"
+        },
+        {
+          "url": "https://www.gesetze-im-internet.de/ustg_1980/__14b.html",
+          "sha256": "c6414463dfaaced076c7776ecbc95e35c50b8e148ff96f6f2b17dcfd084a5c0b"
+        },
+        {
+          "url": "https://www.gesetze-im-internet.de/hgb/__257.html",
+          "sha256": "f0d924c446e63b756c600006649ffbb0b6d505cf2fa7645620bc8196cefa141e"
+        }
+      ]
     },
     {
       "id": "de-verpackungsregister",
       "taetigkeiten": [
         "online_handel"
       ],
-      "pflicht": "Verpackungen, die beim Endkunden anfallen, vor dem Inverkehrbringen bei LUCID registrieren und Systembeteiligung nachweisen.",
-      "grundlage": "§§ 9, 7 VerpackG",
-      "quelle": "https://www.gesetze-im-internet.de/verpackg/__9.html",
-      "pruefstand": "zu_pruefen",
+      "pflicht": "Hersteller von Verpackungen müssen sich vor dem erstmaligen Bereitstellen bei der Zentralen Stelle Verpackungsregister registrieren lassen (§ 6 Abs. 1), systembeteiligungspflichtige Verpackungen vor der Bereitstellung an einem System beteiligen (§ 7 Abs. 1) und Datenmeldungen abgeben (§ 9).",
+      "grundlage": "§§ 6, 7, 9 VerpackDG (Durchführung der VO (EU) 2025/40)",
+      "quelle": "https://www.gesetze-im-internet.de/verpackdg/__6.html",
+      "pruefstand": "belegt",
       "geprueft": "2026-11-08",
-      "anmerkung": "Quelle liefert 404 (Paragrafen-URL falsch oder nicht erreichbar); korrekte URL und Wortlaut von §§ 7, 9 VerpackG noch zu finden. Aus dem Gedächtnis aufgenommen."
+      "anmerkung": "Das VerpackDG löst nach Sekundärquellen das Verpackungsgesetz zum 12.08.2026 ab; frühere Fassung dieses Eintrags nannte noch § 9 VerpackG (überholt, korrigiert am 2026-11-08).",
+      "pruefquellen": [
+        {
+          "url": "https://www.gesetze-im-internet.de/verpackdg/__6.html",
+          "sha256": "a175a79d4b56cc79b86147f9d2a5228f58617a0700d73626b0cb414bb1f47f40"
+        },
+        {
+          "url": "https://www.gesetze-im-internet.de/verpackdg/__7.html",
+          "sha256": "9aec6d59bdcc05458b9f9ad2540a6b805a45f4197089926f5dec34abc2d42c2c"
+        },
+        {
+          "url": "https://www.gesetze-im-internet.de/verpackdg/__9.html",
+          "sha256": "942394c51fccf2e21cc8468ea6aaec6ab98a7791bb59b88319d5938e7d993248"
+        }
+      ]
     },
     {
       "id": "de-barrierefreiheit",
@@ -213,7 +347,17 @@
       "grundlage": "§§ 1 Abs. 3, 3 Abs. 1, 3 BFSG",
       "quelle": "https://www.gesetze-im-internet.de/bfsg/__3.html",
       "pruefstand": "belegt",
-      "geprueft": "2026-11-08"
+      "geprueft": "2026-11-08",
+      "pruefquellen": [
+        {
+          "url": "https://www.gesetze-im-internet.de/bfsg/__1.html",
+          "sha256": "262b514cf8ab0b0a18839990c9bc85a735938c10a6d3346e82b684402f20a0a7"
+        },
+        {
+          "url": "https://www.gesetze-im-internet.de/bfsg/__3.html",
+          "sha256": "db24dec8d577711c5b3419bc47220a8e5b2950dadae5c6a8a0e179ca8e9cb069"
+        }
+      ]
     },
     {
       "id": "de-gewerbeanmeldung",
@@ -224,7 +368,13 @@
       "grundlage": "§ 14 GewO",
       "quelle": "https://www.gesetze-im-internet.de/gewo/__14.html",
       "pruefstand": "belegt",
-      "geprueft": "2026-11-08"
+      "geprueft": "2026-11-08",
+      "pruefquellen": [
+        {
+          "url": "https://www.gesetze-im-internet.de/gewo/__14.html",
+          "sha256": "a0039e2007cea98f3e64c21586af33dbd2ca7efc1ca464963a611fb235462c8a"
+        }
+      ]
     },
     {
       "id": "de-widerrufsfunktion",
@@ -235,7 +385,13 @@
       "grundlage": "§ 356a BGB",
       "quelle": "https://www.gesetze-im-internet.de/bgb/__356a.html",
       "pruefstand": "belegt",
-      "geprueft": "2026-11-08"
+      "geprueft": "2026-11-08",
+      "pruefquellen": [
+        {
+          "url": "https://www.gesetze-im-internet.de/bgb/__356a.html",
+          "sha256": "72fa351443bf3260a16d0da8c9a9ffd215c16bda346dac808fba54fef7921d62"
+        }
+      ]
     }
   ],
   "LU": [
@@ -279,5 +435,11 @@
       "geprueft": "2026-11-07",
       "anmerkung": "Gesetz existiert (Loi 14.08.2000, Umsetzung RL 2000/31); konkreter Artikel zu Anbieterangaben nicht gefunden; DSA-Anpassung (Dossier 5095) läuft. Bis zur Prüfung gilt EU-Eintrag eu-anbieterinfo. Legilux-Seite ist ohne Browser nicht lesbar (nur Gerüst); Prüfung braucht ein anderes Abrufverfahren."
     }
-  ]
+  ],
+  "_pruefung": {
+    "zuletzt_abgeglichen": "2026-11-08",
+    "quellen_unveraendert": 28,
+    "abweichungen": 0,
+    "nicht_pruefbar": 0
+  }
 }

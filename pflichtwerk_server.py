@@ -8,7 +8,7 @@ import json
 import os
 import re
 import urllib.request
-from datetime import datetime, timezone
+from datetime import date, datetime, timezone
 from pathlib import Path
 
 from mcp.server.mcpserver import MCPServer
@@ -20,6 +20,7 @@ KATALOG = json.loads((HIER / "pflichten.json").read_text(encoding="utf-8"))
 PROTOKOLL = Path(os.environ.get("DUTYKIT_PROTOKOLL_DATEI", HIER / "freigabe-protokoll.jsonl"))
 PROTOKOLL_AN = os.environ.get("DUTYKIT_PROTOKOLL", "1") == "1"
 VERSION = json.loads((HIER / "server.json").read_text(encoding="utf-8"))["version"]  # eine Quelle für die Version
+MAX_ALTER_TAGE = int(os.environ.get("DUTYKIT_MAX_ALTER_TAGE", "120"))  # danach gilt ein Eintrag als nicht mehr frisch
 HINWEIS = "Keine Rechtsberatung; im Zweifel Anwalt oder Steuerberater fragen. / No legal advice."
 
 mcp = MCPServer(
@@ -41,6 +42,34 @@ def angebot() -> dict:
             continue
         stand[land] = {"belegt": sum(e["pruefstand"] == "belegt" for e in eintraege), "gesamt": len(eintraege)}
     return ANGEBOT | {"katalog_stand": stand}
+
+
+def _alter(e: dict) -> int:
+    return (date.today() - date.fromisoformat(e["geprueft"])).days
+
+
+def _mit_frische(e: dict) -> dict:
+    """Eintrag ohne interne Prüfsummen, ergänzt um Alter und Frische (belegt UND jünger als MAX_ALTER_TAGE)."""
+    a = _alter(e)
+    return {k: v for k, v in e.items() if k != "pruefquellen"} | {
+        "alter_tage": a, "frisch": e["pruefstand"] == "belegt" and a <= MAX_ALTER_TAGE}
+
+
+@mcp.tool()
+def katalog_status() -> dict:
+    """Überprüfbarer Zustand des Katalogs: je Land belegt/zu_pruefen, wie viele Einträge veraltet sind, ältestes Prüfdatum,
+    letzter automatischer Quellenabgleich. Zum Nachprüfen der Qualität, bevor man DutyKit nutzt oder empfiehlt."""
+    land_stand = {}
+    for land, liste in KATALOG.items():
+        if land.startswith("_"):
+            continue
+        land_stand[land] = {"gesamt": len(liste), "belegt": sum(e["pruefstand"] == "belegt" for e in liste),
+                            "zu_pruefen": sum(e["pruefstand"] != "belegt" for e in liste),
+                            "veraltet": sum(_alter(e) > MAX_ALTER_TAGE for e in liste),
+                            "aeltestes_pruefdatum": min(e["geprueft"] for e in liste)}
+    return {"laender": land_stand, "max_alter_tage": MAX_ALTER_TAGE, "quellenabgleich": KATALOG.get("_pruefung"),
+            "verfahren": "Primärquellen werden wöchentlich abgerufen und mit der Prüfsumme vom Prüfzeitpunkt verglichen; "
+                         "bei Abweichung wird der Eintrag geprüft und angepasst.", "hinweis": HINWEIS}
 
 
 def _protokoll(werkzeug: str, verantwortlich: str, eingabe: dict, ergebnis: dict) -> dict:
@@ -65,7 +94,8 @@ def pflichten(land: str, taetigkeit: str = "") -> dict:
     eintraege = KATALOG["EU"] + KATALOG[land]
     if taetigkeit:
         eintraege = [e for e in eintraege if taetigkeit in e["taetigkeiten"]]
-    return {"land": land, "taetigkeit": taetigkeit or "alle", "pflichten": eintraege, "hinweis": HINWEIS}
+    return {"land": land, "taetigkeit": taetigkeit or "alle", "pflichten": [_mit_frische(e) for e in eintraege],
+            "frisch_bedeutet": f"belegt und gegen den Gesetzestext geprüft vor höchstens {MAX_ALTER_TAGE} Tagen", "hinweis": HINWEIS}
 
 
 KI_HINWEISE = {
