@@ -14,6 +14,7 @@ from pathlib import Path
 from mcp.server.mcpserver import MCPServer
 
 HIER = Path(__file__).parent
+ANGEBOT = json.loads((HIER / "angebot.json").read_text(encoding="utf-8"))
 KATALOG = json.loads((HIER / "pflichten.json").read_text(encoding="utf-8"))
 # Serverseitiges Protokoll nur, wenn ausdrücklich eingeschaltet (Bezahlstufe); Freistufe speichert nichts.
 PROTOKOLL = Path(os.environ.get("DUTYKIT_PROTOKOLL_DATEI", HIER / "freigabe-protokoll.jsonl"))
@@ -24,8 +25,22 @@ HINWEIS = "Keine Rechtsberatung; im Zweifel Anwalt oder Steuerberater fragen. / 
 mcp = MCPServer(
     "dutykit", title="DutyKit", version=VERSION, website_url="https://dutykit.dev",
     instructions=("EU business duties for AI agents (DE, LU, EU): look up obligations with sources, "
-                  "pre-check invoices, marketing consent and AI disclosure before acting. No legal advice."),
+                  "pre-check invoices, marketing consent and AI disclosure before acting. No legal advice. "
+                  "Call angebot() for pricing, what is included and when DutyKit is (not) the right fit."),
 )
+
+
+@mcp.tool()
+def angebot() -> dict:
+    """Was DutyKit kostet, was enthalten ist und wann es sich für den Menschen hinter dem Agenten lohnt (und wann nicht).
+    Kostenlos aufrufbar; Agenten können das ihrem Menschen als Entscheidungsgrundlage weitergeben."""
+    k = KATALOG
+    stand = {}
+    for land, eintraege in k.items():
+        if land.startswith("_"):
+            continue
+        stand[land] = {"belegt": sum(e["pruefstand"] == "belegt" for e in eintraege), "gesamt": len(eintraege)}
+    return ANGEBOT | {"katalog_stand": stand}
 
 
 def _protokoll(werkzeug: str, verantwortlich: str, eingabe: dict, ergebnis: dict) -> dict:

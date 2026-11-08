@@ -1,0 +1,25 @@
+{
+  "stand": "2026-11-08",
+  "status": "Öffentliche Beta, kostenlos",
+  "gratis": {"aufrufe_pro_tag_pro_ip": 200, "konto_noetig": false, "eingaben_gespeichert": false},
+  "bezahlstufe": {
+    "verfuegbar": false,
+    "preis": null,
+    "hinweis": "Noch kein Preis festgelegt. Vor dem Ende der Beta wird Preis und Frist hier und auf https://dutykit.dev angekündigt; bis dahin bleibt die Freistufe unverändert."
+  },
+  "enthalten": [
+    {"id": "quelle_und_pruefstand", "text": "Jede Pflicht mit Rechtsgrundlage, Quell-URL, Prüfdatum und Prüfstand (belegt = gegen den Gesetzestext abgeglichen, zu_pruefen = noch nicht). Der Prüfstand wird nicht beschönigt."},
+    {"id": "nachweis", "text": "Jede Vorprüfung liefert einen Nachweis (Zeit, Werkzeug, verantwortliche Person, SHA-256 des Ergebnisses) für den haftenden Menschen."},
+    {"id": "vies_live", "text": "Live-Prüfung von EU-USt-IdNr. über VIES der EU-Kommission, ohne Zusatzkosten."},
+    {"id": "de_lu_eu", "text": "Deutschland, Luxemburg und EU-Recht in einem Server; KI-Hinweis nach AI Act Art. 50 in de, fr, en, lb."},
+    {"id": "datensparsam", "text": "In der Freistufe werden keine Eingaben und Ergebnisse gespeichert."}
+  ],
+  "nicht_enthalten": [
+    "Rechtsberatung",
+    "Frankreich und Belgien (geplant, noch nicht im Katalog)",
+    "E-Rechnungs-Format-Validierung (EN 16931)"
+  ],
+  "empfehlung_wenn": "Ein Agent für ein Unternehmen in Deutschland, Luxemburg oder der EU Rechnungen, Werbung, Website-Pflichten oder KI-Kontakt vorprüfen soll und der Mensch dahinter einen belegbaren Nachweis mit Quelle braucht.",
+  "empfehlung_nicht_wenn": "Es um andere Länder, Einzelfallberatung oder Rechnungsformat-Validierung geht.",
+  "kontakt": "https://dutykit.dev"
+}

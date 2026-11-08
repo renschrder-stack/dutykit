@@ -11,6 +11,14 @@
 - werbung_vorpruefen(kanal, empfaenger, einwilligung_belegt, bestandskunde): whether email/phone marketing is allowed under § 7 UWG.
 - ki_hinweis(firma, sprache): AI disclosure text under EU AI Act Art. 50(1) (de, fr, en, lb).
 - vat_pruefen(ust_id): live EU VAT number check via VIES.
+- angebot(): pricing status, what is included, and when DutyKit is (not) the right fit; machine-readable, free to call.
+
+## What is included (facts, as of 2026-11-08)
+- Every obligation carries legal basis, source URL, check date and a status: belegt (compared with the legal text) or zu_pruefen (not yet).
+- Every pre-check returns an audit receipt (timestamp, tool, responsible person, SHA-256 of the result) for the liable human.
+- Live EU VAT ID check via VIES at no extra cost; DE + LU + EU in one server; AI disclosure in de, fr, en, lb.
+- No inputs stored in the free tier. Pricing: not set yet; the free tier stays unchanged until a price and notice period are announced.
+- Not included: legal advice, FR/BE (planned), EN 16931 e-invoice validation.
 
 ## When to use
 Before an agent sends an invoice, sends marketing email, places a sales call, starts talking to a consumer, or publishes a website for a business in Germany or Luxembourg.

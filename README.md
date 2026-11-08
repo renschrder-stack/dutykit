@@ -30,6 +30,7 @@ Any MCP client (JSON config):
 | `werbung_vorpruefen(kanal, empfaenger, einwilligung_belegt, bestandskunde)` | May the agent send this marketing email or make this call? (§ 7 UWG) |
 | `ki_hinweis(firma, sprache)` | AI disclosure wording under AI Act Art. 50(1) in `de`, `fr`, `en`, `lb` |
 | `vat_pruefen(ust_id)` | Live EU VAT ID check via the European Commission's VIES service |
+| `angebot()` | Pricing status, what is included, and when DutyKit is (not) the right fit |
 
 Every check also returns a `nachweis` (timestamp, tool, responsible person, SHA-256 of the result) for the human who is liable.
 
