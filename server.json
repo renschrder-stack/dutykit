@@ -1,13 +1,13 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
-  "name": "io.github.r08150816s-star/dutykit",
+  "name": "io.github.renschrder-stack/dutykit",
   "title": "DutyKit",
   "description": "EU business duties for AI agents: legal obligations with sources and pre-checks (DE, LU, EU)",
   "repository": {
-    "url": "https://github.com/r08150816s-star/dutykit",
+    "url": "https://github.com/renschrder-stack/dutykit",
     "source": "github"
   },
-  "version": "0.1.0",
+  "version": "0.1.1",
   "remotes": [
     {
       "type": "streamable-http",

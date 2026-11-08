@@ -21,6 +21,6 @@ Before an agent sends an invoice, sends marketing email, places a sales call, st
 - https://dutykit.dev/blog/ai-agent-marketing-email-consent-germany.html: marketing consent for email/phone (Germany)
 
 ## Docs
-- https://github.com/r08150816s-star/dutykit
+- https://github.com/renschrder-stack/dutykit
 - https://dutykit.dev/
 - https://dutykit.dev/impressum.html

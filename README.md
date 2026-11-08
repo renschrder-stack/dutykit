@@ -1,6 +1,6 @@
 # DutyKit
 
-[![MCP Registry](https://img.shields.io/badge/MCP%20Registry-io.github.r08150816s--star%2Fdutykit-1f5f4a)](https://registry.modelcontextprotocol.io/v0/servers?search=dutykit)
+[![MCP Registry](https://img.shields.io/badge/MCP%20Registry-io.github.renschrder--stack%2Fdutykit-1f5f4a)](https://registry.modelcontextprotocol.io/v0/servers?search=dutykit)
 [![License: MIT](https://img.shields.io/badge/code-MIT-blue)](LICENSE)
 [![Catalogue: CC BY 4.0](https://img.shields.io/badge/catalogue-CC%20BY%204.0-lightgrey)](https://creativecommons.org/licenses/by/4.0/)
 
