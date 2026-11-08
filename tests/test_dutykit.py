@@ -142,3 +142,12 @@ def test_docker_image_enthaelt_alle_dateien_die_der_server_beim_start_liest():
         r = subprocess.run([sys.executable, "-c", "import app"], cwd=t, capture_output=True, text=True,
                            env={**__import__("os").environ, "PYTHONPATH": ""})
         assert r.returncode == 0, r.stderr[-500:]
+
+
+def test_nutzungsstatistik_zusammenfassung(tmp_path):
+    import app as a
+    f = tmp_path / "st.json"
+    f.write_text(json.dumps({"2026-11-01": {"pflichten": 3}, "2026-11-02": {"pflichten": 2, "vat_pruefen": 1}}))
+    z = a.statistik_zusammenfassung(1, str(f))
+    assert z["summe"] == {"pflichten": 2, "vat_pruefen": 1} and z["gesamt"] == 3 and "ip" not in json.dumps(z).lower()
+    assert a.statistik_zusammenfassung(30, str(tmp_path / "gibt-es-nicht.json"))["gesamt"] == 0
