@@ -144,10 +144,22 @@ def test_docker_image_enthaelt_alle_dateien_die_der_server_beim_start_liest():
         assert r.returncode == 0, r.stderr[-500:]
 
 
-def test_nutzungsstatistik_zusammenfassung(tmp_path):
+def test_nutzungsstatistik_wochenvergleich_ohne_sonden(tmp_path):
     import app as a
     f = tmp_path / "st.json"
-    f.write_text(json.dumps({"2026-11-01": {"pflichten": 3}, "2026-11-02": {"pflichten": 2, "vat_pruefen": 1}}))
-    z = a.statistik_zusammenfassung(1, str(f))
-    assert z["summe"] == {"pflichten": 2, "vat_pruefen": 1} and z["gesamt"] == 3 and "ip" not in json.dumps(z).lower()
-    assert a.statistik_zusammenfassung(30, str(tmp_path / "gibt-es-nicht.json"))["gesamt"] == 0
+    f.write_text(json.dumps({
+        "2026-11-02": {"pflichten": 4},                                   # Vorwoche (28.10.-03.11.)
+        "2026-11-09": {"pflichten": 6, "__verifymcp_auth_probe_x__": 3},  # aktuelle Woche (04.-10.11.)
+        "2026-11-10": {"vat_pruefen": 2}}))
+    z = a.statistik_zusammenfassung("2026-11-10", str(f))
+    assert z["woche_aktuell"]["aufrufe"] == 8 and z["woche_aktuell"]["pruefsonden"] == 3
+    assert z["woche_vorher"]["aufrufe"] == 4 and z["veraenderung_prozent"] == 100
+    assert "ip" not in json.dumps(z).lower().replace("pruefsonden", "")
+    leer = a.statistik_zusammenfassung("2026-11-10", str(tmp_path / "gibt-es-nicht.json"))
+    assert leer["woche_aktuell"]["aufrufe"] == 0 and leer["veraenderung_prozent"] is None
+
+
+def test_eigene_pruefung_wird_erkannt():
+    import app as a
+    assert a._eigene_pruefung({"headers": [(b"user-agent", b"DutyKit-Pruefagent/1.0")]})
+    assert not a._eigene_pruefung({"headers": [(b"user-agent", b"curl/8")]})

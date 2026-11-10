@@ -54,20 +54,46 @@ def _statistik(body: bytes) -> None:
         pass  # Statistik darf den Dienst nie stören
 
 
-def statistik_zusammenfassung(tage: int = 30, datei: str | None = None) -> dict:
-    """Anonyme Nutzungszahlen (nur Zähler je Tag und Werkzeug, keine IP, keine Eingaben) der letzten Tage."""
+def _ist_sonde(werkzeug: str) -> bool:
+    """Automatische Prüfdienste (z. B. Verzeichnisse) rufen Werkzeuge mit Namen wie __verifymcp_auth_probe_… auf."""
+    return werkzeug.startswith("__")
+
+
+def _eigene_pruefung(scope) -> bool:
+    """Eigene Prüfläufe (Prüfagent) kennzeichnen sich per User-Agent und zählen nicht in die Nutzungsstatistik."""
+    for k, v in scope.get("headers", []):
+        if k == b"user-agent" and b"dutykit-pruefagent" in v.lower():
+            return True
+    return False
+
+
+def statistik_zusammenfassung(heute: str | None = None, datei: str | None = None) -> dict:
+    """Anonyme Nutzung: letzte 7 Tage gegen die 7 Tage davor, Prüfsonden getrennt (keine IP, keine Eingaben)."""
+    from datetime import date, timedelta
     try:
         with open(datei or STATISTIK, encoding="utf-8") as f:
             daten = json.load(f)
     except Exception:
         daten = {}
-    letzte = dict(sorted(daten.items())[-tage:])
-    summe: dict[str, int] = {}
-    for tag in letzte.values():
-        for werkzeug, n in tag.items():
-            summe[werkzeug] = summe.get(werkzeug, 0) + n
-    return {"tage": letzte, "summe": summe, "gesamt": sum(summe.values()), "zeitraum_tage": tage,
-            "hinweis": "Zählt Werkzeugaufrufe, keine Nutzer. Eigene Prüfungen (Prüfagent, Tests) sind enthalten."}
+    tag0 = date.fromisoformat(heute) if heute else date.today()
+
+    def woche(ende_offset: int) -> dict:
+        tage = [(tag0 - timedelta(days=ende_offset + i)).isoformat() for i in range(7)]
+        je: dict[str, int] = {}
+        sonden = 0
+        for t in tage:
+            for werkzeug, n in daten.get(t, {}).items():
+                if _ist_sonde(werkzeug):
+                    sonden += n
+                else:
+                    je[werkzeug] = je.get(werkzeug, 0) + n
+        return {"von": tage[-1], "bis": tage[0], "aufrufe": sum(je.values()), "je_werkzeug": je, "pruefsonden": sonden}
+
+    jetzt, vorher = woche(0), woche(7)
+    ver = None if vorher["aufrufe"] == 0 else round((jetzt["aufrufe"] - vorher["aufrufe"]) * 100 / vorher["aufrufe"])
+    return {"woche_aktuell": jetzt, "woche_vorher": vorher, "veraenderung_prozent": ver,
+            "hinweis": "Zählt Werkzeugaufrufe, keine Nutzer. Automatische Prüfsonden sind getrennt ausgewiesen, Prüfläufe "
+                       "des Prüfagenten (User-Agent DutyKit-Pruefagent) werden nicht gezählt. Alle Zeiten UTC."}
 
 
 def _client_ip(scope) -> str:
@@ -89,7 +115,7 @@ async def app(scope, receive, send):
         return await _mcp_app(scope, receive, send)
     if scope["type"] == "http" and scope["path"] == "/health":
         return await _antwort(send, 200, {"ok": True, "billing": billing.AKTIV,
-                                           "nutzung_7_tage": statistik_zusammenfassung(7)})
+                                           "nutzung": statistik_zusammenfassung()})
     if scope["type"] == "http" and scope["path"].startswith("/mcp") and scope["method"] == "POST":
         # Body puffern: nur echte Werkzeugaufrufe (tools/call) zählen, nicht Handshake/Listen.
         teile, mehr = [], True
@@ -110,7 +136,8 @@ async def app(scope, receive, send):
 
         if b'"tools/call"' not in body:
             return await _mcp_app(scope, receive, send)
-        _statistik(body)
+        if not _eigene_pruefung(scope):
+            _statistik(body)
         if billing.AKTIV:
             schluessel = billing.schluessel_aus_headern(scope.get("headers", []))
             if schluessel:
