@@ -1,0 +1,6 @@
+__pycache__/
+*.egg-info/
+.venv/
+tools/*
+!tools/LIESMICH.md
+sicherheitscheck-bericht/
