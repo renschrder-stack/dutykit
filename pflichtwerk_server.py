@@ -33,8 +33,15 @@ mcp = MCPServer(
 
 @mcp.tool()
 def angebot() -> dict:
-    """Was DutyKit kostet, was enthalten ist und wann es sich für den Menschen hinter dem Agenten lohnt (und wann nicht).
-    Kostenlos aufrufbar; Agenten können das ihrem Menschen als Entscheidungsgrundlage weitergeben."""
+    """Return DutyKit's pricing status, what is included and when it is (not) the right tool.
+
+Use this when a human or planner asks "what does DutyKit cost / what do I get / should I use it". Free, no arguments,
+no side effects. Do not use it to look up legal obligations (use `pflichten`).
+
+Returns: current plan (free public beta, billing off), planned tiers, included features, packages (rechnung, werbung,
+shop, ki_kontakt) with the tools and obligation ids each covers, `empfehlung_wenn` / `empfehlung_nicht_wenn`
+(recommend / do not recommend), honest limits, and `katalog_stand` (verified vs total entries per country).
+Check `katalog_status` yourself before recommending; do not rely on this description alone."""
     k = KATALOG
     stand = {}
     for land, eintraege in k.items():
@@ -57,8 +64,14 @@ def _mit_frische(e: dict) -> dict:
 
 @mcp.tool()
 def katalog_status() -> dict:
-    """Überprüfbarer Zustand des Katalogs: je Land belegt/zu_pruefen, wie viele Einträge veraltet sind, ältestes Prüfdatum,
-    letzter automatischer Quellenabgleich. Zum Nachprüfen der Qualität, bevor man DutyKit nutzt oder empfiehlt."""
+    """Return the verifiable state of the obligation catalogue so you can judge its quality before relying on it.
+
+Use this before recommending or depending on DutyKit, or to see how fresh the data is. Free, no arguments, read-only.
+For the obligations themselves use `pflichten`.
+
+Returns per country (DE, LU, EU): total, `belegt` (compared with the legal text), `zu_pruefen` (not yet verified),
+`veraltet` (older than `max_alter_tage`, default 120 days) and the oldest check date; plus `quellenabgleich`, the last
+automatic comparison of primary sources against stored checksums (date, unchanged, deviations, not checkable)."""
     land_stand = {}
     for land, liste in KATALOG.items():
         if land.startswith("_"):
@@ -86,8 +99,22 @@ def _protokoll(werkzeug: str, verantwortlich: str, eingabe: dict, ergebnis: dict
 
 @mcp.tool()
 def pflichten(land: str, taetigkeit: str = "") -> dict:
-    """Pflichten für ein Land (DE, LU) inkl. EU-weiter Pflichten. taetigkeit z. B. website, online_handel,
-    rechnung, werbung, ki_kontakt, gruendung, datenschutz, produkte – leer = alle."""
+    """Look up the legal obligations that apply to a business in Germany or Luxembourg, plus EU-wide ones.
+
+Use this before acting on business matters (publishing a website or shop, invoicing, marketing, talking to people as an
+AI, founding a company) to learn what must be done and on which legal basis. Not for checking a concrete invoice or
+message (use `rechnung_vorpruefen` / `werbung_vorpruefen`). Read-only, no side effects, nothing stored.
+
+Args:
+    land: ISO country code, `DE` or `LU` (case-insensitive). EU-wide entries are always included. Other codes return
+        an error listing the available countries.
+    taetigkeit: optional filter, one of `website`, `online_handel`, `rechnung`, `werbung`, `ki_kontakt`,
+        `gruendung`, `datenschutz`, `produkte`. Empty string means all activities.
+
+Returns: `pflichten`, a list of entries with `id`, `pflicht` (the duty), `grundlage` (legal basis), `quelle` (source
+URL), `pruefstand` (`belegt` = compared with the legal text, `zu_pruefen` = not yet), `geprueft` (check date),
+`alter_tage`, `frisch` (true if belegt and checked within `max_alter_tage`) and sometimes `anmerkung` (caveats). Treat
+`zu_pruefen` entries as unverified. Not legal advice."""
     land = land.upper()
     if land not in KATALOG:
         return {"fehler": f"Land {land} noch nicht im Katalog", "verfuegbar": [k for k in KATALOG if not k.startswith("_")]}
@@ -108,7 +135,17 @@ KI_HINWEISE = {
 
 @mcp.tool()
 def ki_hinweis(firma: str, sprache: str = "de") -> dict:
-    """Formulierungsvorschlag für den KI-Hinweis nach AI Act Art. 50 Abs. 1 (de, fr, en, lb)."""
+    """Get ready-to-use wording that discloses to a person that they are talking to an AI (AI Act Art. 50(1)).
+
+Use this at the start of chat, voice or e-mail conversations an AI agent conducts on behalf of a company. It only
+returns text; it does not send anything. Not a check of an existing message.
+
+Args:
+    firma: company name inserted into the sentence (for example `Muster S.à r.l.`).
+    sprache: `de`, `fr`, `en` or `lb` (case-insensitive). Other values return an error listing the available languages.
+
+Returns: `text` (the disclosure sentence), `grundlage`, `pruefstand` (wording is a suggestion; the Luxembourgish
+version is not reviewed by a native speaker) and `hinweis`. Not legal advice."""
     text = KI_HINWEISE.get(sprache.lower())
     if not text:
         return {"fehler": "Sprache nicht verfügbar", "verfuegbar": list(KI_HINWEISE)}
@@ -118,7 +155,18 @@ def ki_hinweis(firma: str, sprache: str = "de") -> dict:
 
 @mcp.tool()
 def vat_pruefen(ust_id: str, verantwortlich: str = "") -> dict:
-    """Prüft eine EU-USt-IdNr. (z. B. LU26375245) live über die VIES-Schnittstelle der EU-Kommission."""
+    """Check live whether an EU VAT ID is valid, using the European Commission's VIES service.
+
+Use this before issuing a B2B invoice without VAT (reverse charge) or onboarding a business partner. Needs the network
+and VIES availability; on failure it returns an `fehler` field instead of guessing. Only checks existence, not whether
+the company is the one you intend to deal with.
+
+Args:
+    ust_id: VAT ID with country prefix, spaces allowed, for example `LU26375245` or `DE 123456789`.
+    verantwortlich: optional name of the responsible human, written into the audit receipt.
+
+Returns: `gueltig` (true/false/null), registered `name` and `anschrift` if VIES provides them, `abfragezeit`,
+`quelle` and `nachweis` (audit receipt: time, tool, responsible person, SHA-256 of the result)."""
     m = re.fullmatch(r"([A-Z]{2})([0-9A-Z+*]{2,12})", ust_id.replace(" ", "").upper())
     if not m:
         return {"fehler": "Format: Ländercode + Nummer, z. B. LU26375245"}
@@ -145,8 +193,22 @@ DE_RECHNUNGSFELDER = {
 
 @mcp.tool()
 def rechnung_vorpruefen(rechnung: dict, land: str = "DE", verantwortlich: str = "") -> dict:
-    """Vorprüfung einer Rechnung auf Pflichtangaben (derzeit DE, § 14 Abs. 4 UStG).
-    Erwartet Felder wie aussteller_name, rechnungsnummer, netto, steuersatz ODER steuerbefreiung_hinweis."""
+    """Pre-check a German invoice for missing mandatory fields under § 14 (4) UStG before it is sent.
+
+Use this right before issuing or approving an invoice (country DE only). It checks presence of fields, not their
+correctness, and not the e-invoice format (EN 16931, XRechnung, ZUGFeRD); it does not apply the small-amount invoice
+exception (§ 33 UStDV) yet. Nothing is stored in the free tier.
+
+Args:
+    rechnung: object with these keys (strings unless noted): `aussteller_name`, `aussteller_anschrift`,
+        `empfaenger_name`, `empfaenger_anschrift`, `steuernummer_oder_ustid`, `datum`, `rechnungsnummer`, `leistung`,
+        `leistungszeitpunkt`, `netto` (number), and either `steuersatz` (number, percent) together with `steuerbetrag`
+        (number) or `steuerbefreiung_hinweis` (text, for example `§ 19 UStG`).
+    land: only `DE` is supported; others return an error.
+    verantwortlich: optional name of the responsible human, written into the audit receipt.
+
+Returns: `bestanden` (true only if nothing is missing), `fehlende_angaben` (list of missing fields in words),
+`grundlage`, `quelle`, `nicht_geprueft` (what this check does not cover) and `nachweis` (audit receipt)."""
     if land.upper() != "DE":
         return {"fehler": "Rechnungsprüfung bisher nur für DE"}
     fehlt = [text for feld, text in DE_RECHNUNGSFELDER.items() if not str(rechnung.get(feld, "")).strip()]
@@ -165,7 +227,20 @@ def rechnung_vorpruefen(rechnung: dict, land: str = "DE", verantwortlich: str = 
 @mcp.tool()
 def werbung_vorpruefen(kanal: str, empfaenger: str, einwilligung_belegt: bool, bestandskunde: bool = False,
                        verantwortlich: str = "") -> dict:
-    """Darf ein Agent diese Werbung senden? kanal: email | telefon; empfaenger: verbraucher | unternehmen (DE, § 7 UWG)."""
+    """Check whether an AI agent may send a marketing e-mail or make a marketing call under German law (§ 7 UWG).
+
+Use this before every outbound marketing message or call. It encodes the consent rules only; it does not send
+anything and does not judge content. Germany only.
+
+Args:
+    kanal: `email` or `telefon`.
+    empfaenger: `verbraucher` (consumer) or `unternehmen` (business).
+    einwilligung_belegt: true only if an express, provable consent exists.
+    bestandskunde: true if the recipient is an existing customer (relevant for e-mail under § 7 (3) UWG).
+    verantwortlich: optional name of the responsible human, written into the audit receipt.
+
+Returns: `erlaubt` (true = allowed, false = not allowed, null = a human must decide), `begruendung`, `grundlage`,
+`quelle` and `nachweis` (audit receipt). If `erlaubt` is null or false, do not send."""
     kanal, empfaenger = kanal.lower(), empfaenger.lower()
     if einwilligung_belegt:
         erlaubt, grund = True, "Ausdrückliche Einwilligung belegt – Nachweis aufbewahren."
