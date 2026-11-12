@@ -35,4 +35,6 @@ DutyKit sagt KI-Agenten, welche geschäftlichen Pflichten in Deutschland, Luxemb
 | Glama | indexiert öffentliche GitHub-Server; Eintrag dort beanspruchen/prüfen | GitHub-Login | offen |
 | mcp.so | Web-Formular mit Repository-URL | evtl. Login | offen |
 | Smithery | CLI/Dashboard; Smithery-Proxy endete laut Quelle 31.10.2026, Verzeichnis läuft weiter | Smithery-Konto (GitHub-Login) | niedrige Priorität |
-| awesome-mcp-servers | Pull Request in fremdes Repo (punkpeye/awesome-mcp-servers); Glama-Eintrag laut Quelle gewünscht | GitHub | offen, nach Glama |
+| Glama (Stand 2026-11-12) | Eintrag **beansprucht** (Ownership verified), Status Healthy | GitHub | **erledigt** |
+| mcp.so | Formular bietet nur noch eine bezahlte Einreichung (39 $ einmalig) an; bewusst nicht gebucht | Zahlung | zurückgestellt |
+| awesome-mcp-servers | Pull Request per `scripts/awesome-mcp-eintrag.sh` (Fork nötig); Kategorie Legal, Regeln: öffentlicher GitHub-Code zum Selbstbetrieb | GitHub | bereit, Pull Request noch zu stellen |
