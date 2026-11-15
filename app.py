@@ -68,11 +68,36 @@ async def _antwort(send, status: int, daten: dict) -> None:
     await send({"type": "http.response.body", "body": body})
 
 
+async def _bezahlstufe(scope, receive, send) -> None:
+    """Stripe-Webhook und Schlüsselseite; bei ausgeschalteter Bezahlstufe nicht vorhanden (404)."""
+    if not billing.AKTIV:
+        return await _antwort(send, 404, {"fehler": "nicht gefunden"})
+    if scope["path"] == "/stripe/webhook" and scope["method"] == "POST":
+        body, mehr = b"", True
+        while mehr:
+            msg = await receive()
+            body += msg.get("body", b"")
+            mehr = msg.get("more_body", False)
+            if len(body) > 1_000_000:
+                return await _antwort(send, 413, {"fehler": "zu groß"})
+        signatur = next((v.decode() for k, v in scope.get("headers", []) if k == b"stripe-signature"), "")
+        status, daten = billing.webhook(body, signatur)
+        return await _antwort(send, status, daten)
+    if scope["path"] == "/schluessel" and scope["method"] == "GET":
+        status, seite = billing.schluessel_seite(scope.get("query_string", b"").decode())
+        await send({"type": "http.response.start", "status": status,
+                    "headers": [(b"content-type", b"text/html; charset=utf-8"), (b"cache-control", b"no-store")]})
+        return await send({"type": "http.response.body", "body": seite.encode()})
+    return await _antwort(send, 405, {"fehler": "Methode nicht erlaubt"})
+
+
 async def app(scope, receive, send):
     if scope["type"] == "lifespan":
         return await _mcp_app(scope, receive, send)
     if scope["type"] == "http" and scope["path"] == "/health":
         return await _antwort(send, 200, {"ok": True, "billing": billing.AKTIV})
+    if scope["type"] == "http" and scope["path"] in ("/stripe/webhook", "/schluessel"):
+        return await _bezahlstufe(scope, receive, send)
     if scope["type"] == "http" and scope["path"].startswith("/mcp") and scope["method"] == "POST":
         # Body puffern: nur echte Werkzeugaufrufe (tools/call) zählen, nicht Handshake/Listen.
         teile, mehr = [], True
@@ -97,8 +122,12 @@ async def app(scope, receive, send):
         if billing.AKTIV:
             schluessel = billing.schluessel_aus_headern(scope.get("headers", []))
             if schluessel:
-                if not billing.pruefe_und_zaehle(schluessel):
+                status = billing.pruefe_und_zaehle(schluessel)
+                if status == 402:
                     return await _antwort(send, 402, {"fehler": "API-Schlüssel ungültig oder Abo inaktiv"})
+                if status == 429:
+                    return await _antwort(send, 429, {"fehler": f"Tageslimit des Schlüssels "
+                                                                f"({billing.BEZAHLT_PRO_TAG}/Tag) erreicht"})
                 return await _mcp_app(scope, receive, send)
         tag = time.strftime("%Y-%m-%d", time.gmtime())
         key = (_client_ip(scope), tag)

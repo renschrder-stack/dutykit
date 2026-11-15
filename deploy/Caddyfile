@@ -7,6 +7,13 @@ dutykit.dev {
 	handle /health {
 		reverse_proxy dutykit:8080
 	}
+	# Bezahlstufe: Stripe-Webhook und Schlüsselseite (liefern 404, solange DUTYKIT_BILLING=0)
+	handle /stripe/webhook {
+		reverse_proxy dutykit:8080
+	}
+	handle /schluessel {
+		reverse_proxy dutykit:8080
+	}
 	# Doku-Seite, llms.txt, Impressum
 	handle {
 		root * /srv/site
