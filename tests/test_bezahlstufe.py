@@ -25,7 +25,8 @@ def signiert(ereignis: dict, zeit: int | None = None, geheim: str = GEHEIM) -> t
 
 def kauf(sitzung="cs_test_1", abo="sub_1", kunde="cus_1") -> dict:
     return {"type": "checkout.session.completed", "data": {"object": {
-        "id": sitzung, "mode": "subscription", "payment_status": "paid", "customer": kunde, "subscription": abo}}}
+        "id": sitzung, "mode": "subscription", "payment_status": "paid", "customer": kunde, "subscription": abo,
+        "payment_link": "plink_dutykit"}}}
 
 
 def aufruf(methode: str, pfad: str, body: bytes = b"", headers=(), query: bytes = b"") -> tuple[int, bytes]:
@@ -53,6 +54,7 @@ class Bezahlstufe(unittest.TestCase):
         billing.KEYS = Path(self.ordner.name) / "keys.json"
         billing.WEBHOOK_GEHEIMNIS = GEHEIM
         billing.BEZAHLT_PRO_TAG = 3
+        billing.PAYMENT_LINKS = {"plink_dutykit"}
         billing.AKTIV = True
         app.STATISTIK = str(Path(self.ordner.name) / "statistik.json")
 
@@ -80,6 +82,34 @@ class Bezahlstufe(unittest.TestCase):
         ereignis["data"]["object"]["payment_status"] = "unpaid"
         self.assertEqual(self.webhook(ereignis)[0], 200)
         self.assertEqual(self.schluessel(), {})
+
+    def test_fremder_verkauf_erzeugt_keinen_schluessel(self):
+        fremd = kauf()
+        fremd["data"]["object"]["payment_link"] = "plink_anderes_produkt"
+        self.assertEqual(self.webhook(fremd)[0], 200)
+        ohne = kauf()
+        del ohne["data"]["object"]["payment_link"]
+        self.assertEqual(self.webhook(ohne)[0], 200)
+        billing.PAYMENT_LINKS = set()  # nicht eingestellt: gar keine Schlüssel
+        self.assertEqual(self.webhook(kauf())[0], 200)
+        self.assertEqual(self.schluessel(), {})
+
+    def test_verzoegerte_zahlung(self):
+        ereignis = kauf()
+        ereignis["data"]["object"]["payment_status"] = "unpaid"
+        self.webhook(ereignis)
+        self.assertEqual(self.schluessel(), {})
+        ereignis = kauf()
+        ereignis["type"] = "checkout.session.async_payment_succeeded"
+        self.webhook(ereignis)
+        self.assertEqual(len(self.schluessel()), 1)
+
+    def test_beendetes_abo_bleibt_aus(self):
+        self.webhook(kauf())
+        k = next(iter(self.schluessel()))
+        self.webhook({"type": "customer.subscription.deleted", "data": {"object": {"id": "sub_1"}}})
+        self.webhook({"type": "customer.subscription.updated", "data": {"object": {"id": "sub_1", "status": "active"}}})
+        self.assertEqual(self.mcp(k), 402)
 
     def test_falsche_signatur_wird_abgelehnt(self):
         self.assertEqual(self.webhook(kauf(), geheim="whsec_falsch")[0], 400)
@@ -111,6 +141,9 @@ class Bezahlstufe(unittest.TestCase):
         self.webhook({"type": "customer.subscription.deleted", "data": {"object": {"id": "sub_1"}}})
         self.assertEqual(self.mcp(k), 402)
         self.assertEqual(aufruf("GET", "/schluessel", query=b"session_id=cs_test_1")[0], 404)
+        self.webhook(kauf())  # wiederholte Kaufmeldung nach dem Ende: kein neuer Schlüssel
+        self.assertEqual(len(self.schluessel()), 1)
+        self.assertEqual(self.mcp(k), 402)
 
     def test_erstattung_schaltet_ab(self):
         self.webhook(kauf())

@@ -7,10 +7,13 @@ Schritt-für-Schritt: entwurf/EINSCHALTEN.md
 Ablauf bei AN (Festpreis-Abo, höheres Tageslimit je Schlüssel):
 - Kunde kauft über einen Stripe Payment Link (Abo). Stripe leitet danach weiter auf
   https://dutykit.dev/schluessel?session_id={CHECKOUT_SESSION_ID}
-- Stripe meldet den Kauf an  POST /stripe/webhook  (Signatur geprüft). Daraus entsteht genau ein Schlüssel je Abo.
+- Stripe meldet den Kauf an  POST /stripe/webhook  (Signatur geprüft). Daraus entsteht genau ein Schlüssel je Abo,
+  und nur für Käufe über den eigenen Payment Link (DUTYKIT_STRIPE_PAYMENT_LINK); andere Verkäufe desselben
+  Stripe-Kontos erzeugen keinen Schlüssel.
 - /schluessel zeigt dem Käufer seinen Schlüssel (die session_id ist das Geheimnis).
 - Agent sendet Header  Authorization: Bearer dk_...
-- Kündigung, Zahlungsausfall oder Erstattung schalten den Schlüssel ab (HTTP 402).
+- Zahlungsausfall schaltet den Schlüssel ab (HTTP 402), bis wieder gezahlt ist; ein beendetes Abo oder eine
+  volle Erstattung schalten ihn endgültig ab.
 Ohne Schlüssel gilt weiter die Freistufe. Gespeichert wird je Schlüssel nur: Stripe-Kunde, Abo, Zähler.
 Keine E-Mail-Adresse, keine Eingaben.
 """
@@ -30,6 +33,8 @@ AKTIV = os.environ.get("DUTYKIT_BILLING", "0") == "1"
 STRIPE_KEY = os.environ.get("STRIPE_SECRET_KEY", "")  # nur für nutzungsbasierte Abrechnung (METER) nötig
 WEBHOOK_GEHEIMNIS = os.environ.get("STRIPE_WEBHOOK_SECRET", "")
 METER = os.environ.get("DUTYKIT_STRIPE_METER", "")  # leer = Festpreis, keine Meter-Ereignisse
+# Payment-Link-IDs (plink_...), kommagetrennt, z. B. Test- und Live-Link. Leer = es werden keine Schlüssel vergeben.
+PAYMENT_LINKS = {p.strip() for p in os.environ.get("DUTYKIT_STRIPE_PAYMENT_LINK", "").split(",") if p.strip()}
 BEZAHLT_PRO_TAG = int(os.environ.get("DUTYKIT_BEZAHLT_PRO_TAG", "5000"))
 KEYS = Path(os.environ.get("DUTYKIT_KEYS_DATEI", "/data/keys.json"))
 TOLERANZ_S = 300  # maximales Alter eines Webhook-Zeitstempels
@@ -114,15 +119,21 @@ def _sitzung_hash(sitzung: str) -> str:
     return hashlib.sha256(sitzung.encode()).hexdigest()
 
 
-def _setze_aktiv(feld: str, wert: str, aktiv: bool) -> int:
-    """Schaltet alle Schlüssel mit eintrag[feld] == wert an oder ab; liefert die Anzahl."""
+def _setze_aktiv(feld: str, wert: str, aktiv: bool, endgueltig: bool = False) -> int:
+    """Schaltet alle Schlüssel mit eintrag[feld] == wert an oder ab; liefert die Anzahl.
+
+    Endgültig beendete Schlüssel bleiben aus: Stripe garantiert keine Reihenfolge, eine verspätete
+    Meldung "Abo aktiv" darf ein beendetes Abo nicht wieder einschalten.
+    """
     if not wert:
         return 0
     with _lock:
         keys = _laden()
         treffer = [e for e in keys.values() if e.get(feld) == wert]
         for e in treffer:
-            e["aktiv"] = aktiv
+            if endgueltig:
+                e["beendet"] = True
+            e["aktiv"] = aktiv and not e.get("beendet", False)
         if treffer:
             _speichern(keys)
     return len(treffer)
@@ -150,15 +161,17 @@ def webhook(body: bytes, kopfzeile: str) -> tuple[int, dict]:
         art, obj = ereignis["type"], ereignis["data"]["object"]
     except (ValueError, KeyError, TypeError):
         return 400, {"fehler": "Meldung nicht lesbar"}
-    if art == "checkout.session.completed":
-        if obj.get("mode") == "subscription" and obj.get("payment_status") in ("paid", "no_payment_required"):
+    if art in ("checkout.session.completed", "checkout.session.async_payment_succeeded"):
+        # async_payment_succeeded: verzögerte Zahlarten (z. B. SEPA-Lastschrift) melden die Zahlung später.
+        if (obj.get("payment_link") in PAYMENT_LINKS and obj.get("mode") == "subscription"
+                and obj.get("payment_status") in ("paid", "no_payment_required")):
             schluessel_anlegen(obj.get("customer") or "", abo=obj.get("subscription") or "", sitzung=obj.get("id") or "")
     elif art == "customer.subscription.updated":
         _setze_aktiv("abo", obj.get("id", ""), obj.get("status") in ABO_AKTIV)
     elif art == "customer.subscription.deleted":
-        _setze_aktiv("abo", obj.get("id", ""), False)
+        _setze_aktiv("abo", obj.get("id", ""), False, endgueltig=True)
     elif art == "charge.refunded" and obj.get("refunded"):  # nur volle Erstattung
-        _setze_aktiv("stripe_kunde", obj.get("customer") or "", False)
+        _setze_aktiv("stripe_kunde", obj.get("customer") or "", False, endgueltig=True)
     return 200, {"ok": True}
 
 
@@ -178,7 +191,7 @@ def schluessel_seite(query: str) -> tuple[int, str]:
             "<pre>claude mcp add --transport http dutykit https://dutykit.dev/mcp "
             f"--header \"Authorization: Bearer {html.escape(gefunden)}\"</pre>"
             f"<p>Limit: {BEZAHLT_PRO_TAG} tool calls per day. Keep this page's address private; it shows your key "
-            "again. To cancel, use the link in your Stripe receipt or write to hallo@dutykit.dev.</p>"))
+            "again. To cancel, write to hallo@dutykit.dev.</p>"))
     return 404, _SEITE.format(titel="Key not ready yet", text=(
         "<p>We could not find a key for this purchase yet. Payment confirmation can take a minute: "
         "please reload this page. If it still fails, write to hallo@dutykit.dev.</p>"))
