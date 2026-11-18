@@ -7,6 +7,7 @@ Start lokal:  uv run --with "mcp>=2" --with uvicorn uvicorn app:app --port 8080
 """
 import json
 import os
+import re
 import time
 from collections import defaultdict
 
@@ -96,6 +97,56 @@ def statistik_zusammenfassung(heute: str | None = None, datei: str | None = None
                        "des Prüfagenten (User-Agent DutyKit-Pruefagent) werden nicht gezählt. Alle Zeiten UTC."}
 
 
+SEITEN = os.environ.get("DUTYKIT_SEITEN_DATEI", "/data/seiten.json")
+_SEITE_OK = re.compile(r"^[a-z0-9-]{1,40}$")
+_GIF = bytes.fromhex("47494638396101000100800000000000ffffff21f90401000000002c00000000010001000002024401003b")
+
+
+def _seite_zaehlen(query: bytes, datei: str | None = None) -> None:
+    """Zählt einen Seitenaufruf je Tag und Seitenname. Keine IP, kein Cookie, kein User-Agent, kein Referrer."""
+    m = re.search(rb"(?:^|&)s=([^&]*)", query)
+    name = m.group(1).decode("ascii", "ignore") if m else ""
+    if not _SEITE_OK.match(name):
+        return
+    tag = time.strftime("%Y-%m-%d", time.gmtime())
+    try:
+        with open(datei or SEITEN, encoding="utf-8") as f:
+            daten = json.load(f)
+    except Exception:
+        daten = {}
+    heute = daten.setdefault(tag, {})
+    if name not in heute and len(heute) >= 40:  # erfundene Seitennamen können die Datei nicht aufblähen
+        return
+    heute[name] = heute.get(name, 0) + 1
+    try:
+        with open(datei or SEITEN, "w", encoding="utf-8") as f:
+            json.dump(daten, f)
+    except OSError:
+        pass  # Zähler darf den Dienst nie stören
+
+
+def seiten_zusammenfassung(heute: str | None = None, datei: str | None = None) -> dict:
+    """Seitenaufrufe der Website: letzte 7 Tage gegen die 7 Tage davor."""
+    from datetime import date, timedelta
+    try:
+        with open(datei or SEITEN, encoding="utf-8") as f:
+            daten = json.load(f)
+    except Exception:
+        daten = {}
+    tag0 = date.fromisoformat(heute) if heute else date.today()
+
+    def woche(ende_offset: int) -> dict:
+        je: dict[str, int] = {}
+        for i in range(7):
+            for seite, n in daten.get((tag0 - timedelta(days=ende_offset + i)).isoformat(), {}).items():
+                je[seite] = je.get(seite, 0) + n
+        return {"aufrufe": sum(je.values()), "je_seite": je}
+
+    return {"woche_aktuell": woche(0), "woche_vorher": woche(7),
+            "hinweis": "Zählt geladene Zählbilder der Website, keine Besucher. Keine IP-Adresse, kein Cookie. "
+                       "Abrufe ohne Bilder (z. B. llms.txt, viele Agenten) werden nicht erfasst."}
+
+
 def _client_ip(scope) -> str:
     for k, v in scope.get("headers", []):
         if k == b"x-forwarded-for":  # gesetzt vom Reverse-Proxy (Caddy)
@@ -115,7 +166,14 @@ async def app(scope, receive, send):
         return await _mcp_app(scope, receive, send)
     if scope["type"] == "http" and scope["path"] == "/health":
         return await _antwort(send, 200, {"ok": True, "billing": billing.AKTIV,
-                                           "nutzung": statistik_zusammenfassung()})
+                                           "nutzung": statistik_zusammenfassung(),
+                                           "seiten": seiten_zusammenfassung()})
+    if scope["type"] == "http" and scope["path"] == "/mcp/z.gif" and scope["method"] == "GET":
+        if not _eigene_pruefung(scope):
+            _seite_zaehlen(scope.get("query_string", b""))
+        await send({"type": "http.response.start", "status": 200,
+                    "headers": [(b"content-type", b"image/gif"), (b"cache-control", b"no-store")]})
+        return await send({"type": "http.response.body", "body": _GIF})
     if scope["type"] == "http" and scope["path"].startswith("/mcp") and scope["method"] == "POST":
         # Body puffern: nur echte Werkzeugaufrufe (tools/call) zählen, nicht Handshake/Listen.
         teile, mehr = [], True

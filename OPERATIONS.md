@@ -31,7 +31,7 @@ Jede Woche prüfen und, wo möglich, selbst verbessern:
 - **Neue Fundstellen:** Pro Lauf nach weiteren Verzeichnissen, Listen und Registern für MCP-Server suchen. Den fertigen Eintragstext in `VERZEICHNISSE.md` ablegen; wo ein Eintrag ein Konto oder einen Pull Request bei Dritten braucht, im Bericht unter „Braucht Sie“ nennen.
 - **Auffindbarkeit:** Tool-Beschreibungen, `README.md`, `server.json`, `site/llms.txt`, `site/sitemap.xml` und die Startseite aktuell und für Agenten eindeutig halten. Pro Lauf höchstens ein neuer Leitfaden unter `site/blog/` (nur belegte Inhalte).
 - **Wettbewerb:** Zwei bis drei vergleichbare Server (z. B. die bei Glama als verwandt gezeigten) ansehen: Was können sie, wie sind sie bewertet, was fehlt DutyKit? Daraus höchstens eine Verbesserung pro Lauf ableiten.
-- **Messung:** Aufrufe aus `/health` (Feld `nutzung`, mit User-Agent `DutyKit-Pruefagent/1.0` abrufen). Seitenaufrufe der Website werden bisher nicht gezählt; ein Zähler ohne IP-Adressen und ohne Cookies ist ein Backlog-Punkt.
+- **Messung:** Aufrufe aus `/health` (Feld `nutzung`, mit User-Agent `DutyKit-Pruefagent/1.0` abrufen). Seitenaufrufe der Website stehen im Feld `seiten` (Zählbild `/mcp/z.gif`, speichert nur Tag, Seitenname und Zahl; keine IP-Adresse, kein Cookie). Jede neue Seite unter `site/` braucht genau ein Zählbild (Test prüft das).
 - **Glama-Release:** Läuft von allein. Ändert sich `version` in `server.json` auf `main`, legt der Workflow `github-release.yml` ein GitHub-Release an; Glama (Auto-Release eingeschaltet) baut und veröffentlicht daraufhin selbst. Nach einer Versionsänderung im nächsten Lauf prüfen, ob das Abzeichen bzw. die Glama-Seite die neue Version zeigt; wenn nicht, im Bericht unter „Braucht Sie“ nennen (Anmeldung bei Glama geht nur per E-Mail-Code an den Inhaber).
 
 ## Wochenbericht
@@ -46,9 +46,8 @@ Zustellung: Den Bericht per Mail an die Adresse des Inhabers senden (Mail-Werkze
 ## Backlog (nach Wert)
 1. LU-Einträge mit gesicherter legilux-Quelle (RCS/RBE, Rechnungsangaben, Datenschutz CNPD).
 2. FR und BE (Kataloglücke laut README).
-3. `rechnung_vorpruefen` für LU; Kleinbetragsrechnung (§ 33 UStDV) in DE.
+3. `rechnung_vorpruefen` für LU.
 4. Stripe-Webhook für Schlüsselvergabe (nur vorbereiten, nicht aktivieren).
-5. Zähler für Seitenaufrufe der Website ohne IP-Adressen und ohne Cookies, Ausgabe in `/health`.
 
 ## Automatische Auslieferung
 - Registry: `.github/workflows/publish-registry.yml` veröffentlicht `server.json` bei Änderung auf `main` (GitHub OIDC).

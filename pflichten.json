@@ -152,11 +152,13 @@
       "grundlage": "§ 14 Abs. 1 und 2 UStG, § 27 Abs. 38 UStG, §§ 33, 34a UStDV",
       "quelle": "https://www.gesetze-im-internet.de/ustg_1980/__27.html",
       "pruefstand": "belegt",
-      "geprueft": "2026-11-07",
+      "geprueft": "2026-11-18",
       "pruefquellen": [
         {
           "url": "https://www.gesetze-im-internet.de/ustg_1980/__27.html",
-          "sha256": "a27ac7726526a87eb5b1066bcc12ef337376840ae8f2c988110b7484d3b1bd82"
+          "anker": "(38) Abweichend von § 14 Absatz 1 und 2",
+          "ende": "(39) §",
+          "sha256": "0f781a579cf50e2d0136f7fc20d0a330edbaa4c7cc42f1a8b897e59198af6445"
         }
       ]
     },
@@ -437,9 +439,9 @@
     }
   ],
   "_pruefung": {
-    "zuletzt_abgeglichen": "2026-11-08",
-    "quellen_unveraendert": 28,
+    "zuletzt_abgeglichen": "2026-11-18",
+    "quellen_unveraendert": 22,
     "abweichungen": 0,
-    "nicht_pruefbar": 0
+    "nicht_pruefbar": 6
   }
 }
