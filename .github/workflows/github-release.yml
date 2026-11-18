@@ -1,0 +1,28 @@
+name: github-release
+# Legt ein GitHub-Release v<version> an, sobald sich die Version in server.json auf main ändert.
+# Glama (Auto-Release ist dort eingeschaltet) baut und veröffentlicht daraufhin selbst eine neue Version,
+# ohne dass sich jemand bei Glama anmelden muss.
+on:
+  push:
+    branches: [main]
+    paths: [server.json]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Release anlegen, falls es für diese Version noch keines gibt
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          VERSION="$(python3 -c "import json; print(json.load(open('server.json'))['version'])")"
+          TAG="v${VERSION}"
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            echo "Release $TAG existiert schon."
+          else
+            gh release create "$TAG" --target "$GITHUB_SHA" --title "DutyKit $VERSION" \
+              --notes "DutyKit $VERSION. Änderungen am Katalog: siehe KATALOG-AENDERUNGEN.md."
+          fi

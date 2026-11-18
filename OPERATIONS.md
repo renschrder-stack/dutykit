@@ -32,7 +32,7 @@ Jede Woche prüfen und, wo möglich, selbst verbessern:
 - **Auffindbarkeit:** Tool-Beschreibungen, `README.md`, `server.json`, `site/llms.txt`, `site/sitemap.xml` und die Startseite aktuell und für Agenten eindeutig halten. Pro Lauf höchstens ein neuer Leitfaden unter `site/blog/` (nur belegte Inhalte).
 - **Wettbewerb:** Zwei bis drei vergleichbare Server (z. B. die bei Glama als verwandt gezeigten) ansehen: Was können sie, wie sind sie bewertet, was fehlt DutyKit? Daraus höchstens eine Verbesserung pro Lauf ableiten.
 - **Messung:** Aufrufe aus `/health` (Feld `nutzung`, mit User-Agent `DutyKit-Pruefagent/1.0` abrufen). Seitenaufrufe der Website werden bisher nicht gezählt; ein Zähler ohne IP-Adressen und ohne Cookies ist ein Backlog-Punkt.
-- **Glama-Release:** Ändert sich `version` in `server.json`, braucht Glama ein neues Release (Admin → Dockerfile → „Build & Release“, Anmeldung per E-Mail-Code an den Inhaber). Im Bericht unter „Braucht Sie“ nennen.
+- **Glama-Release:** Läuft von allein. Ändert sich `version` in `server.json` auf `main`, legt der Workflow `github-release.yml` ein GitHub-Release an; Glama (Auto-Release eingeschaltet) baut und veröffentlicht daraufhin selbst. Nach einer Versionsänderung im nächsten Lauf prüfen, ob das Abzeichen bzw. die Glama-Seite die neue Version zeigt; wenn nicht, im Bericht unter „Braucht Sie“ nennen (Anmeldung bei Glama geht nur per E-Mail-Code an den Inhaber).
 
 ## Wochenbericht
 Datei `berichte/JJJJ-KWnn.md` im Pull Request des Laufs (nach dem Merge auf `main`), höchstens eine Bildschirmseite, einfache deutsche Sätze, in dieser Reihenfolge:

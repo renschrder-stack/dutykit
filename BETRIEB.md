@@ -81,7 +81,7 @@ Alle drei Routinen schicken eine Push-Nachricht aufs Handy, wenn sie fertig sind
 ## 7. Offene Entscheidungen und Aufgaben
 
 **Mit Handlungsbedarf**
-- **Glama-Bewertung für awesome-mcp-servers.** Am 18.11. erledigt: Auf Glama ist das Release 0.2.0 veröffentlicht (Admin → Dockerfile: Python 3.12, Build-Schritte `uv venv` und `uv pip install "mcp>=2.3,<3"`, Start `/app/.venv/bin/python pflichtwerk_server.py`; Glama baut selbst und nutzt die `Dockerfile` im Hauptordner nicht). Die sieben Tools sind bewertet (Schnitt 4,7 von 5, alle Note A). Die Gesamtnote für Qualität stand am 18.11. mittags noch aus. Offen: im Pull Request https://github.com/punkpeye/awesome-mcp-servers/pull/19292 mit einem Satz antworten. Anmeldung bei Glama: per E-Mail-Code an die Yahoo-Adresse. Bei einer neuen Version auf Glama erneut „Build & Release“ auslösen.
+- **Glama-Bewertung für awesome-mcp-servers.** Am 18.11. erledigt: Auf Glama ist das Release 0.2.0 veröffentlicht (Admin → Dockerfile: Python 3.12, Build-Schritte `uv venv` und `uv pip install "mcp>=2.3,<3"`, Start `/app/.venv/bin/python pflichtwerk_server.py`; Glama baut selbst und nutzt die `Dockerfile` im Hauptordner nicht). Die sieben Tools sind bewertet (Schnitt 4,7 von 5, alle Note A). Die Gesamtnote für Qualität stand am 18.11. mittags noch aus. Offen: im Pull Request https://github.com/punkpeye/awesome-mcp-servers/pull/19292 mit einem Satz antworten. Anmeldung bei Glama: per E-Mail-Code an die Yahoo-Adresse. Neue Versionen: Der Workflow `github-release.yml` legt bei geänderter Version in `server.json` ein GitHub-Release an, Glama baut dann selbst (Auto-Release ist eingeschaltet).
 - **Routinen mit Repo-Quelle ausstatten** (Abschnitt 6, Punkt 1).
 
 **Ohne Eile**
