@@ -34,7 +34,7 @@ Alle drei Routinen schicken eine Push-Nachricht aufs Handy, wenn sie fertig sind
 - Update-Skript: `/usr/local/bin/dutykit-update`, Log: `/var/log/dutykit-update.log`. Markierungen: `/opt/dutykit/.deployed` (aktueller Stand), `.failed` (fehlgeschlagener Stand).
 - Zugang: SSH als `root` mit dem Schlüssel `~/.ssh/dutykit_ed25519` auf Ihrem PC, oder die Web-Konsole im Hetzner-Konto.
 
-**Verzeichnisse:** Offizielle MCP-Registry `io.github.renschrder-stack/dutykit` (0.2.0; der alte Eintrag `io.github.r08150816s-star/dutykit` 0.1.0 bleibt stehen und lässt sich nicht entfernen). Glama: Eintrag beansprucht, Status Healthy.
+**Verzeichnisse:** Offizielle MCP-Registry `io.github.renschrder-stack/dutykit` (0.2.0; der alte Eintrag `io.github.r08150816s-star/dutykit` 0.1.0 bleibt stehen und lässt sich nicht entfernen). Glama: Eintrag beansprucht, Release 0.2.0 seit 18.11., Tool-Bewertung 4,7 von 5.
 
 **Postiz:** Kanäle über `https://api.postiz.com/mcp`. LinkedIn-Profil „René Schröder“ hat die Kanal-ID `cmvjx0rni024klh0yatdinpjg`. Die Seite „PontoIt“ ist ein anderer Kanal (`linkedin-page`) und wird von DutyKit nie benutzt.
 
@@ -81,7 +81,7 @@ Alle drei Routinen schicken eine Push-Nachricht aufs Handy, wenn sie fertig sind
 ## 7. Offene Entscheidungen und Aufgaben
 
 **Mit Handlungsbedarf**
-- **Glama-Bewertung für awesome-mcp-servers.** Der Betreiber der Liste (punkpeye) hat am 17.11. unter https://github.com/punkpeye/awesome-mcp-servers/pull/19292 geschrieben: Das Glama-Abzeichen zeigt „?“, eine Qualitätsnote fehlt, vorher wird nicht gemergt. Er bittet zu bestätigen, dass die Bewertung angestoßen wurde. Dafür auf Glama die **Server-Seite** von DutyKit öffnen (nicht den Connector), dort den Reiter **Admin**: Glama bewertet den Server nach einem Build. Dafür liegt im Repo die `Dockerfile` (lokaler Modus). Wie genau Glama den Build anstößt, ist mir nicht sicher bekannt. Danach im Pull Request mit einem Satz antworten, dass die Bewertung läuft.
+- **Glama-Bewertung für awesome-mcp-servers.** Am 18.11. erledigt: Auf Glama ist das Release 0.2.0 veröffentlicht (Admin → Dockerfile: Python 3.12, Build-Schritte `uv venv` und `uv pip install "mcp>=2.3,<3"`, Start `/app/.venv/bin/python pflichtwerk_server.py`; Glama baut selbst und nutzt die `Dockerfile` im Hauptordner nicht). Die sieben Tools sind bewertet (Schnitt 4,7 von 5, alle Note A). Die Gesamtnote für Qualität stand am 18.11. mittags noch aus. Offen: im Pull Request https://github.com/punkpeye/awesome-mcp-servers/pull/19292 mit einem Satz antworten. Anmeldung bei Glama: per E-Mail-Code an die Yahoo-Adresse. Bei einer neuen Version auf Glama erneut „Build & Release“ auslösen.
 - **Routinen mit Repo-Quelle ausstatten** (Abschnitt 6, Punkt 1).
 
 **Ohne Eile**
