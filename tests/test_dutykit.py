@@ -163,3 +163,62 @@ def test_eigene_pruefung_wird_erkannt():
     import app as a
     assert a._eigene_pruefung({"headers": [(b"user-agent", b"DutyKit-Pruefagent/1.0")]})
     assert not a._eigene_pruefung({"headers": [(b"user-agent", b"curl/8")]})
+
+
+def test_seitenzaehler_ohne_ip_und_cookie(tmp_path):
+    import app as a
+    f = tmp_path / "seiten.json"
+    a._seite_zaehlen(b"s=start", str(f))
+    a._seite_zaehlen(b"x=1&s=start", str(f))
+    a._seite_zaehlen(b"s=../../etc", str(f))      # ungültiger Name wird verworfen
+    a._seite_zaehlen(b"", str(f))
+    import time
+    tag = time.strftime("%Y-%m-%d", time.gmtime())
+    assert json.loads(f.read_text()) == {tag: {"start": 2}}  # nur Tag, Seitenname, Zahl
+    for i in range(60):
+        a._seite_zaehlen(f"s=erfunden-{i}".encode(), str(f))
+    assert len(json.loads(f.read_text())[tag]) == 40
+    z = a.seiten_zusammenfassung(tag, str(f))
+    assert z["woche_aktuell"]["je_seite"]["start"] == 2 and z["woche_vorher"]["aufrufe"] == 0
+
+
+def test_zaehlbild_antwortet_und_health_nennt_seiten(tmp_path, monkeypatch):
+    import asyncio
+    import app as a
+    monkeypatch.setattr(a, "SEITEN", str(tmp_path / "s.json"))
+
+    def abruf(pfad, query=b"", ua=b"x"):
+        gesendet = []
+
+        async def send(m):
+            gesendet.append(m)
+
+        async def receive():
+            return {"type": "http.request", "body": b"", "more_body": False}
+
+        asyncio.run(a.app({"type": "http", "path": pfad, "method": "GET", "query_string": query,
+                           "headers": [(b"user-agent", ua)]}, receive, send))
+        return gesendet
+
+    r = abruf("/mcp/z.gif", b"s=blog")
+    assert r[0]["status"] == 200 and (b"cache-control", b"no-store") in r[0]["headers"]
+    assert not any(k == b"set-cookie" for k, _ in r[0]["headers"]) and r[1]["body"][:6] == b"GIF89a"
+    abruf("/mcp/z.gif", b"s=blog", b"DutyKit-Pruefagent/1.0")  # eigene Prüfläufe zählen nicht
+    h = json.loads(abruf("/health")[1]["body"])
+    assert h["seiten"]["woche_aktuell"]["je_seite"] == {"blog": 1}
+
+
+def test_jede_seite_hat_genau_ein_zaehlbild():
+    for p in (s.HIER / "site").rglob("*.html"):
+        assert p.read_text(encoding="utf-8").count('src="/mcp/z.gif?s=') == 1, p
+
+
+def test_kleinbetragsrechnung_bis_250_euro():
+    klein = {"aussteller_name": "A GmbH", "aussteller_anschrift": "Weg 1, 10115 Berlin", "datum": "2026-11-18",
+             "leistung": "1 Buch", "brutto": 250, "steuersatz": 7}
+    r = s.rechnung_vorpruefen(klein)
+    assert r["bestanden"] and r["kleinbetragsrechnung"] and r["grundlage"].startswith("§ 33 UStDV")
+    r = s.rechnung_vorpruefen({**klein, "steuersatz": None})
+    assert not r["bestanden"] and r["fehlende_angaben"] == ["Steuersatz oder Hinweis auf Steuerbefreiung"]
+    r = s.rechnung_vorpruefen({**klein, "brutto": 250.01})  # darüber gelten alle Angaben nach § 14 Abs. 4 UStG
+    assert not r["bestanden"] and "kleinbetragsrechnung" not in r and r["grundlage"] == "§ 14 Abs. 4 UStG"

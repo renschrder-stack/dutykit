@@ -1,6 +1,6 @@
 # Verzeichnisse: Eintragstexte und Stand
 
-Alle Texte sind wahrheitsgemäß zum Stand 2026-11-10 (Katalog: DE, LU, EU; kostenlose Beta; kein Konto nötig).
+Alle Texte sind wahrheitsgemäß zum Stand 2026-11-18 (Katalog: DE, LU, EU; kostenlose Beta; kein Konto nötig).
 
 ## Fertige Texte (zum Einfügen)
 
@@ -26,15 +26,35 @@ DutyKit sagt KI-Agenten, welche geschäftlichen Pflichten in Deutschland, Luxemb
 - [renschrder-stack/dutykit](https://github.com/renschrder-stack/dutykit) 🐍 ☁️ - EU business duties for AI agents (DE, LU, EU): obligations with legal sources and verification status, pre-checks for invoices and marketing consent, AI Act disclosure wording, live VAT ID check.
 ```
 
-## Stand je Verzeichnis (Recherche 2026-11-10, Quellen Dritter, vor dem Einreichen auf der jeweiligen Seite prüfen)
+## Stand je Verzeichnis (geprüft im Wochenlauf 2026-11-18)
 
-| Verzeichnis | Weg | Konto nötig | Stand |
+| Verzeichnis | Weg | Konto nötig | Stand 2026-11-18 |
 |---|---|---|---|
-| Offizielle MCP-Registry | `server.json` per CI (GitHub OIDC) | nur GitHub | **erledigt**, 0.2.0 aktuell |
-| PulseMCP | übernimmt aus der offiziellen Registry (wöchentlich); eigene Einreichung laut Quellen pausiert | nein | **automatisch**, nichts zu tun |
-| Glama | indexiert öffentliche GitHub-Server; Eintrag dort beanspruchen/prüfen | GitHub-Login | offen |
-| mcp.so | Web-Formular mit Repository-URL | evtl. Login | offen |
-| Smithery | CLI/Dashboard; Smithery-Proxy endete laut Quelle 31.10.2026, Verzeichnis läuft weiter | Smithery-Konto (GitHub-Login) | niedrige Priorität |
-| Glama (Stand 2026-11-18) | Eintrag **beansprucht**, Release 0.2.0 veröffentlicht, Tool-Bewertung 4,7 von 5; Gesamtnote Qualität steht noch aus | E-Mail-Code | **erledigt** |
-| mcp.so | Formular bietet nur noch eine bezahlte Einreichung (39 $ einmalig) an; bewusst nicht gebucht | Zahlung | zurückgestellt |
-| awesome-mcp-servers | Pull Request per `scripts/awesome-mcp-eintrag.sh` (Fork nötig); Kategorie Legal, Regeln: öffentlicher GitHub-Code zum Selbstbetrieb | GitHub | bereit, Pull Request noch zu stellen |
+| Offizielle MCP-Registry | `server.json` per CI (GitHub OIDC) | nur GitHub | **erledigt**: `io.github.renschrder-stack/dutykit` 0.2.0 ist `isLatest`, gleich `server.json`. Alter Eintrag `io.github.r08150816s-star/dutykit` 0.1.0 steht weiter |
+| Glama | Eintrag beansprucht; Auto-Release über GitHub-Release | E-Mail-Code | **erledigt**: Abzeichen zeigt „rated A“, 7 Tools je Note A, Tool-Bewertung 4,7 von 5. GitHub-Release `v0.2.0` vom 18.11. vorhanden. Die Versionsnummer zeigt die Glama-Seite nicht an (nicht prüfbar) |
+| awesome-mcp-servers | Pull Request https://github.com/punkpeye/awesome-mcp-servers/pull/19292 (vom Inhaber, 12.11.) | GitHub | **offen**: Betreuer verlangte am 17.11. eine Glama-Note, Inhaber hat am 18.11. geantwortet. `README.md` auf `main` enthält `renschrder-stack/dutykit` noch nicht |
+| PulseMCP | übernimmt aus der offiziellen Registry; eigene Einreichung laut Quellen pausiert | nein | **nicht prüfbar** (`www.pulsemcp.com` ist in der Umgebung nicht freigegeben) |
+| awesome-remote-mcp-servers (jaw9c) | Pull Request im fremden Repo | GitHub | **nicht eingetragen** (README enthält „dutykit“ nicht). Eintragstext unten |
+| mcp.so | Formular bietet nur noch eine bezahlte Einreichung (39 $ einmalig) an; bewusst nicht gebucht | Zahlung | zurückgestellt; `https://mcp.so/server/dutykit` liefert 404 |
+| Smithery | Verzeichnis läuft laut Quellen weiter, Proxy eingestellt | Smithery-Konto | **nicht prüfbar** (`smithery.ai` nicht freigegeben), niedrige Priorität |
+
+## Neue Fundstellen (Recherche 2026-11-18, Angaben Dritter, vor dem Einreichen auf der jeweiligen Seite prüfen)
+
+| Verzeichnis | Weg laut Quelle | Braucht |
+|---|---|---|
+| Docker MCP Catalog | Pull Request an `docker/mcp-registry` (dort liegt eine `CONTRIBUTING.md`) | GitHub-Konto des Inhabers |
+| mcp.directory | Formular `https://mcp.directory/submit`, liest Angaben von GitHub | Formular durch den Inhaber |
+| mcpservers.org | Web-Formular unter `/submit` | Formular durch den Inhaber |
+| ToolHive-Katalog (`stacklok/toolhive-catalog`) | Pull Request | GitHub-Konto des Inhabers |
+
+Für alle vier passen die fertigen Texte oben unverändert (Name, Endpoint, Kurzbeschreibung, Beschreibung EN).
+
+**Eintrag für awesome-remote-mcp-servers** (Format vor dem Einreichen mit der dortigen README abgleichen):
+```
+| DutyKit | Legal / Compliance | `https://dutykit.dev/mcp` | Open (no auth) | [renschrder-stack](https://github.com/renschrder-stack/dutykit) |
+```
+
+## Wettbewerb (Glama „related“, 2026-11-18)
+- `josemvelez78/mcp-europe-business`: 28 Tools, laut Eintrag 18+ Länder, u. a. Prüfung von Steuernummern und IBAN, USt-Sätze, Rechnungsregeln. Noten Lizenz A, Qualität A, Pflege D.
+- „EMEA Compliance MCP“: Noten A / A / D; Einzelheiten am 18.11. nicht abrufbar.
+- Was DutyKit davon unterscheidet: Prüfstand je Eintrag gegen den Gesetzestext und öffentliches Änderungsprotokoll. Was fehlt: Breite (Länder). Abgeleitete Verbesserung für den nächsten Lauf: keine neue Funktion, sondern FR/BE aus dem Backlog vorziehen, sobald die Primärquellen lesbar sind.

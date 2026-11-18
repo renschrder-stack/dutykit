@@ -3,7 +3,7 @@
 Stand: 2026-11-18. Geschrieben so, dass man ohne Vorwissen nachlesen kann, was läuft, wo es liegt und wie man eingreift. Für die Agenten gilt `OPERATIONS.md`, für Entwickler das `README.md`.
 
 ## 1. Was DutyKit ist, in fünf Sätzen
-DutyKit ist ein MCP-Server für KI-Agenten: Er nennt Geschäftspflichten für Deutschland, Luxemburg und die EU mit Rechtsquelle und prüft Rechnungen, Werbung und KI-Hinweise vor. Er läuft unter **https://dutykit.dev/mcp** (kostenlose Beta, kein Konto, Eingaben werden nicht gespeichert). Der Katalog `pflichten.json` hat **23 Einträge, 22 davon gegen den Gesetzestext geprüft (`belegt`)**; offen ist `lu-anbieterinfo`. Gesetzestexte werden jede Woche per Prüfsumme überwacht. Bezahlung ist vorbereitet, aber **ausgeschaltet** (`billing: false`).
+DutyKit ist ein MCP-Server für KI-Agenten: Er nennt Geschäftspflichten für Deutschland, Luxemburg und die EU mit Rechtsquelle und prüft Rechnungen, Werbung und KI-Hinweise vor. Er läuft unter **https://dutykit.dev/mcp** (kostenlose Beta, kein Konto, Eingaben werden nicht gespeichert). Der Katalog `pflichten.json` hat **23 Einträge, 22 davon gegen den Gesetzestext geprüft (`belegt`)**; offen ist `lu-anbieterinfo`. `rechnung_vorpruefen` kennt seit 18.11. die Kleinbetragsrechnung bis 250 Euro (§ 33 UStDV). Gesetzestexte werden jede Woche per Prüfsumme überwacht. Bezahlung ist vorbereitet, aber **ausgeschaltet** (`billing: false`).
 
 ## 2. Was von allein läuft
 
@@ -13,16 +13,16 @@ DutyKit ist ein MCP-Server für KI-Agenten: Er nennt Geschäftspflichten für De
 | **Registry-Eintrag** | bei jeder Änderung von `server.json` auf `main` | GitHub-Workflow `publish-registry.yml` | Aktuell **0.2.0** |
 | **Tests + Katalogprüfung** | bei jedem Push | GitHub-Workflow `ci.yml` | rotes Kreuz am Pull Request |
 | **Gesetzestexte gegen Prüfsummen** | montags 05:17 UTC | GitHub-Workflow `ci.yml` (Zeitplan) | Lauf schlägt fehl, wenn sich ein Text geändert hat |
-| **Betriebsagent** (`trig_01A2R12zF8F3cse969K5mYKC`) | montags 14:41 Berlin | Routine auf claude.ai | Quellen prüfen, Katalog pflegen, Pull Request. **Aktuell blockiert**, siehe Abschnitt 6 |
+| **Betriebsagent, Wochenlauf** (`trig_01XqgiE9xF8xpixwKiBKofpF`) | montags 07:13 Luxemburg | Geplanter Lauf in einer festen Sitzung auf claude.ai (Repo angehängt, Branch `claude/dutykit-ops`) | Quellen prüfen, Katalog pflegen, Wochenbericht, Push. Die alte Routine `trig_01A2R12zF8F3cse969K5mYKC` ist seit 18.11. pausiert |
 | **Prüf- und Reparaturagent, Fable** (`trig_01WqJ2HVW8uwTUwV9w83Li3i`) | mittwochs 10:23 Berlin | Routine auf claude.ai | Bericht aufs Handy: Server, Katalog, Registry, Nutzung mit Vorwochenvergleich, Pull Request bei awesome-mcp-servers |
-| **LinkedIn-Beitrag** (`trig_01UJen3wfbAG6Q78zLJosHja`) | dienstags 07:41 Luxemburg | Routine auf claude.ai | Schreibt einen Beitrag in Ihrem Stil, plant ihn in Postiz für **Donnerstag 09:15 Uhr** auf Ihrem LinkedIn-Profil ein |
+| **LinkedIn-Beitrag** (`trig_01QFDFhkVJCHzzCVpzjACaXF`) | dienstags 07:41 Luxemburg | Geplanter Lauf in einer festen Sitzung auf claude.ai (Branch `claude/linkedin-entwuerfe`) | Schreibt einen Beitrag in Ihrem Stil, plant ihn in Postiz für **Donnerstag 09:15 Uhr** auf Ihrem LinkedIn-Profil ein. Die alte Routine `trig_01UJen3wfbAG6Q78zLJosHja` ist seit 18.11. pausiert |
 
-Alle drei Routinen schicken eine Push-Nachricht aufs Handy, wenn sie fertig sind.
+Alle drei Läufe melden sich, wenn sie fertig sind (Push-Nachricht; der Wochenlauf stellt zusätzlich den Wochenbericht zu, siehe `OPERATIONS.md`).
 
 ## 3. Wo was liegt
 
 **Repository:** https://github.com/renschrder-stack/dutykit (öffentlich, Branch `main` = was live geht).
-- `pflichtwerk_server.py`: die Tools. `app.py`: HTTP-Betrieb, Tageslimit, `/health` mit Nutzungszahlen. `billing.py`: Bezahlstufe (aus).
+- `pflichtwerk_server.py`: die Tools. `app.py`: HTTP-Betrieb, Tageslimit, `/health` mit Nutzungszahlen und Seitenaufrufen (Zählbild `/mcp/z.gif`, ohne IP und Cookie). `billing.py`: Bezahlstufe (aus).
 - `pflichten.json`: der Katalog (Quelle, Prüfdatum, Prüfstand, Prüfsummen). `angebot.json`: Preisentwurf, Pakete, Empfehlungstext für Agenten.
 - `scripts/katalog_pruefen.py` (Format), `scripts/quellen_pruefen.py` (Gesetzestexte gegen Prüfsummen), `scripts/awesome-mcp-eintrag.sh`.
 - `deploy/`: Docker, Caddy, `auto-update.sh`, `install-auto-update.sh`. `Dockerfile` im Hauptordner: lokaler Modus (stdio) für Glama.
@@ -34,7 +34,7 @@ Alle drei Routinen schicken eine Push-Nachricht aufs Handy, wenn sie fertig sind
 - Update-Skript: `/usr/local/bin/dutykit-update`, Log: `/var/log/dutykit-update.log`. Markierungen: `/opt/dutykit/.deployed` (aktueller Stand), `.failed` (fehlgeschlagener Stand).
 - Zugang: SSH als `root` mit dem Schlüssel `~/.ssh/dutykit_ed25519` auf Ihrem PC, oder die Web-Konsole im Hetzner-Konto.
 
-**Verzeichnisse:** Offizielle MCP-Registry `io.github.renschrder-stack/dutykit` (0.2.0; der alte Eintrag `io.github.r08150816s-star/dutykit` 0.1.0 bleibt stehen und lässt sich nicht entfernen). Glama: Eintrag beansprucht, Release 0.2.0 seit 18.11., Tool-Bewertung 4,7 von 5.
+**Verzeichnisse:** Offizielle MCP-Registry `io.github.renschrder-stack/dutykit` (0.2.0; der alte Eintrag `io.github.r08150816s-star/dutykit` 0.1.0 bleibt stehen und lässt sich nicht entfernen). Glama: Eintrag beansprucht, Release 0.2.0 seit 18.11., Tool-Bewertung 4,7 von 5, Abzeichen Note A. GitHub-Release `v0.2.0` vom 18.11. vorhanden.
 
 **Postiz:** Kanäle über `https://api.postiz.com/mcp`. LinkedIn-Profil „René Schröder“ hat die Kanal-ID `cmvjx0rni024klh0yatdinpjg`. Die Seite „PontoIt“ ist ein anderer Kanal (`linkedin-page`) und wird von DutyKit nie benutzt.
 
@@ -71,29 +71,27 @@ Alle drei Routinen schicken eine Push-Nachricht aufs Handy, wenn sie fertig sind
 
 ## 6. Bekannte Einschränkungen
 
-1. **Routinen können nicht auf GitHub schreiben (offen, wichtigster Punkt).** In den geplanten Sitzungen fehlt das Werkzeug `add_repo`, deshalb endet jeder Push mit 403. Folge: Der Betriebsagent hat am 16.11. nichts getan (nur gemeldet), und der LinkedIn-Agent konnte seinen Entwurf nicht im Repo ablegen. Der Beitrag selbst wurde trotzdem in Postiz eingeplant. **Behebung, nur von Ihnen möglich:** auf claude.ai/code bei jeder der drei Routinen unter **Quellen** das Repo `renschrder-stack/dutykit` mit Schreibrecht eintragen. Bis dahin liegen die Entwürfe nur in der Abschlussnachricht der Routine.
+1. **Schreiben auf GitHub aus geplanten Läufen (behoben am 18.11.).** Früher starteten die Routinen ohne angehängtes Repo, jeder Push endete mit 403 (der Betriebsagent hat deshalb am 16.11. nichts getan). Seit 18.11. laufen Betriebsagent und LinkedIn-Agent als geplante Läufe in festen Sitzungen, an denen das Repo hängt. Geprüft am 18.11.: Der Push auf `claude/dutykit-ops` aus der festen Sitzung funktioniert. Für den LinkedIn-Lauf steht die erste Probe am 24.11. noch aus.
 2. **Postiz meldete am 12.11. zeitweise „Post not found“** beim Anlegen von Beiträgen. Er verschwand von selbst. Der LinkedIn-Agent versucht es bis zu dreimal und prüft vorher auf Doppelte.
-3. **EUR-Lex und Legilux** lassen sich aus manchen Umgebungen nicht lesen (leere Antwort bzw. nur JavaScript-Gerüst). Solche Quellen gelten als „nicht prüfbar“, nicht als geändert. Betroffen: `lu-anbieterinfo` (bleibt `zu_pruefen`) und EU-Einträge (werden zusätzlich per Recherche geprüft).
-4. **Prüfsummen erkennen nur Änderungen des abgerufenen Textes**, nicht neue Änderungsrechtsakte der EU. Die sucht der Betriebsagent wöchentlich per Recherche (sobald er schreiben darf).
+3. **EUR-Lex und Legilux** lassen sich aus manchen Umgebungen nicht lesen (leere Antwort bzw. nur JavaScript-Gerüst). Am 18.11. antwortete aus der festen Sitzung auch `www.gesetze-im-internet.de` nur auf einen Teil der Abrufe (sonst Verbindungsabbruch, über WebFetch HTTP 503). `scripts/quellen_pruefen.py` braucht dann sehr lange; der Lauf hat die Quellen einzeln mit kurzen Wartezeiten mehrfach abgerufen und mit derselben Prüflogik verglichen. Solche Quellen gelten als „nicht prüfbar“, nicht als geändert. Betroffen: `lu-anbieterinfo` (bleibt `zu_pruefen`) und EU-Einträge (werden zusätzlich per Recherche geprüft).
+4. **Prüfsummen erkennen nur Änderungen des abgerufenen Textes**, nicht neue Änderungsrechtsakte der EU. Die sucht der Betriebsagent wöchentlich per Recherche .
 5. **Nutzungszahlen** zählen Aufrufe, keine Nutzer. Automatische Prüfsonden von Verzeichnissen stehen getrennt, der Prüfagent zählt nicht mit. Meine eigenen Tests sind bis 12.11. enthalten.
 6. **Die Docker-Datei im Hauptordner** (lokaler Modus für Glama) konnte ich ohne Docker-Dienst nicht bauen. Der Start des Servers im lokalen Modus wurde direkt getestet.
 
 ## 7. Offene Entscheidungen und Aufgaben
 
 **Mit Handlungsbedarf**
-- **Glama-Bewertung für awesome-mcp-servers.** Am 18.11. erledigt: Auf Glama ist das Release 0.2.0 veröffentlicht (Admin → Dockerfile: Python 3.12, Build-Schritte `uv venv` und `uv pip install "mcp>=2.3,<3"`, Start `/app/.venv/bin/python pflichtwerk_server.py`; Glama baut selbst und nutzt die `Dockerfile` im Hauptordner nicht). Die sieben Tools sind bewertet (Schnitt 4,7 von 5, alle Note A). Die Gesamtnote für Qualität stand am 18.11. mittags noch aus. Offen: im Pull Request https://github.com/punkpeye/awesome-mcp-servers/pull/19292 mit einem Satz antworten. Anmeldung bei Glama: per E-Mail-Code an die Yahoo-Adresse. Neue Versionen: Der Workflow `github-release.yml` legt bei geänderter Version in `server.json` ein GitHub-Release an, Glama baut dann selbst (Auto-Release ist eingeschaltet).
-- **Routinen mit Repo-Quelle ausstatten** (Abschnitt 6, Punkt 1).
+- **Glama-Bewertung für awesome-mcp-servers (kein Handlungsbedarf mehr, nur abwarten).** Am 18.11. erledigt: Auf Glama ist das Release 0.2.0 veröffentlicht (Admin → Dockerfile: Python 3.12, Build-Schritte `uv venv` und `uv pip install "mcp>=2.3,<3"`, Start `/app/.venv/bin/python pflichtwerk_server.py`; Glama baut selbst und nutzt die `Dockerfile` im Hauptordner nicht). Die sieben Tools sind bewertet (Schnitt 4,7 von 5, alle Note A). Das Abzeichen zeigt seit 18.11. die Note A. Im Pull Request https://github.com/punkpeye/awesome-mcp-servers/pull/19292 haben Sie am 18.11. geantwortet; er ist offen und wartet auf den Betreuer der Liste. Anmeldung bei Glama: per E-Mail-Code an die Yahoo-Adresse. Neue Versionen: Der Workflow `github-release.yml` legt bei geänderter Version in `server.json` ein GitHub-Release an, Glama baut dann selbst (Auto-Release ist eingeschaltet).
 
 **Ohne Eile**
 - Preise: Entwurf in `angebot.json` (Gratis 20 Aufrufe/Tag, Credits 10 € für 1.000, Pro 29 €/Monat für 10.000, jeweils netto). Billing bleibt aus, bis geklärt ist: Stripe-Konto der Firma, Umsatzsteuer (Stripe Tax mit eigener Meldung oder ein Anbieter, der sie übernimmt, am besten mit Steuerberater), Niederlassungsgenehmigung.
 - mcp.so verlangt 39 € einmalig für eine Einreichung; bewusst nicht gebucht.
 - Frankreich und Belgien sind geplant, aber noch nicht im Katalog.
-- Kleinbetragsrechnung (§ 33 UStDV) fehlt noch in `rechnung_vorpruefen`. Der Betriebsagent soll sie nachholen, sobald er schreiben darf.
 
-## 8. Kennzahlen (Stand 2026-11-18)
-- Katalog: EU 6 von 6, DE 14 von 14, LU 2 von 3 belegt (insgesamt 22 von 23). Letzter Quellenabgleich: 2026-11-08, 28 Quellen unverändert, keine Abweichung.
-- Nutzung 12.–18.11.: 18 Aufrufe (ohne Sonden), 25 Prüfsonden; Vorwoche 26 Aufrufe (−31 %). Noch kein belastbarer Hinweis auf wiederkehrende echte Nutzer.
-- LinkedIn: Beitrag vom 13.11. (Widerrufsbutton) veröffentlicht; Beitrag für 19.11. 09:15 Uhr (Verpackungsregister) eingeplant.
+## 8. Kennzahlen (Stand 2026-11-18, abgerufen im Wochenlauf)
+- Katalog: EU 6 von 6, DE 14 von 14, LU 2 von 3 belegt (insgesamt 22 von 23). Quellenabgleich 2026-11-18: 22 Quellen unverändert, 0 Abweichungen offen, 6 nicht prüfbar (4 EUR-Lex, § 5 DDG, § 257 HGB). Eine Abweichung bei § 27 UStG wurde geprüft und geklärt (siehe `KATALOG-AENDERUNGEN.md`).
+- Nutzung 12.–18.11.: 19 Aufrufe (ohne Sonden), 28 Prüfsonden; Vorwoche 26 Aufrufe (−27 %). 13 der 19 Aufrufe sind `katalog_status`. Noch kein belastbarer Hinweis auf wiederkehrende echte Nutzer.
+- LinkedIn: Beitrag vom 13.11. (Widerrufsbutton) veröffentlicht; Beitrag für 19.11. 09:15 Uhr (Verpackungsregister) eingeplant (Stand laut dieser Doku, am 18.11. nicht erneut in Postiz geprüft).
 
 ## 9. Was ich nicht weiß
 Wie viele Agenten DutyKit wirklich nutzen, ob die Verzeichnisse echte Nutzer bringen und wann der Pull Request bei awesome-mcp-servers geprüft wird. Das zeigen die Wochenberichte des Prüfagenten.

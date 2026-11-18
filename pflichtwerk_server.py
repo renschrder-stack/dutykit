@@ -189,6 +189,7 @@ DE_RECHNUNGSFELDER = {
     "rechnungsnummer": "fortlaufende Rechnungsnummer", "leistung": "Menge und Art der Leistung",
     "leistungszeitpunkt": "Zeitpunkt der Leistung", "netto": "Entgelt",
 }
+DE_KLEINBETRAG_FELDER = ("aussteller_name", "aussteller_anschrift", "datum", "leistung")  # § 33 Satz 1 UStDV
 
 
 @mcp.tool()
@@ -196,14 +197,19 @@ def rechnung_vorpruefen(rechnung: dict, land: str = "DE", verantwortlich: str = 
     """Pre-check a German invoice for missing mandatory fields under § 14 (4) UStG before it is sent.
 
 Use this right before issuing or approving an invoice (country DE only). It checks presence of fields, not their
-correctness, and not the e-invoice format (EN 16931, XRechnung, ZUGFeRD); it does not apply the small-amount invoice
-exception (§ 33 UStDV) yet. Nothing is stored in the free tier.
+correctness, and not the e-invoice format (EN 16931, XRechnung, ZUGFeRD). If `brutto` is given and does not exceed
+250 euros, only the reduced field set for small-amount invoices (§ 33 UStDV) is required. Nothing is stored in the
+free tier.
 
 Args:
     rechnung: object with these keys (strings unless noted): `aussteller_name`, `aussteller_anschrift`,
         `empfaenger_name`, `empfaenger_anschrift`, `steuernummer_oder_ustid`, `datum`, `rechnungsnummer`, `leistung`,
         `leistungszeitpunkt`, `netto` (number), and either `steuersatz` (number, percent) together with `steuerbetrag`
-        (number) or `steuerbefreiung_hinweis` (text, for example `§ 19 UStG`).
+        (number) or `steuerbefreiung_hinweis` (text, for example `§ 19 UStG`). Optional `brutto` (number, total amount
+        including tax): if it is 250 or less, the invoice is checked as a small-amount invoice under § 33 UStDV
+        (needs only `aussteller_name`, `aussteller_anschrift`, `datum`, `leistung`, `brutto` and `steuersatz` or
+        `steuerbefreiung_hinweis`). § 33 UStDV does not apply to distance sales (§ 3c UStG), intra-Community supplies
+        (§ 6a UStG) and reverse-charge services (§ 13b UStG); do not pass `brutto` for those.
     land: only `DE` is supported; others return an error.
     verantwortlich: optional name of the responsible human, written into the audit receipt.
 
@@ -211,7 +217,21 @@ Returns: `bestanden` (true only if nothing is missing), `fehlende_angaben` (list
 `grundlage`, `quelle`, `nicht_geprueft` (what this check does not cover) and `nachweis` (audit receipt)."""
     if land.upper() != "DE":
         return {"fehler": "Rechnungsprüfung bisher nur für DE"}
-    fehlt = [text for feld, text in DE_RECHNUNGSFELDER.items() if not str(rechnung.get(feld, "")).strip()]
+    brutto = rechnung.get("brutto")
+    klein = isinstance(brutto, (int, float)) and not isinstance(brutto, bool) and 0 < brutto <= 250
+    felder = {f: DE_RECHNUNGSFELDER[f] for f in DE_KLEINBETRAG_FELDER} if klein else DE_RECHNUNGSFELDER
+    fehlt = [text for feld, text in felder.items() if not str(rechnung.get(feld, "")).strip()]
+    if klein:
+        if not (rechnung.get("steuersatz") is not None or rechnung.get("steuerbefreiung_hinweis")):
+            fehlt.append("Steuersatz oder Hinweis auf Steuerbefreiung")
+        ergebnis = {"bestanden": not fehlt, "fehlende_angaben": fehlt, "kleinbetragsrechnung": True,
+                    "grundlage": "§ 33 UStDV (Gesamtbetrag bis 250 Euro)",
+                    "quelle": "https://www.gesetze-im-internet.de/ustdv_1980/__33.html",
+                    "nicht_geprueft": "Ob § 33 UStDV anwendbar ist: gilt nicht für Leistungen nach §§ 3c, 6a und 13b UStG",
+                    "hinweis": HINWEIS}
+        ergebnis["nachweis"] = _protokoll("rechnung_vorpruefen", verantwortlich,
+                                          {"rechnungsnummer": rechnung.get("rechnungsnummer")}, ergebnis)
+        return ergebnis
     if not (rechnung.get("steuersatz") is not None or rechnung.get("steuerbefreiung_hinweis")):
         fehlt.append("Steuersatz und Steuerbetrag oder Hinweis auf Steuerbefreiung (z. B. § 19 UStG)")
     if rechnung.get("steuersatz") is not None and rechnung.get("netto") is not None and rechnung.get("steuerbetrag") is None:
