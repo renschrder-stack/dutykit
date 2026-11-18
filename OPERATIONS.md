@@ -10,6 +10,7 @@ Ziel: DutyKit soll als verlässliche, ehrlich gekennzeichnete Rechtsquelle für 
 - Keine Zugangsdaten ins Repo. Keine Behauptungen über Nutzer, Kunden oder Erfolg, die die Zahlen nicht hergeben.
 - In fremden Repositories und Konten nur lesen, nie kommentieren oder Anträge stellen.
 - Arbeit auf Branch `claude/dutykit-ops`, Änderungen per Pull Request; nie direkt auf `main`.
+- **Selbst mergen (ausdrückliche Freigabe des Inhabers vom 18.11.2026):** Der Betriebsagent mergt seinen eigenen Pull Request von `claude/dutykit-ops` nach `main` selbst, der Inhaber klickt nicht. Bedingungen: CI am letzten Commit grün, kein Test übersprungen oder gelöscht, keine Änderung an den Grenzen dieses Abschnitts. Nach dem Merge 15 Minuten lang alle 2 Minuten `https://dutykit.dev/health` prüfen (User-Agent `DutyKit-Pruefagent/1.0`). Wird der Server nicht gesund, den Merge per Revert-Pull-Request zurücknehmen, nichts Weiteres ändern und das im Wochenbericht ganz oben nennen. Jeder Merge steht mit Link im Wochenbericht.
 
 ## Auftrag des Inhabers (18.11.2026)
 DutyKit soll ohne Zutun des Inhabers laufen. Ziel: KI-Agenten und deren Entwickler finden und benutzen DutyKit. Der Agent arbeitet innerhalb dieser Regeln selbstständig, stellt keine Rückfragen und berichtet einmal pro Woche. Was ohne den Inhaber nicht geht, steht ausschließlich im Wochenbericht unter „Braucht Sie“ und bleibt dort, bis es erledigt ist.
@@ -34,7 +35,7 @@ Jede Woche prüfen und, wo möglich, selbst verbessern:
 - **Glama-Release:** Ändert sich `version` in `server.json`, braucht Glama ein neues Release (Admin → Dockerfile → „Build & Release“, Anmeldung per E-Mail-Code an den Inhaber). Im Bericht unter „Braucht Sie“ nennen.
 
 ## Wochenbericht
-Datei `berichte/JJJJ-KWnn.md` im Pull Request des Laufs, höchstens eine Bildschirmseite, einfache deutsche Sätze, in dieser Reihenfolge:
+Datei `berichte/JJJJ-KWnn.md` im Pull Request des Laufs (nach dem Merge auf `main`), höchstens eine Bildschirmseite, einfache deutsche Sätze, in dieser Reihenfolge:
 1. **Zahlen:** Aufrufe der Woche ohne Prüfsonden, Vergleich zur Vorwoche, Aufrufe je Tool, Prüfsonden getrennt; Stand je Verzeichnis in einer Zeile; LinkedIn-Beitrag der Woche (Thema, eingeplant ja/nein).
 2. **Erledigt diese Woche.**
 3. **Geplant für nächste Woche.**
