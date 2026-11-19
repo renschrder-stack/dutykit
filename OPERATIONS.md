@@ -15,6 +15,14 @@ Ziel: DutyKit soll als verlässliche, ehrlich gekennzeichnete Rechtsquelle für 
 ## Auftrag des Inhabers (18.11.2026)
 DutyKit soll ohne Zutun des Inhabers laufen. Ziel: KI-Agenten und deren Entwickler finden und benutzen DutyKit. Der Agent arbeitet innerhalb dieser Regeln selbstständig, stellt keine Rückfragen und berichtet einmal pro Woche. Was ohne den Inhaber nicht geht, steht ausschließlich im Wochenbericht unter „Braucht Sie“ und bleibt dort, bis es erledigt ist.
 
+## Vollautonomer Betrieb (ausdrückliche Anweisung des Inhabers vom 19.11.2026)
+Der Inhaber will DutyKit nicht anfassen müssen und einmal pro Woche nur den Bericht lesen. Deshalb gilt zusätzlich zu allem Obigen:
+- **Alles Technische und Inhaltliche erledigt der Agent selbst, ohne Rückfrage:** Katalog, Tests, Fehlerbehebung, Texte, Blog, Sitemap, `llms.txt`, Versionsnummer und Release, Aufräumen eigener Branches und eigener veralteter Pull Requests. Findet der Wochenlauf einen Fehler (eigener Test, Bericht des Prüfagenten, Server-Gesundheit), behebt er ihn im selben Lauf, statt ihn zu melden.
+- **Selbst mergen** (Regel oben) gilt für alles außer den geschützten Pfaden. Geschützt, nie per Selbstmerge zu ändern: `deploy/`, `.github/`, `billing.py`, `angebot.json` und die Abschnitte „Unverhandelbar“ und „Vollautonomer Betrieb“ dieser Datei. Betrifft eine Änderung diese Pfade, bleibt der Pull Request offen und steht im Bericht unter „Braucht Sie“.
+- **Der Bericht ist die einzige Schnittstelle.** „Braucht Sie“ enthält nur, was rechtlich oder technisch nur der Inhaber kann: Freigabe von Geld und Billing, Konten und Anmeldungen mit Code per Mail, Handlungen im Namen des Inhabers bei Dritten (Einreichungen, Pull Requests und Beiträge in fremden Repositories oder Verzeichnissen), Steuer- und Rechtsentscheidungen.
+- **Höchstens drei Punkte, nach Wirkung sortiert, je Punkt ein Satz plus der fertig vorbereitete Text oder Link.** Ein Punkt, der schon im letzten Bericht stand und sich nicht geändert hat, wird in einer Zeile „weiterhin offen seit KWnn“ geführt, nicht neu erklärt. Alles, was der Agent selbst lösen kann, steht nie unter „Braucht Sie“.
+- Zwischen den Wochenberichten stellt der Agent dem Inhaber nichts zu. Ausnahme: Der Server ist nach einem Revert weiter nicht gesund. Dann genau eine PushNotification.
+
 ## Wöchentlicher Lauf (Reihenfolge)
 0. **Quellenabgleich**: `python scripts/quellen_pruefen.py`. Bei ABWEICHUNG: neuen Text lesen, Eintrag anpassen (oder bestätigen, dass er unverändert gilt), Eintrag in `KATALOG-AENDERUNGEN.md`, dann `--neu-hashen <ID>`. Nie Prüfsummen neu setzen, ohne den Text gelesen zu haben. Am Ende `--schreiben`.
 0b. **EU-Änderungen**: Prüfsummen erfassen spätere Änderungsrechtsakte nicht von selbst. Jede Woche per Suche prüfen: Digital Omnibus (DSGVO, ePrivacy, Data Act), AI Act, PPWR/VerpackDG, E-Rechnung, BFSG, § 356a BGB, LU-Gesetzgebung. Treffer als Änderungsakt in `pruefquellen` aufnehmen.
