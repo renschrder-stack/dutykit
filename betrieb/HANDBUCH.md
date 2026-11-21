@@ -1,23 +1,12 @@
 # DutyKit: Betriebsdoku für René
 
-Stand: 2026-11-18. Geschrieben so, dass man ohne Vorwissen nachlesen kann, was läuft, wo es liegt und wie man eingreift. Für die Agenten gilt `OPERATIONS.md`, für Entwickler das `README.md`.
+Stand: 2026-11-18. Geschrieben so, dass man ohne Vorwissen nachlesen kann, was läuft, wo es liegt und wie man eingreift. Für den Agenten gilt `betrieb/REGELN.md`, für Entwickler das `README.md`.
 
 ## 1. Was DutyKit ist, in fünf Sätzen
 DutyKit ist ein MCP-Server für KI-Agenten: Er nennt Geschäftspflichten für Deutschland, Luxemburg und die EU mit Rechtsquelle und prüft Rechnungen, Werbung und KI-Hinweise vor. Er läuft unter **https://dutykit.dev/mcp** (kostenlose Beta, kein Konto, Eingaben werden nicht gespeichert). Der Katalog `pflichten.json` hat **23 Einträge, 22 davon gegen den Gesetzestext geprüft (`belegt`)**; offen ist `lu-anbieterinfo`. `rechnung_vorpruefen` kennt seit 18.11. die Kleinbetragsrechnung bis 250 Euro (§ 33 UStDV). Gesetzestexte werden jede Woche per Prüfsumme überwacht. Bezahlung ist vorbereitet, aber **ausgeschaltet** (`billing: false`).
 
 ## 2. Was von allein läuft
-
-| Was | Wann | Wo / Wer | Ergebnis bei Problemen |
-|---|---|---|---|
-| **Server aktualisiert sich** | alle 10 Minuten | systemd-Timer auf dem Server (`dutykit-update`) | Prüft `/health`, rollt bei Fehler zurück, versucht einen fehlerhaften Stand nicht erneut |
-| **Registry-Eintrag** | bei jeder Änderung von `server.json` auf `main` | GitHub-Workflow `publish-registry.yml` | Aktuell **0.2.0** |
-| **Tests + Katalogprüfung** | bei jedem Push | GitHub-Workflow `ci.yml` | rotes Kreuz am Pull Request |
-| **Gesetzestexte gegen Prüfsummen** | montags 05:17 UTC | GitHub-Workflow `ci.yml` (Zeitplan) | Lauf schlägt fehl, wenn sich ein Text geändert hat |
-| **Betriebsagent, Wochenlauf** (`trig_01XqgiE9xF8xpixwKiBKofpF`) | montags 07:13 Luxemburg | Geplanter Lauf in einer festen Sitzung auf claude.ai (Repo angehängt, Branch `claude/dutykit-ops`) | Quellen prüfen, Katalog pflegen, Wochenbericht, Push. Die alte Routine `trig_01A2R12zF8F3cse969K5mYKC` ist seit 18.11. pausiert |
-| **Prüf- und Reparaturagent, Fable** (`trig_01WqJ2HVW8uwTUwV9w83Li3i`) | mittwochs 10:23 Berlin | Routine auf claude.ai | Bericht aufs Handy: Server, Katalog, Registry, Nutzung mit Vorwochenvergleich, Pull Request bei awesome-mcp-servers |
-| **LinkedIn-Beitrag** (`trig_01QFDFhkVJCHzzCVpzjACaXF`) | dienstags 07:41 Luxemburg | Geplanter Lauf in einer festen Sitzung auf claude.ai (Branch `claude/linkedin-entwuerfe`) | Schreibt einen Beitrag in Ihrem Stil, plant ihn in Postiz für **Donnerstag 09:15 Uhr** auf Ihrem LinkedIn-Profil ein. Die alte Routine `trig_01UJen3wfbAG6Q78zLJosHja` ist seit 18.11. pausiert |
-
-Alle drei Läufe melden sich, wenn sie fertig sind (Push-Nachricht; der Wochenlauf stellt zusätzlich den Wochenbericht zu, siehe `OPERATIONS.md`).
+Steht aktuell in `betrieb/STAND.md`. Ein einziger Agent pflegt DutyKit (Montag, Mittwoch, Freitag 07:13 Uhr Luxemburg, feste Sitzung „DutyKit Betriebsagent“ auf claude.ai). Seine Aufgaben: `betrieb/AUFGABEN.md`. Seine Regeln: `betrieb/REGELN.md`. Frühere Einzelagenten (Prüfagent, LinkedIn-Agent, Einreichung alle 48 Stunden, alter Betriebsagent) sind seit 21.11.2026 abgeschaltet.
 
 ## 3. Wo was liegt
 
