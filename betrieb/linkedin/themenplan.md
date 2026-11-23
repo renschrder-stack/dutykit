@@ -10,17 +10,17 @@ Jede Woche entsteht ein Beitrag. Der Agent plant ihn in Postiz für Donnerstag 0
 - Zeitangaben nur, wenn belegt. Fehlt das Inkrafttreten im Gesetzestext, steht „gilt" statt „seit".
 
 ## Bereits entworfen
-- 2026-11-12: Widerrufsbutton (§ 356a BGB), Änderung Art. 4 AI Act (KI-Kompetenz).
+- 2026-11-12: Widerrufsbutton (§ 356a BGB), Änderung Art. 4 AI Act (KI-Kompetenz). Erschienen am 13.11.2026.
+- 2026-11-19: Verpackungsregister (VerpackDG). Erschienen am 19.11.2026 (aus Postiz nachgetragen, Entwurf liegt nicht im Repo).
+- 2026-11-23: Werbung per E-Mail und Telefon (§ 7 UWG). Eingeplant für 26.11.2026.
 
 ## Themenvorrat (jeweils vor dem Schreiben gegen die Quelle neu prüfen)
 - Bestellbutton „zahlungspflichtig bestellen" (§ 312j BGB): ohne richtige Beschriftung kommt kein Vertrag zustande.
 - 30-Tage-Preis bei Preisermäßigung (§ 11 PAngV).
 - Cookies und Einwilligung (§ 25 TDDDG).
 - Aufbewahrung von Rechnungen: 8 Jahre (§ 14b UStG).
-- Telefonwerbung und E-Mail-Werbung (§ 7 UWG): wann ein Agent nicht senden darf.
 - KI-Hinweis (AI Act Art. 50 Abs. 1): Menschen sagen, dass sie mit einer KI sprechen.
 - Barrierefreiheit im Onlinehandel (BFSG) und die Ausnahme für Kleinstunternehmen.
-- Verpackungsregister (VerpackDG §§ 6, 7, 9).
 - Produktsicherheit online (GPSR Art. 19).
 - Gesetzesänderungen aus `KATALOG-AENDERUNGEN.md` und dem Wochenlauf des Betriebsagenten haben Vorrang vor dem Themenvorrat.
 

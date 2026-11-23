@@ -3,7 +3,7 @@
 Stand: 2026-11-18. Geschrieben so, dass man ohne Vorwissen nachlesen kann, was läuft, wo es liegt und wie man eingreift. Für den Agenten gilt `betrieb/REGELN.md`, für Entwickler das `README.md`.
 
 ## 1. Was DutyKit ist, in fünf Sätzen
-DutyKit ist ein MCP-Server für KI-Agenten: Er nennt Geschäftspflichten für Deutschland, Luxemburg und die EU mit Rechtsquelle und prüft Rechnungen, Werbung und KI-Hinweise vor. Er läuft unter **https://dutykit.dev/mcp** (kostenlose Beta, kein Konto, Eingaben werden nicht gespeichert). Der Katalog `pflichten.json` hat **23 Einträge, 22 davon gegen den Gesetzestext geprüft (`belegt`)**; offen ist `lu-anbieterinfo`. `rechnung_vorpruefen` kennt seit 18.11. die Kleinbetragsrechnung bis 250 Euro (§ 33 UStDV). Gesetzestexte werden jede Woche per Prüfsumme überwacht. Bezahlung ist vorbereitet, aber **ausgeschaltet** (`billing: false`).
+DutyKit ist ein MCP-Server für KI-Agenten: Er nennt Geschäftspflichten für Deutschland, Luxemburg und die EU mit Rechtsquelle und prüft Rechnungen, Werbung und KI-Hinweise vor. Er läuft unter **https://dutykit.dev/mcp** (kostenlose Beta, kein Konto, Eingaben werden nicht gespeichert). Der Katalog `pflichten.json` hat **23 Einträge, alle gegen den Gesetzestext geprüft (`belegt`)**; `lu-anbieterinfo` seit 23.11. an der Urfassung des Gesetzes. `rechnung_vorpruefen` kennt seit 18.11. die Kleinbetragsrechnung bis 250 Euro (§ 33 UStDV). Gesetzestexte werden jede Woche per Prüfsumme überwacht. Bezahlung ist vorbereitet, aber **ausgeschaltet** (`billing: false`).
 
 ## 2. Was von allein läuft
 Steht aktuell in `betrieb/STAND.md`. Ein einziger Agent pflegt DutyKit (Montag, Mittwoch, Freitag 07:13 Uhr Luxemburg, feste Sitzung „DutyKit Betriebsagent“ auf claude.ai). Seine Aufgaben: `betrieb/AUFGABEN.md`. Seine Regeln: `betrieb/REGELN.md`. Frühere Einzelagenten (Prüfagent, LinkedIn-Agent, Einreichung alle 48 Stunden, alter Betriebsagent) sind seit 21.11.2026 abgeschaltet.
@@ -62,7 +62,7 @@ Steht aktuell in `betrieb/STAND.md`. Ein einziger Agent pflegt DutyKit (Montag, 
 
 1. **Schreiben auf GitHub aus geplanten Läufen (behoben am 18.11.).** Früher starteten die Routinen ohne angehängtes Repo, jeder Push endete mit 403 (der Betriebsagent hat deshalb am 16.11. nichts getan). Seit 18.11. laufen Betriebsagent und LinkedIn-Agent als geplante Läufe in festen Sitzungen, an denen das Repo hängt. Geprüft am 18.11.: Der Push auf `claude/dutykit-ops` aus der festen Sitzung funktioniert. Für den LinkedIn-Lauf steht die erste Probe am 24.11. noch aus.
 2. **Postiz meldete am 12.11. zeitweise „Post not found“** beim Anlegen von Beiträgen. Er verschwand von selbst. Der LinkedIn-Agent versucht es bis zu dreimal und prüft vorher auf Doppelte.
-3. **EUR-Lex und Legilux** lassen sich aus manchen Umgebungen nicht lesen (leere Antwort bzw. nur JavaScript-Gerüst). Am 18.11. antwortete aus der festen Sitzung auch `www.gesetze-im-internet.de` nur auf einen Teil der Abrufe (sonst Verbindungsabbruch, über WebFetch HTTP 503). `scripts/quellen_pruefen.py` braucht dann sehr lange; der Lauf hat die Quellen einzeln mit kurzen Wartezeiten mehrfach abgerufen und mit derselben Prüflogik verglichen. Solche Quellen gelten als „nicht prüfbar“, nicht als geändert. Betroffen: `lu-anbieterinfo` (bleibt `zu_pruefen`) und EU-Einträge (werden zusätzlich per Recherche geprüft).
+3. **EUR-Lex und Legilux** lassen sich aus manchen Umgebungen nicht lesen (leere Antwort bzw. nur JavaScript-Gerüst). Legilux-Texte der Urfassung sind seit 23.11. über den Dateispeicher lesbar: `https://legilux.public.lu/filestore/eli/…/jo/fr/html/eli-…-jo-fr-html.html` (gleicher Pfad wie die ELI-Adresse, mit Bindestrichen im Dateinamen). Eine konsolidierte Fassung ließ sich so nicht abrufen. Am 18.11. antwortete aus der festen Sitzung auch `www.gesetze-im-internet.de` nur auf einen Teil der Abrufe (sonst Verbindungsabbruch, über WebFetch HTTP 503). `scripts/quellen_pruefen.py` braucht dann sehr lange; der Lauf hat die Quellen einzeln mit kurzen Wartezeiten mehrfach abgerufen und mit derselben Prüflogik verglichen. Solche Quellen gelten als „nicht prüfbar“, nicht als geändert. Betroffen: `lu-anbieterinfo` (bleibt `zu_pruefen`) und EU-Einträge (werden zusätzlich per Recherche geprüft).
 4. **Prüfsummen erkennen nur Änderungen des abgerufenen Textes**, nicht neue Änderungsrechtsakte der EU. Die sucht der Betriebsagent wöchentlich per Recherche .
 5. **Nutzungszahlen** zählen Aufrufe, keine Nutzer. Automatische Prüfsonden von Verzeichnissen stehen getrennt, der Prüfagent zählt nicht mit. Meine eigenen Tests sind bis 12.11. enthalten.
 6. **Die Docker-Datei im Hauptordner** (lokaler Modus für Glama) konnte ich ohne Docker-Dienst nicht bauen. Der Start des Servers im lokalen Modus wurde direkt getestet.
@@ -77,10 +77,8 @@ Steht aktuell in `betrieb/STAND.md`. Ein einziger Agent pflegt DutyKit (Montag, 
 - mcp.so verlangt 39 € einmalig für eine Einreichung; bewusst nicht gebucht.
 - Frankreich und Belgien sind geplant, aber noch nicht im Katalog.
 
-## 8. Kennzahlen (Stand 2026-11-18, abgerufen im Wochenlauf)
-- Katalog: EU 6 von 6, DE 14 von 14, LU 2 von 3 belegt (insgesamt 22 von 23). Quellenabgleich 2026-11-18: 22 Quellen unverändert, 0 Abweichungen offen, 6 nicht prüfbar (4 EUR-Lex, § 5 DDG, § 257 HGB). Eine Abweichung bei § 27 UStG wurde geprüft und geklärt (siehe `KATALOG-AENDERUNGEN.md`).
-- Nutzung 12.–18.11.: 19 Aufrufe (ohne Sonden), 28 Prüfsonden; Vorwoche 26 Aufrufe (−27 %). 13 der 19 Aufrufe sind `katalog_status`. Noch kein belastbarer Hinweis auf wiederkehrende echte Nutzer.
-- LinkedIn: Beitrag vom 13.11. (Widerrufsbutton) veröffentlicht; Beitrag für 19.11. 09:15 Uhr (Verpackungsregister) eingeplant (Stand laut dieser Doku, am 18.11. nicht erneut in Postiz geprüft).
+## 8. Kennzahlen
+Stehen aktuell in `betrieb/STAND.md` und im jüngsten Wochenbericht unter `betrieb/berichte/`.
 
 ## 9. Was ich nicht weiß
 Wie viele Agenten DutyKit wirklich nutzen, ob die Verzeichnisse echte Nutzer bringen und wann der Pull Request bei awesome-mcp-servers geprüft wird. Das zeigen die Wochenberichte des Prüfagenten.

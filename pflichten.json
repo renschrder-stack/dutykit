@@ -11,8 +11,16 @@
       "quelle": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
       "gilt_ab": "2026-08-02",
       "pruefstand": "belegt",
-      "geprueft": "2026-11-08",
-      "anmerkung": "Art. 50 Abs. 1 wurde durch die VO (EU) 2026/1744 nicht geändert (am 2026-11-08 im Änderungsakt gegengeprüft); die Übergangsfrist bis 02.12.2026 betrifft nur Art. 50 Abs. 2 für Systeme, die vor dem 02.08.2026 in Verkehr waren."
+      "geprueft": "2026-11-23",
+      "anmerkung": "Art. 50 Abs. 1 wurde durch die VO (EU) 2026/1744 nicht geändert (am 2026-11-08 im Änderungsakt gegengeprüft); die Übergangsfrist bis 02.12.2026 betrifft nur Art. 50 Abs. 2 für Systeme, die vor dem 02.08.2026 in Verkehr waren.",
+      "pruefquellen": [
+        {
+          "url": "https://eur-lex.europa.eu/legal-content/DE/TXT/HTML/?uri=CELEX:32024R1689",
+          "anker": "Artikel 50 Transparenzpflichten für Anbieter und Betreiber bestimmter KI-Systeme (1)",
+          "ende": "(2) Anbieter von KI-Systemen",
+          "sha256": "14b2fa6bce53a2f31f1bb76d98d250f85fe9b06c395bfb1b85f762d30299eaeb"
+        }
+      ]
     },
     {
       "id": "eu-anbieterinfo",
@@ -24,7 +32,15 @@
       "grundlage": "Richtlinie 2000/31/EG Art. 5",
       "quelle": "https://eur-lex.europa.eu/eli/dir/2000/31/oj",
       "pruefstand": "belegt",
-      "geprueft": "2026-11-07"
+      "geprueft": "2026-11-23",
+      "pruefquellen": [
+        {
+          "url": "https://eur-lex.europa.eu/legal-content/DE/TXT/HTML/?uri=CELEX:32000L0031",
+          "anker": "Artikel 5 Allgemeine Informationspflichten",
+          "ende": "Artikel 6 ",
+          "sha256": "412be3cf1e918a97c6e8101bd02b7e89546d91bde24354f21b7d9bd748da1760"
+        }
+      ]
     },
     {
       "id": "eu-dsgvo-information",
@@ -430,12 +446,20 @@
         "website",
         "online_handel"
       ],
-      "pflicht": "Anbieterangaben auf der Website (Umsetzung der E-Commerce-Richtlinie).",
-      "grundlage": "Loi du 14 août 2000 relative au commerce électronique",
-      "quelle": "https://legilux.public.lu/eli/etat/leg/loi/2000/08/14/n8/jo",
-      "pruefstand": "zu_pruefen",
-      "geprueft": "2026-11-07",
-      "anmerkung": "Gesetz existiert (Loi 14.08.2000, Umsetzung RL 2000/31); konkreter Artikel zu Anbieterangaben nicht gefunden; DSA-Anpassung (Dossier 5095) läuft. Bis zur Prüfung gilt EU-Eintrag eu-anbieterinfo. Legilux-Seite ist ohne Browser nicht lesbar (nur Gerüst); Prüfung braucht ein anderes Abrufverfahren."
+      "pflicht": "Anbieter von Diensten der Informationsgesellschaft müssen leicht, direkt und dauerhaft zugänglich angeben: Name, geografische Anschrift der Niederlassung, Kontaktdaten einschließlich E-Mail-Adresse sowie gegebenenfalls Berufsbezeichnung und Berufsverband, Nummer im Handelsregister, TVA-Identifikationsnummer und die Genehmigung zur Ausübung der Tätigkeit mit der Behörde, die sie erteilt hat. Genannte Preise müssen eindeutig sein und angeben, ob Steuern und Zusatzkosten enthalten sind.",
+      "grundlage": "Loi du 14 août 2000 relative au commerce électronique, Art. 5",
+      "quelle": "https://legilux.public.lu/filestore/eli/etat/leg/loi/2000/08/14/n8/jo/fr/html/eli-etat-leg-loi-2000-08-14-n8-jo-fr-html.html",
+      "pruefstand": "belegt",
+      "geprueft": "2026-11-23",
+      "anmerkung": "Geprüft am Wortlaut der Urfassung im Journal officiel (Mémorial A, Loi du 14 août 2000). Spätere Änderungen des Gesetzes sind nicht geprüft, eine konsolidierte Fassung war nicht abrufbar; die DSA-Anpassung (Dossier 5095) läuft. Der Inhalt entspricht Art. 5 der Richtlinie 2000/31/EG (Eintrag eu-anbieterinfo).",
+      "pruefquellen": [
+        {
+          "url": "https://legilux.public.lu/filestore/eli/etat/leg/loi/2000/08/14/n8/jo/fr/html/eli-etat-leg-loi-2000-08-14-n8-jo-fr-html.html",
+          "anker": "Art. 5. De l’obligation générale d’information",
+          "ende": "TITRE II.",
+          "sha256": "79755d22407c3a3814b56d0f797df35ea9a08690ace63b6791d27aabf1c7cfdb"
+        }
+      ]
     }
   ],
   "_pruefung": {
