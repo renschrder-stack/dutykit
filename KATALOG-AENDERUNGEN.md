@@ -5,6 +5,8 @@
 ## 2026-11-23
 - **`lu-anbieterinfo` jetzt belegt:** Art. 5 der Loi du 14 août 2000 relative au commerce électronique am Wortlaut der Urfassung im Journal officiel geprüft (Name, Anschrift, Kontaktdaten mit E-Mail, gegebenenfalls Berufsangaben, Handelsregisternummer, TVA-Nummer, Genehmigung). Spätere Änderungen des Gesetzes sind nicht geprüft; das steht in der Anmerkung des Eintrags.
 - **Gegenprüfung `eu-anbieterinfo`:** Art. 5 der Richtlinie 2000/31/EG am Wortlaut geprüft, Inhalt unverändert. Der Eintrag hat jetzt eine Prüfsumme.
+- **Gegenprüfung `de-werbung`:** § 7 Abs. 2 und 3 UWG am Wortlaut geprüft, Inhalt unverändert.
+- **Quellenabgleich:** 18 Quellen unverändert, 0 Abweichungen, 13 nicht prüfbar (gesetze-im-internet.de antwortete nur auf einen Teil der Abrufe).
 - **Gegenprüfung `eu-ki-hinweis`:** Art. 50 Abs. 1 der VO (EU) 2024/1689 am Wortlaut geprüft, Inhalt unverändert. Der Eintrag hat jetzt eine Prüfsumme.
 
 ## 2026-11-18

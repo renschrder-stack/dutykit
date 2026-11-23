@@ -206,7 +206,7 @@
       "grundlage": "§ 7 Abs. 2 UWG",
       "quelle": "https://www.gesetze-im-internet.de/uwg_2004/__7.html",
       "pruefstand": "belegt",
-      "geprueft": "2026-11-07",
+      "geprueft": "2026-11-23",
       "pruefquellen": [
         {
           "url": "https://www.gesetze-im-internet.de/uwg_2004/__7.html",
@@ -463,9 +463,9 @@
     }
   ],
   "_pruefung": {
-    "zuletzt_abgeglichen": "2026-11-18",
-    "quellen_unveraendert": 22,
+    "zuletzt_abgeglichen": "2026-11-23",
+    "quellen_unveraendert": 18,
     "abweichungen": 0,
-    "nicht_pruefbar": 6
+    "nicht_pruefbar": 13
   }
 }
