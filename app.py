@@ -55,9 +55,14 @@ def _statistik(body: bytes) -> None:
         pass  # Statistik darf den Dienst nie stören
 
 
+WERKZEUGE = frozenset({"angebot", "katalog_status", "pflichten", "ki_hinweis", "vat_pruefen",
+                       "rechnung_vorpruefen", "werbung_vorpruefen"})
+
+
 def _ist_sonde(werkzeug: str) -> bool:
-    """Automatische Prüfdienste (z. B. Verzeichnisse) rufen Werkzeuge mit Namen wie __verifymcp_auth_probe_… auf."""
-    return werkzeug.startswith("__")
+    """Automatische Prüfdienste (z. B. Verzeichnisse) rufen Werkzeuge auf, die es nicht gibt, etwa
+    __verifymcp_auth_probe_… oder evyai_mcp_check_probe. Jeder unbekannte Werkzeugname zählt deshalb als Prüfsonde."""
+    return werkzeug not in WERKZEUGE
 
 
 def _eigene_pruefung(scope) -> bool:

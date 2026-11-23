@@ -1,6 +1,6 @@
 # Verzeichnisse: Eintragstexte und Stand
 
-Alle Texte sind wahrheitsgemäß zum Stand 2026-11-18 (Katalog: DE, LU, EU; kostenlose Beta; kein Konto nötig).
+Alle Texte sind wahrheitsgemäß zum Stand 2026-11-23 (Katalog: DE, LU, EU; kostenlose Beta; kein Konto nötig).
 
 ## Fertige Texte (zum Einfügen)
 
@@ -26,35 +26,44 @@ DutyKit sagt KI-Agenten, welche geschäftlichen Pflichten in Deutschland, Luxemb
 - [renschrder-stack/dutykit](https://github.com/renschrder-stack/dutykit) 🐍 ☁️ - EU business duties for AI agents (DE, LU, EU): obligations with legal sources and verification status, pre-checks for invoices and marketing consent, AI Act disclosure wording, live VAT ID check.
 ```
 
-## Stand je Verzeichnis (geprüft im Wochenlauf 2026-11-18)
+## Einreichungen des Agenten
+Höchstens eine alle 48 Stunden. Vor jeder Einreichung diese Liste lesen.
 
-| Verzeichnis | Weg | Konto nötig | Stand 2026-11-18 |
+| Zeitpunkt (UTC) | Verzeichnis | Weg | Ergebnis |
 |---|---|---|---|
-| Offizielle MCP-Registry | `server.json` per CI (GitHub OIDC) | nur GitHub | **erledigt**: `io.github.renschrder-stack/dutykit` 0.2.0 ist `isLatest`, gleich `server.json`. Alter Eintrag `io.github.r08150816s-star/dutykit` 0.1.0 steht weiter |
-| Glama | Eintrag beansprucht; Auto-Release über GitHub-Release | E-Mail-Code | **erledigt**: Abzeichen zeigt „rated A“, 7 Tools je Note A, Tool-Bewertung 4,7 von 5. GitHub-Release `v0.2.0` vom 18.11. vorhanden. Die Versionsnummer zeigt die Glama-Seite nicht an (nicht prüfbar) |
-| awesome-mcp-servers | Pull Request https://github.com/punkpeye/awesome-mcp-servers/pull/19292 (vom Inhaber, 12.11.) | GitHub | **offen**: Betreuer verlangte am 17.11. eine Glama-Note, Inhaber hat am 18.11. geantwortet. `README.md` auf `main` enthält `renschrder-stack/dutykit` noch nicht |
-| PulseMCP | übernimmt aus der offiziellen Registry; eigene Einreichung laut Quellen pausiert | nein | **nicht prüfbar** (`www.pulsemcp.com` ist in der Umgebung nicht freigegeben) |
-| awesome-remote-mcp-servers (jaw9c) | Pull Request im fremden Repo | GitHub | **nicht eingetragen** (README enthält „dutykit“ nicht). Eintragstext unten |
-| mcp.so | Formular bietet nur noch eine bezahlte Einreichung (39 $ einmalig) an; bewusst nicht gebucht | Zahlung | zurückgestellt; `https://mcp.so/server/dutykit` liefert 404 |
-| Smithery | Verzeichnis läuft laut Quellen weiter, Proxy eingestellt | Smithery-Konto | **nicht prüfbar** (`smithery.ai` nicht freigegeben), niedrige Priorität |
+| 2026-11-23 06:16 | mcp.directory | Formular `https://mcp.directory/submit` (GitHub-Adresse und Kurzbeschreibung, keine E-Mail angegeben) | Antwort der Seite: „Server submitted for review!“, Veröffentlichung laut Seite binnen 24 Stunden. Vorher geprüft: Suche nach „dutykit“ ergab „No servers found“ |
 
-## Neue Fundstellen (Recherche 2026-11-18, Angaben Dritter, vor dem Einreichen auf der jeweiligen Seite prüfen)
+**Nächste Einreichung frühestens: 2026-11-25 06:16 UTC.** Reihenfolge der nächsten Kandidaten: mcpservers.org (kostenloses Formular, verlangt eine Kontakt-E-Mail; dafür `hallo@dutykit.dev` verwenden, nie die bezahlte Variante für 39 $), danach Pull Requests (awesome-remote-mcp-servers, Docker MCP Catalog, ToolHive-Katalog).
 
-| Verzeichnis | Weg laut Quelle | Braucht |
-|---|---|---|
-| Docker MCP Catalog | Pull Request an `docker/mcp-registry` (dort liegt eine `CONTRIBUTING.md`) | GitHub-Konto des Inhabers |
-| mcp.directory | Formular `https://mcp.directory/submit`, liest Angaben von GitHub | Formular durch den Inhaber |
-| mcpservers.org | Web-Formular unter `/submit` | Formular durch den Inhaber |
-| ToolHive-Katalog (`stacklok/toolhive-catalog`) | Pull Request | GitHub-Konto des Inhabers |
+## Stand je Verzeichnis (geprüft im Lauf 2026-11-23)
 
-Für alle vier passen die fertigen Texte oben unverändert (Name, Endpoint, Kurzbeschreibung, Beschreibung EN).
+| Verzeichnis | Stand 2026-11-23 |
+|---|---|
+| Offizielle MCP-Registry | **eingetragen**: `io.github.renschrder-stack/dutykit` 0.2.0 ist `isLatest`. Alter Eintrag `io.github.r08150816s-star/dutykit` 0.1.0 steht weiter |
+| Glama | **eingetragen**: Abzeichen zeigt „rated A“. Die Beschreibung dort nennt schon die Kleinbetragsrechnung |
+| awesome-mcp-servers | **offen**: Pull Request https://github.com/punkpeye/awesome-mcp-servers/pull/19292 ist offen, letzte Nachricht ist die Antwort des Inhabers vom 18.11., keine neue Rückmeldung des Betreuers. `README.md` enthält den Eintrag nicht |
+| mcp.directory | **eingereicht am 23.11.**, noch nicht sichtbar |
+| PulseMCP | **nicht prüfbar**: Die Seite antwortet automatischen Abrufen mit HTTP 403. Eine Websuche am 18.11. fand keinen Eintrag |
+| Smithery | **nicht eingetragen**: Suche nach „dutykit“ auf `www.smithery.ai` ohne Treffer (Vorbehalt: Treffer könnten erst im Browser nachladen) |
+| awesome-remote-mcp-servers (jaw9c) | **nicht eingetragen** (README enthält „dutykit“ nicht). Eintragstext unten |
+| mcpservers.org | **nicht eingereicht**. Kostenloses Formular vorhanden (Prüfung laut Seite binnen 2 Wochen) |
+| mcp.so | **zurückgestellt**: nur bezahlte Einreichung (39 $); `https://mcp.so/server/dutykit` liefert 404 |
+
+## Weitere Fundstellen (Recherche 2026-11-18, Angaben Dritter, vor dem Einreichen auf der jeweiligen Seite prüfen)
+
+| Verzeichnis | Weg laut Quelle |
+|---|---|
+| Docker MCP Catalog | Pull Request an `docker/mcp-registry` (dort liegt eine `CONTRIBUTING.md`) |
+| ToolHive-Katalog (`stacklok/toolhive-catalog`) | Pull Request |
+
+Für alle passen die fertigen Texte oben unverändert (Name, Endpoint, Kurzbeschreibung, Beschreibung EN).
 
 **Eintrag für awesome-remote-mcp-servers** (Format vor dem Einreichen mit der dortigen README abgleichen):
 ```
 | DutyKit | Legal / Compliance | `https://dutykit.dev/mcp` | Open (no auth) | [renschrder-stack](https://github.com/renschrder-stack/dutykit) |
 ```
 
-## Wettbewerb (Glama „related“, 2026-11-18)
+## Wettbewerb (Glama „related“, zuletzt angesehen 2026-11-23: dieselben vier Server wie am 18.11.)
 - `josemvelez78/mcp-europe-business`: 28 Tools, laut Eintrag 18+ Länder, u. a. Prüfung von Steuernummern und IBAN, USt-Sätze, Rechnungsregeln. Noten Lizenz A, Qualität A, Pflege D.
 - „EMEA Compliance MCP“: Noten A / A / D; Einzelheiten am 18.11. nicht abrufbar.
 - Was DutyKit davon unterscheidet: Prüfstand je Eintrag gegen den Gesetzestext und öffentliches Änderungsprotokoll. Was fehlt: Breite (Länder). Abgeleitete Verbesserung für den nächsten Lauf: keine neue Funktion, sondern FR/BE aus dem Backlog vorziehen, sobald die Primärquellen lesbar sind.

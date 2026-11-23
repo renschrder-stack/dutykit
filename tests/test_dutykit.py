@@ -222,3 +222,13 @@ def test_kleinbetragsrechnung_bis_250_euro():
     assert not r["bestanden"] and r["fehlende_angaben"] == ["Steuersatz oder Hinweis auf Steuerbefreiung"]
     r = s.rechnung_vorpruefen({**klein, "brutto": 250.01})  # darüber gelten alle Angaben nach § 14 Abs. 4 UStG
     assert not r["bestanden"] and "kleinbetragsrechnung" not in r and r["grundlage"] == "§ 14 Abs. 4 UStG"
+
+
+def test_unbekannte_werkzeugnamen_zaehlen_als_pruefsonde(tmp_path):
+    import asyncio
+    import app as a
+    assert a.WERKZEUGE == {t.name for t in asyncio.run(s.mcp.list_tools())}
+    f = tmp_path / "st.json"
+    f.write_text(json.dumps({"2026-11-23": {"katalog_status": 2, "evyai_mcp_check_probe": 1, "__verifymcp_auth_probe_x": 3}}))
+    z = a.statistik_zusammenfassung("2026-11-23", str(f))["woche_aktuell"]
+    assert z["aufrufe"] == 2 and z["pruefsonden"] == 4 and z["je_werkzeug"] == {"katalog_status": 2}
