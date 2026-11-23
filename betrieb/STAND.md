@@ -13,7 +13,8 @@ Stand: 2026-11-23. Der Agent schreibt diese Seite bei jedem Lauf neu. Kurze Sät
 | Bei Verzeichnissen einreichen | Agent | höchstens alle 48 Stunden |
 | Verzeichnisse prüfen | Agent | Mo, Mi, Fr |
 | Katalog pflegen | Agent | montags |
-| Weiterentwickeln | Agent | montags |
+| Neue Seite, Verlinkung, Auswertung | Agent | mittwochs |
+| Weiterentwickeln | Agent | freitags |
 | LinkedIn-Beitrag einplanen | Agent | montags, erscheint donnerstags 09:15 |
 | Wochenbericht mailen | Agent | montags |
 
@@ -53,6 +54,9 @@ Lauf vom 23.11.2026:
 - Fehler behoben: Eine Prüfsonde mit unbekanntem Werkzeugnamen zählte als echter Aufruf.
 - LinkedIn-Beitrag zu § 7 UWG für Donnerstag, 26.11., 09:15 Uhr eingeplant.
 - Wochenbericht KW 48 geschrieben und gemailt.
+
+## Nicht geschafft
+Lauf vom 23.11.: keine neue Seite, kein Backlog-Punkt. Ab 25.11. feste Tage dafür (Mittwoch, Freitag). Versand der Mail für KW 48 ist nicht bestätigt.
 
 ## Braucht Sie
 Nichts.
