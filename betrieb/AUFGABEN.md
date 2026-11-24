@@ -13,7 +13,7 @@ Er stellt keine Rückfragen. Was nur der Inhaber kann, steht im Wochenbericht un
 
 ## Zusätzlich montags
 6. **Katalog:** Quellenabgleich, EU-Änderungen suchen, bis zu 8 Einträge am Gesetzestext prüfen.
-7. **LinkedIn:** einen Beitrag schreiben und in Postiz für Donnerstag 09:15 Uhr einplanen (Ablauf: `betrieb/linkedin/ABLAUF.md`).
+7. **LinkedIn:** einen Beitrag schreiben und dem Inhaber mailen, nicht einplanen (Postiz gekündigt, Veröffentlichung von Hand über die Seite PontoIt; Ablauf: `betrieb/linkedin/ABLAUF.md`).
 8. **Wochenbericht:** `betrieb/berichte/JJJJ-KWnn.md` schreiben und per Mail an den Inhaber senden. Danach prüfen, dass die Mail wirklich raus ist (Antwort des Mail-Werkzeugs lesen). Im Bericht und in `STAND.md` steht nur dann „gemailt“, wenn das Werkzeug den Versand bestätigt hat; sonst steht dort „Mail nicht gesendet“ mit dem Fehler, und es geht eine Push-Nachricht raus.
 
 ## Zusätzlich mittwochs: Sichtbarkeit (Pflicht, nicht verschieben)
