@@ -2,6 +2,9 @@
 
 Öffentlich geführt, damit nachvollziehbar ist, wann und warum sich Aussagen geändert haben. Neueste zuerst.
 
+## 2026-11-25
+- **Präzisierung `de-impressum`:** § 5 Abs. 1 DDG am Wortlaut geprüft. Der Eintrag sprach von „ladungsfähiger Anschrift“; im Gesetz steht „Anschrift, unter der sie niedergelassen sind“. Der Eintrag folgt jetzt dem Wortlaut und nennt zusätzlich Rechtsform und Vertretungsberechtigten, Aufsichtsbehörde und Wirtschafts-Identifikationsnummer. Prüfsumme unverändert.
+
 ## 2026-11-23
 - **`lu-anbieterinfo` jetzt belegt:** Art. 5 der Loi du 14 août 2000 relative au commerce électronique am Wortlaut der Urfassung im Journal officiel geprüft (Name, Anschrift, Kontaktdaten mit E-Mail, gegebenenfalls Berufsangaben, Handelsregisternummer, TVA-Nummer, Genehmigung). Spätere Änderungen des Gesetzes sind nicht geprüft; das steht in der Anmerkung des Eintrags.
 - **Gegenprüfung `eu-anbieterinfo`:** Art. 5 der Richtlinie 2000/31/EG am Wortlaut geprüft, Inhalt unverändert. Der Eintrag hat jetzt eine Prüfsumme.

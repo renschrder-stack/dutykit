@@ -130,11 +130,11 @@
         "website",
         "online_handel"
       ],
-      "pflicht": "Impressum mit Name, ladungsfähiger Anschrift, schneller elektronischer Kontaktmöglichkeit, ggf. Register und USt-IdNr.",
-      "grundlage": "§ 5 DDG",
+      "pflicht": "Impressum mit Name, Anschrift der Niederlassung, bei juristischen Personen Rechtsform und Vertretungsberechtigtem, schneller elektronischer Kontaktmöglichkeit einschließlich E-Mail-Adresse, ggf. Aufsichtsbehörde, Register mit Registernummer und USt-IdNr. oder Wirtschafts-Identifikationsnummer; leicht erkennbar, unmittelbar erreichbar und ständig verfügbar.",
+      "grundlage": "§ 5 Abs. 1 DDG",
       "quelle": "https://www.gesetze-im-internet.de/ddg/__5.html",
       "pruefstand": "belegt",
-      "geprueft": "2026-11-07",
+      "geprueft": "2026-11-25",
       "pruefquellen": [
         {
           "url": "https://www.gesetze-im-internet.de/ddg/__5.html",
