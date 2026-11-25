@@ -1,6 +1,6 @@
 # Verzeichnisse: Eintragstexte und Stand
 
-Alle Texte sind wahrheitsgemäß zum Stand 2026-11-23 (Katalog: DE, LU, EU; kostenlose Beta; kein Konto nötig).
+Alle Texte sind wahrheitsgemäß zum Stand 2026-11-25 (Katalog: DE, LU, EU; kostenlose Beta; kein Konto nötig).
 
 ## Fertige Texte (zum Einfügen)
 
@@ -32,22 +32,23 @@ Höchstens eine alle 48 Stunden. Vor jeder Einreichung diese Liste lesen.
 | Zeitpunkt (UTC) | Verzeichnis | Weg | Ergebnis |
 |---|---|---|---|
 | 2026-11-23 06:16 | mcp.directory | Formular `https://mcp.directory/submit` (GitHub-Adresse und Kurzbeschreibung, keine E-Mail angegeben) | Antwort der Seite: „Server submitted for review!“, Veröffentlichung laut Seite binnen 24 Stunden. Vorher geprüft: Suche nach „dutykit“ ergab „No servers found“ |
+| 2026-11-25 06:17 | mcpservers.org | Formular `https://mcpservers.org/submit`, kostenlose Variante (Name, Kategorie „Other“, Kurzbeschreibung, GitHub-Adresse, Registry-Name, Endpoint `https://dutykit.dev/mcp` ohne Anmeldung, Kontakt `hallo@dutykit.dev`) | Antwort der Seite: „Submission Successful!“, Prüfung laut Seite binnen 2 Wochen, Nachricht an die Kontaktadresse. Vorher geprüft: Websuche auf mcpservers.org nach „dutykit“ ohne Treffer (die Suche der Seite selbst ist für automatische Abrufe gesperrt) |
 
-**Nächste Einreichung frühestens: 2026-11-25 06:16 UTC.** Reihenfolge der nächsten Kandidaten: mcpservers.org (kostenloses Formular, verlangt eine Kontakt-E-Mail; dafür `hallo@dutykit.dev` verwenden, nie die bezahlte Variante für 39 $), danach Pull Requests (awesome-remote-mcp-servers, Docker MCP Catalog, ToolHive-Katalog).
+**Nächste Einreichung frühestens: 2026-11-27 06:17 UTC.** Formulare sind damit ausgeschöpft. Nächste Kandidaten sind Pull Requests: awesome-remote-mcp-servers, danach Docker MCP Catalog und ToolHive-Katalog. Vorher jeweils die Anleitung des Repos lesen.
 
-## Stand je Verzeichnis (geprüft im Lauf 2026-11-23)
+## Stand je Verzeichnis (geprüft im Lauf 2026-11-25)
 
-| Verzeichnis | Stand 2026-11-23 |
+| Verzeichnis | Stand 2026-11-25 |
 |---|---|
 | Offizielle MCP-Registry | **eingetragen**: `io.github.renschrder-stack/dutykit` 0.2.0 ist `isLatest`. Alter Eintrag `io.github.r08150816s-star/dutykit` 0.1.0 steht weiter |
-| Glama | **eingetragen**: Abzeichen zeigt „rated A“. Die Beschreibung dort nennt schon die Kleinbetragsrechnung |
-| awesome-mcp-servers | **offen**: Pull Request https://github.com/punkpeye/awesome-mcp-servers/pull/19292 ist offen, letzte Nachricht ist die Antwort des Inhabers vom 18.11., keine neue Rückmeldung des Betreuers. `README.md` enthält den Eintrag nicht |
-| mcp.directory | **eingereicht am 23.11.**, noch nicht sichtbar |
-| PulseMCP | **nicht prüfbar**: Die Seite antwortet automatischen Abrufen mit HTTP 403. Eine Websuche am 18.11. fand keinen Eintrag |
-| Smithery | **nicht eingetragen**: Suche nach „dutykit“ auf `www.smithery.ai` ohne Treffer (Vorbehalt: Treffer könnten erst im Browser nachladen) |
+| Glama | **eingetragen**: Abzeichen zeigt „rated A“. Das Abzeichen steht seit 25.11. im README, die Website verlinkt den Eintrag |
+| awesome-mcp-servers | **offen, Betreuer hat am 23.11. nachgefragt**: Er bittet, das Glama-Abzeichen ins README des Repos aufzunehmen und das im Pull Request https://github.com/punkpeye/awesome-mcp-servers/pull/19292 zu erwähnen; ein Link von der Website zähle auch. Abzeichen und Link sind seit 25.11. da. Die Antwort im Pull Request muss der Inhaber schreiben |
+| mcp.directory | **eingereicht am 23.11.**, am 25.11. noch nicht sichtbar (Suche: „No servers found“), obwohl die Seite 24 Stunden nennt |
+| mcpservers.org | **eingereicht am 25.11.**, Prüfung laut Seite binnen 2 Wochen |
+| PulseMCP | **nicht prüfbar**: Die Seite antwortet mit „Access Denied“ und verweist auf einen API-Zugang per Anfrage an hello@pulsemcp.com |
+| Smithery | **nicht eingetragen**: Suche nach „dutykit“ zeigt „0 servers“ (im Browser geprüft) |
 | awesome-remote-mcp-servers (jaw9c) | **nicht eingetragen** (README enthält „dutykit“ nicht). Eintragstext unten |
-| mcpservers.org | **nicht eingereicht**. Kostenloses Formular vorhanden (Prüfung laut Seite binnen 2 Wochen) |
-| mcp.so | **zurückgestellt**: nur bezahlte Einreichung (39 $); `https://mcp.so/server/dutykit` liefert 404 |
+| mcp.so | **zurückgestellt**: nur bezahlte Einreichung (39 $) |
 
 ## Weitere Fundstellen (Recherche 2026-11-18, Angaben Dritter, vor dem Einreichen auf der jeweiligen Seite prüfen)
 
@@ -63,7 +64,8 @@ Für alle passen die fertigen Texte oben unverändert (Name, Endpoint, Kurzbesch
 | DutyKit | Legal / Compliance | `https://dutykit.dev/mcp` | Open (no auth) | [renschrder-stack](https://github.com/renschrder-stack/dutykit) |
 ```
 
-## Wettbewerb (Glama „related“, zuletzt angesehen 2026-11-23: dieselben vier Server wie am 18.11.)
+## Wettbewerb (Glama „related“, zuletzt angesehen 2026-11-25)
 - `josemvelez78/mcp-europe-business`: 28 Tools, laut Eintrag 18+ Länder, u. a. Prüfung von Steuernummern und IBAN, USt-Sätze, Rechnungsregeln. Noten Lizenz A, Qualität A, Pflege D.
 - „EMEA Compliance MCP“: Noten A / A / D; Einzelheiten am 18.11. nicht abrufbar.
 - Was DutyKit davon unterscheidet: Prüfstand je Eintrag gegen den Gesetzestext und öffentliches Änderungsprotokoll. Was fehlt: Breite (Länder). Abgeleitete Verbesserung für den nächsten Lauf: keine neue Funktion, sondern FR/BE aus dem Backlog vorziehen, sobald die Primärquellen lesbar sind.
+- 25.11.: `closermethod/emea-compliance-mcp` ist ein lokaler Server mit Vertriebshinweisen für Europa (Kategorien CRM, Legal & Compliance, Marketing), kein Pflichtenkatalog. `josemvelez78/mcp-europe-business` steht unter Legal & Compliance und Finance. Abgeleitet: keine Änderung am Server; der neue Leitfaden zu den Anbieterangaben deckt ein Thema ab, das beide nicht haben.

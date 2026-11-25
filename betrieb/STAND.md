@@ -1,6 +1,6 @@
 # DutyKit: Stand
 
-Stand: 2026-11-23. Der Agent schreibt diese Seite bei jedem Lauf neu. Kurze Sätze, keine Erklärungen.
+Stand: 2026-11-25. Der Agent schreibt diese Seite bei jedem Lauf neu. Kurze Sätze, keine Erklärungen.
 
 ## Läuft allein
 | Was | Wer | Wann |
@@ -26,37 +26,38 @@ Stand: 2026-11-23. Der Agent schreibt diese Seite bei jedem Lauf neu. Kurze Sät
 | Alles, was Geld kostet | nur der Inhaber |
 
 ## Zahlen
-Abgerufen am 23.11.2026.
-- Aufrufe 17.–23.11.: 15 ohne Prüfsonden. Alle 15 gingen an `katalog_status`.
-- Vorwoche (10.–16.11.): 17 Aufrufe. Veränderung: −12 %.
+Abgerufen am 25.11.2026.
+- Aufrufe 19.–25.11.: 27 ohne Prüfsonden. Vorwoche (12.–18.11.): 21. Veränderung: +29 %.
+- Je Werkzeug: katalog_status 14, pflichten 4, angebot 2, vat_pruefen 2, werbung_vorpruefen 2, ki_hinweis 2, rechnung_vorpruefen 1.
 - Prüfsonden: 27 (Vorwoche 28).
-- Seitenaufrufe der Website 17.–23.11.: 15 (Startseite 14, Datenschutz 1). Der Zähler läuft seit 18.11.
+- Seitenaufrufe der Website 19.–25.11.: 23, alle auf der Startseite. Kein Leitfaden wurde aufgerufen.
 - Katalog: 23 von 23 Einträgen belegt.
-- Quellenabgleich 23.11.: 18 unverändert, 0 Abweichungen, 13 nicht prüfbar.
+- Quellenabgleich: zuletzt 23.11. (18 unverändert, 0 Abweichungen, 13 nicht prüfbar). Nächster am Montag.
 - Server: gesund. Tests: 27 bestanden.
 
 ## Verzeichnisse
 - Offizielle MCP-Registry: eingetragen (0.2.0).
 - Glama: eingetragen, Note A.
 - mcp.directory: am 23.11. eingereicht, noch nicht sichtbar.
-- awesome-mcp-servers: offen, Pull Request 19292 wartet auf den Betreuer.
+- mcpservers.org: am 25.11. eingereicht, Prüfung laut Seite binnen 2 Wochen.
+- awesome-mcp-servers: offen. Der Betreuer hat am 23.11. nachgefragt (siehe „Braucht Sie“).
 - PulseMCP: nicht prüfbar (Seite sperrt automatische Abrufe).
 - Smithery: nicht eingetragen.
 - awesome-remote-mcp-servers: nicht eingetragen.
-- mcpservers.org: nicht eingereicht, ist als Nächstes dran.
 - mcp.so: nicht möglich ohne Geld (39 $).
 
 ## Zuletzt erledigt
-Lauf vom 23.11.2026:
-- Einreichung bei mcp.directory über das Formular.
-- Luxemburg: Anbieterangaben am Gesetzestext geprüft. Damit sind alle 23 Einträge belegt.
-- Drei weitere Einträge am Wortlaut geprüft (Anbieterangaben EU, KI-Hinweis, Werbung).
-- Fehler behoben: Eine Prüfsonde mit unbekanntem Werkzeugnamen zählte als echter Aufruf.
-- LinkedIn-Beitrag zu § 7 UWG für Donnerstag, 26.11., 09:15 Uhr eingeplant.
-- Wochenbericht KW 48 geschrieben und gemailt.
+Lauf vom 25.11.2026:
+- Einreichung bei mcpservers.org über das kostenlose Formular.
+- Neuer Leitfaden: Anbieterangaben auf Websites in Deutschland (§ 5 DDG) und Luxemburg. Verlinkt von Startseite, Blog, Rechnungs-Leitfaden und README.
+- Auswertung: Alle Seitenaufrufe landen auf der Startseite. Deshalb steht der neue Leitfaden jetzt oben auf der Startseite.
+- Katalog: Eintrag zum Impressum an den Wortlaut von § 5 DDG angepasst („Anschrift der Niederlassung“ statt „ladungsfähige Anschrift“).
+- Glama-Abzeichen ins README aufgenommen, Website verlinkt den Glama-Eintrag (Bitte des Betreuers von awesome-mcp-servers).
+- Wettbewerb: zwei Server angesehen, keine Änderung abgeleitet.
+- Die Mail zum Wochenbericht KW 48 vom 23.11. hat das Mail-Werkzeug bestätigt (Versandkennung S30).
 
 ## Nicht geschafft
-Lauf vom 23.11.: keine neue Seite, kein Backlog-Punkt. Ab 25.11. feste Tage dafür (Mittwoch, Freitag). Versand der Mail für KW 48 ist nicht bestätigt.
+Nichts.
 
 ## Braucht Sie
-Nichts.
+- awesome-mcp-servers: Bitte im Pull Request https://github.com/punkpeye/awesome-mcp-servers/pull/19292 antworten. Fertiger Text: „The Glama score badge is now in the repository README, and dutykit.dev links to the Glama listing.“ Erst senden, wenn dieser Lauf gemergt ist.

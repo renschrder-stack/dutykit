@@ -1,13 +1,14 @@
 # DutyKit
 
 [![MCP Registry](https://img.shields.io/badge/MCP%20Registry-io.github.renschrder--stack%2Fdutykit-1f5f4a)](https://registry.modelcontextprotocol.io/v0/servers?search=dutykit)
+[![Glama score](https://glama.ai/mcp/servers/renschrder-stack/dutykit/badges/score.svg)](https://glama.ai/mcp/servers/renschrder-stack/dutykit)
 [![License: MIT](https://img.shields.io/badge/code-MIT-blue)](LICENSE)
 [![Catalogue: CC BY 4.0](https://img.shields.io/badge/catalogue-CC%20BY%204.0-lightgrey)](https://creativecommons.org/licenses/by/4.0/)
 
 EU business duties for AI agents. A remote MCP server that tells an agent which business rules apply in Germany, Luxembourg and the EU, with the legal source for every line, and lets it pre-check an invoice, a marketing message or a call before it acts.
 
 **Endpoint:** `https://dutykit.dev/mcp` (Streamable HTTP, public beta, free, no account, 200 tool calls per day per IP, no inputs stored)
-**Docs:** https://dutykit.dev · https://dutykit.dev/llms.txt · [Guides](https://dutykit.dev/blog/)
+**Docs:** https://dutykit.dev · https://dutykit.dev/llms.txt · [Guides](https://dutykit.dev/blog/), newest: [legal notice for a business website (DE, LU)](https://dutykit.dev/blog/website-legal-notice-germany-luxembourg.html)
 
 ## Connect
 
@@ -44,11 +45,11 @@ Every check also returns a `nachweis` (timestamp, tool, responsible person, SHA-
 ```json
 {
   "id": "de-impressum",
-  "pflicht": "Impressum mit Name, ladungsfähiger Anschrift, schneller elektronischer Kontaktmöglichkeit, ggf. Register und USt-IdNr.",
-  "grundlage": "§ 5 DDG",
+  "pflicht": "Impressum mit Name, Anschrift der Niederlassung, bei juristischen Personen Rechtsform und Vertretungsberechtigtem, schneller elektronischer Kontaktmöglichkeit einschließlich E-Mail-Adresse, ggf. Aufsichtsbehörde, Register mit Registernummer und USt-IdNr. oder Wirtschafts-Identifikationsnummer; leicht erkennbar, unmittelbar erreichbar und ständig verfügbar.",
+  "grundlage": "§ 5 Abs. 1 DDG",
   "quelle": "https://www.gesetze-im-internet.de/ddg/__5.html",
   "pruefstand": "belegt",
-  "geprueft": "2026-11-07"
+  "geprueft": "2026-11-25"
 }
 ```
 
