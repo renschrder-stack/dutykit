@@ -28,3 +28,17 @@ dutykit.dev {
 www.dutykit.dev {
 	redir https://dutykit.dev{uri} permanent
 }
+
+check.pontoit.de {
+	encode gzip
+	reverse_proxy erreichbar:8787
+	header {
+		Strict-Transport-Security "max-age=31536000"
+		X-Content-Type-Options nosniff
+		Referrer-Policy no-referrer
+		Permissions-Policy "camera=(), microphone=(), geolocation=(), interest-cohort=()"
+		Content-Security-Policy "default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; frame-ancestors https://pontoit.de https://www.pontoit.de; base-uri 'self'; form-action 'self'"
+		-Server
+	}
+	# Kein Zugriffslog mit IP-Adressen (Datenschutz)
+}
