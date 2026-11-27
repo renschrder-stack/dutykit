@@ -460,6 +460,46 @@
           "sha256": "79755d22407c3a3814b56d0f797df35ea9a08690ace63b6791d27aabf1c7cfdb"
         }
       ]
+    },
+    {
+      "id": "lu-rcs",
+      "taetigkeiten": [
+        "gruendung"
+      ],
+      "pflicht": "Einzelkaufleute, Handelsgesellschaften, Zweigniederlassungen ausländischer Gesellschaften und weitere im Gesetz genannte Einheiten werden auf ihre Erklärung hin im Handels- und Gesellschaftsregister (RCS) eingetragen. Die gesetzlich vorgeschriebenen Eintragungen und jede Änderung der einzutragenden Tatsachen müssen im Register vermerkt werden. Das Register ist öffentlich.",
+      "grundlage": "Loi du 19 décembre 2002 concernant le registre de commerce et des sociétés, Art. 1",
+      "quelle": "https://legilux.public.lu/filestore/eli/etat/leg/loi/2002/12/19/n1/jo/fr/html/eli-etat-leg-loi-2002-12-19-n1-jo-fr-html.html",
+      "pruefstand": "belegt",
+      "geprueft": "2026-11-27",
+      "anmerkung": "Geprüft am Wortlaut der Urfassung im Journal officiel. Spätere Änderungen des Gesetzes sind nicht geprüft, eine konsolidierte Fassung war nicht abrufbar.",
+      "pruefquellen": [
+        {
+          "url": "https://legilux.public.lu/filestore/eli/etat/leg/loi/2002/12/19/n1/jo/fr/html/eli-etat-leg-loi-2002-12-19-n1-jo-fr-html.html",
+          "anker": "Art. 1 er . Il est tenu un registre de commerce et des sociétés",
+          "ende": "Art. 2. ",
+          "sha256": "70a58e542309d5120f716a92ecbcd4f7a53b97aa15cbd9a68bba35ef99a18394"
+        }
+      ]
+    },
+    {
+      "id": "lu-rbe",
+      "taetigkeiten": [
+        "gruendung"
+      ],
+      "pflicht": "Im RCS eingetragene Einheiten im Sinne des Gesetzes müssen Angaben zu ihren wirtschaftlich Berechtigten im Registre des bénéficiaires effectifs (RBE) eintragen lassen, unter anderem Name, Vornamen, Staatsangehörigkeit, Geburtsdatum und Geburtsort, Wohnsitzland, Anschrift sowie Art und Umfang der Beteiligung. Die Eintragung und jede Änderung ist binnen eines Monats zu beantragen, nachdem die Einheit von dem Ereignis Kenntnis hatte oder hätte haben müssen.",
+      "grundlage": "Loi du 13 janvier 2019 instituant un Registre des bénéficiaires effectifs, Art. 3 Abs. 1 und Art. 4 Abs. 1",
+      "quelle": "https://legilux.public.lu/filestore/eli/etat/leg/loi/2019/01/13/a15/jo/fr/html/eli-etat-leg-loi-2019-01-13-a15-jo-fr-html.html",
+      "pruefstand": "belegt",
+      "geprueft": "2026-11-27",
+      "anmerkung": "Geprüft am Wortlaut der Urfassung im Journal officiel. Spätere Änderungen des Gesetzes sind nicht geprüft, eine konsolidierte Fassung war nicht abrufbar. Wer „eingetragene Einheit“ ist, bestimmt Art. 1 Nr. 4 (Einheiten nach Art. 1 Nr. 2 bis 15 des RCS-Gesetzes in geänderter Fassung). Börsennotierte Gesellschaften tragen nach Art. 3 Abs. 2 nur den Namen des Marktes ein.",
+      "pruefquellen": [
+        {
+          "url": "https://legilux.public.lu/filestore/eli/etat/leg/loi/2019/01/13/a15/jo/fr/html/eli-etat-leg-loi-2019-01-13-a15-jo-fr-html.html",
+          "anker": "Art. 3. (1) Les informations suivantes sur les bénéficiaires effectifs",
+          "ende": "Le notaire, rédacteur",
+          "sha256": "5ea166767dda9a5d4b23dba8a5ec3a62e73d1219aa73d034b4bc29a3a4cb8dd1"
+        }
+      ]
     }
   ],
   "_pruefung": {

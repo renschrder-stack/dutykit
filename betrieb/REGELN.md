@@ -62,7 +62,7 @@ Datei `betrieb/berichte/JJJJ-KWnn.md` im Pull Request des Laufs (nach dem Merge 
 Zustellung: Den Bericht per Mail an die Adresse des Inhabers senden (Mail-Werkzeug per ToolSearch nach `send_email` bzw. `send_message` suchen; nur an den Inhaber selbst, Betreff „DutyKit Wochenbericht KWnn“). Fehlt ein Mail-Werkzeug, genau eine PushNotification mit den drei wichtigsten Zahlen und dem Link zum Pull Request. Den Bericht zusätzlich vollständig als Abschlussnachricht ausgeben.
 
 ## Backlog (nach Wert)
-1. LU-Einträge mit gesicherter legilux-Quelle (RCS/RBE, Rechnungsangaben, Datenschutz CNPD).
+1. LU-Einträge mit gesicherter legilux-Quelle: RCS und RBE sind seit 27.11.2026 im Katalog. Offen: Rechnungsangaben (braucht die konsolidierte Loi TVA, die Urfassung von 1979 reicht nicht) und Datenschutz CNPD.
 2. FR und BE (Kataloglücke laut README).
 3. `rechnung_vorpruefen` für LU.
 4. Stripe-Webhook für Schlüsselvergabe (nur vorbereiten, nicht aktivieren).

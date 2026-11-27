@@ -2,6 +2,11 @@
 
 Öffentlich geführt, damit nachvollziehbar ist, wann und warum sich Aussagen geändert haben. Neueste zuerst.
 
+## 2026-11-27
+- **Neu `lu-rcs`:** Eintragung im Handels- und Gesellschaftsregister (Loi du 19 décembre 2002, Art. 1), am Wortlaut der Urfassung geprüft.
+- **Neu `lu-rbe`:** Eintragung der wirtschaftlich Berechtigten im Registre des bénéficiaires effectifs binnen eines Monats (Loi du 13 janvier 2019, Art. 3 Abs. 1 und Art. 4 Abs. 1), am Wortlaut der Urfassung geprüft.
+- Bei beiden sind spätere Änderungen des Gesetzes nicht geprüft; das steht in der Anmerkung des Eintrags. Der Katalog hat jetzt 25 Einträge.
+
 ## 2026-11-25
 - **Präzisierung `de-impressum`:** § 5 Abs. 1 DDG am Wortlaut geprüft. Der Eintrag sprach von „ladungsfähiger Anschrift“; im Gesetz steht „Anschrift, unter der sie niedergelassen sind“. Der Eintrag folgt jetzt dem Wortlaut und nennt zusätzlich Rechtsform und Vertretungsberechtigten, Aufsichtsbehörde und Wirtschafts-Identifikationsnummer. Prüfsumme unverändert.
 
