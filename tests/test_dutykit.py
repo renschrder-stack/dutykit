@@ -232,3 +232,14 @@ def test_unbekannte_werkzeugnamen_zaehlen_als_pruefsonde(tmp_path):
     f.write_text(json.dumps({"2026-11-23": {"katalog_status": 2, "evyai_mcp_check_probe": 1, "__verifymcp_auth_probe_x": 3}}))
     z = a.statistik_zusammenfassung("2026-11-23", str(f))["woche_aktuell"]
     assert z["aufrufe"] == 2 and z["pruefsonden"] == 4 and z["je_werkzeug"] == {"katalog_status": 2}
+
+
+def test_lu_gruendung_nennt_register_mit_pruefquelle():
+    r = s.pflichten("LU", "gruendung")
+    nach_id = {e["id"]: e for e in r["pflichten"]}
+    for i in ("lu-rcs", "lu-rbe"):
+        assert nach_id[i]["pruefstand"] == "belegt" and nach_id[i]["quelle"].startswith("https://legilux.public.lu/")
+    kat = json.loads((s.HIER / "pflichten.json").read_text(encoding="utf-8"))
+    for e in kat["LU"]:
+        if e["id"] in ("lu-rcs", "lu-rbe", "lu-anbieterinfo"):
+            assert e["pruefquellen"] and all(len(q["sha256"]) == 64 for q in e["pruefquellen"])

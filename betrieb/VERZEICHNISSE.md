@@ -1,6 +1,6 @@
 # Verzeichnisse: Eintragstexte und Stand
 
-Alle Texte sind wahrheitsgemäß zum Stand 2026-11-25 (Katalog: DE, LU, EU; kostenlose Beta; kein Konto nötig).
+Alle Texte sind wahrheitsgemäß zum Stand 2026-11-27 (Katalog: DE, LU, EU; kostenlose Beta; kein Konto nötig).
 
 ## Fertige Texte (zum Einfügen)
 
@@ -34,20 +34,20 @@ Höchstens eine alle 48 Stunden. Vor jeder Einreichung diese Liste lesen.
 | 2026-11-23 06:16 | mcp.directory | Formular `https://mcp.directory/submit` (GitHub-Adresse und Kurzbeschreibung, keine E-Mail angegeben) | Antwort der Seite: „Server submitted for review!“, Veröffentlichung laut Seite binnen 24 Stunden. Vorher geprüft: Suche nach „dutykit“ ergab „No servers found“ |
 | 2026-11-25 06:17 | mcpservers.org | Formular `https://mcpservers.org/submit`, kostenlose Variante (Name, Kategorie „Other“, Kurzbeschreibung, GitHub-Adresse, Registry-Name, Endpoint `https://dutykit.dev/mcp` ohne Anmeldung, Kontakt `hallo@dutykit.dev`) | Antwort der Seite: „Submission Successful!“, Prüfung laut Seite binnen 2 Wochen, Nachricht an die Kontaktadresse. Vorher geprüft: Websuche auf mcpservers.org nach „dutykit“ ohne Treffer (die Suche der Seite selbst ist für automatische Abrufe gesperrt) |
 
-**Nächste Einreichung frühestens: 2026-11-27 06:17 UTC.** Formulare sind damit ausgeschöpft. Nächste Kandidaten sind Pull Requests: awesome-remote-mcp-servers, danach Docker MCP Catalog und ToolHive-Katalog. Vorher jeweils die Anleitung des Repos lesen.
+**Stand 27.11.:** Keine Einreichung. Die kostenlosen Formulare sind ausgeschöpft. Übrig sind Pull Requests in fremden Repositories (awesome-remote-mcp-servers, Docker MCP Catalog, ToolHive-Katalog). Der GitHub-Zugang des Agenten gilt nur für `renschrder-stack/dutykit`; er kann dort keinen Fork anlegen und keinen Pull Request stellen. Die 48-Stunden-Sperre ist seit 27.11. 06:17 UTC abgelaufen.
 
-## Stand je Verzeichnis (geprüft im Lauf 2026-11-25)
+## Stand je Verzeichnis (geprüft im Lauf 2026-11-27)
 
-| Verzeichnis | Stand 2026-11-25 |
+| Verzeichnis | Stand 2026-11-27 |
 |---|---|
 | Offizielle MCP-Registry | **eingetragen**: `io.github.renschrder-stack/dutykit` 0.2.0 ist `isLatest`. Alter Eintrag `io.github.r08150816s-star/dutykit` 0.1.0 steht weiter |
-| Glama | **eingetragen**: Abzeichen zeigt „rated A“. Das Abzeichen steht seit 25.11. im README, die Website verlinkt den Eintrag |
-| awesome-mcp-servers | **offen, Betreuer hat am 23.11. nachgefragt**: Er bittet, das Glama-Abzeichen ins README des Repos aufzunehmen und das im Pull Request https://github.com/punkpeye/awesome-mcp-servers/pull/19292 zu erwähnen; ein Link von der Website zähle auch. Abzeichen und Link sind seit 25.11. da. Die Antwort im Pull Request muss der Inhaber schreiben |
-| mcp.directory | **eingereicht am 23.11.**, am 25.11. noch nicht sichtbar (Suche: „No servers found“), obwohl die Seite 24 Stunden nennt |
-| mcpservers.org | **eingereicht am 25.11.**, Prüfung laut Seite binnen 2 Wochen |
-| PulseMCP | **nicht prüfbar**: Die Seite antwortet mit „Access Denied“ und verweist auf einen API-Zugang per Anfrage an hello@pulsemcp.com |
-| Smithery | **nicht eingetragen**: Suche nach „dutykit“ zeigt „0 servers“ (im Browser geprüft) |
-| awesome-remote-mcp-servers (jaw9c) | **nicht eingetragen** (README enthält „dutykit“ nicht). Eintragstext unten |
+| Glama | **eingetragen**: Abzeichen zeigt „rated A“. Abzeichen im README, Website verlinkt den Eintrag |
+| awesome-mcp-servers | **offen, wartet auf die Antwort des Inhabers**: Betreuer bat am 23.11. um das Glama-Abzeichen im README und eine Erwähnung im Pull Request https://github.com/punkpeye/awesome-mcp-servers/pull/19292. Das Abzeichen ist seit 25.11. da. Am 27.11. keine neue Nachricht im Pull Request |
+| mcp.directory | **eingereicht am 23.11.**, am 27.11. noch nicht sichtbar (Suche: „No servers found“) |
+| mcpservers.org | **eingereicht am 25.11.**, Prüfung laut Seite binnen 2 Wochen; Sichtbarkeit nicht prüfbar (Suche der Seite ist für automatische Abrufe gesperrt) |
+| PulseMCP | **nicht prüfbar**: „Access Denied“ |
+| Smithery | **nicht eingetragen**: Suche zeigt „0 servers“ |
+| awesome-remote-mcp-servers (jaw9c) | **nicht eingetragen**. Eintragstext unten; Pull Request kann der Agent nicht stellen |
 | mcp.so | **zurückgestellt**: nur bezahlte Einreichung (39 $) |
 
 ## Weitere Fundstellen (Recherche 2026-11-18, Angaben Dritter, vor dem Einreichen auf der jeweiligen Seite prüfen)
